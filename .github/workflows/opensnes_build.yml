@@ -272,6 +272,14 @@ jobs:
           make -s -C devtools/compiler-tests/runtime/a7_32bit
           python3 devtools/compiler-tests/runtime/a7_32bit/test_a7_32bit.py
 
+      - name: A6 far-pointer runtime matrix
+        # xfail-tolerant gate over the far-deref matrix (storage form × bank).
+        # Fails ONLY on a regression of an expected-green cell; the remaining
+        # A6 word/phi gaps are tracked in KNOWN_FAIL inside the test.
+        run: |
+          make -s -C devtools/compiler-tests/runtime/a6_farptr
+          python3 devtools/compiler-tests/runtime/a6_farptr/test_a6_farptr.py
+
       - name: Lib runtime assertions (libtest)
         # Executes lib/source functions with known vectors and asserts the WRAM
         # results — the execution gate the library lacks (examples exercise it

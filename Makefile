@@ -151,6 +151,8 @@ tests: test-compiler
 	@python3 devtools/compiler-tests/runtime/a7_32bit/test_a7_32bit.py
 	@$(MAKE) -s -C devtools/compiler-tests/runtime/debug_channel
 	@python3 devtools/compiler-tests/runtime/debug_channel/test_debug_channel.py
+	@$(MAKE) -s -C devtools/compiler-tests/runtime/a6_farptr
+	@python3 devtools/compiler-tests/runtime/a6_farptr/test_a6_farptr.py
 	@$(MAKE) -s -C devtools/libtests
 	@python3 devtools/libtests/test_libtest.py
 	@echo "ALL CHECKS PASSED (luna)"
