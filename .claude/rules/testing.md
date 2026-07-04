@@ -91,8 +91,8 @@ For every change, run this three-step pipeline before asking the user to validat
    Keep the list to 2–5 entries when possible. If the change genuinely needs
    wider coverage say so explicitly with the reasoning.
 
-**Why triage instead of an exhaustive list:** Class A changes can touch all 53
-examples; asking the user to walk through every one is both unrealistic and
+**Why triage instead of an exhaustive list:** Class A changes can touch every
+example; asking the user to walk through every one is both unrealistic and
 wasteful — most are redundant for any given change. The triage forces explicit
 reasoning about which axes of coverage actually matter for *this* change, and
 the "what to look for" makes the validation an active check (the user knows
