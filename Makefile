@@ -170,10 +170,11 @@ test-tools:
 	@python3 tools/gfx4snes/tests/run_golden.py
 	@python3 tools/smconv/tests/run_golden.py
 
-# WRAM-state regression — a LOCAL, same-arch developer tool ("did my change alter
-# invisible runtime state?"), NOT part of `make tests`/CI: raw WRAM content is not
-# a luna cross-arch guarantee (the framebuffer is). Re-baseline on your machine
-# with `python3 tools/luna-test/wram_regress.py --update`.
+# WRAM-state regression ("did my change alter invisible runtime state?").
+# CI-gated on 54/56 examples — the two whose WRAM stream is arch-dependent
+# (mapandobjects, slopemario) are skipped by default; add --all on a machine
+# matching the baseline capture arch. Re-baseline after an intentional change
+# with `python3 tools/luna-test/wram_regress.py --update` (same commit).
 test-wram:
 	@python3 tools/luna-test/wram_regress.py
 
