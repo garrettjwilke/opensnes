@@ -38,7 +38,7 @@ binary — no Node/WASM/Mesen2):
 ```bash
 scripts/install-luna.sh                                  # fetch pinned luna (tools/luna-test/luna.version)
 python3 tools/luna-test/luna_runner.py --coverage        # corpus liveness
-python3 tools/luna-test/luna_runner.py --compare         # visual regression (framebuffer SHA-256)
+python3 tools/luna-test/luna_runner.py --compare         # visual regression (fbhash; multi-point for animated examples)
 python3 tools/luna-test/probes/run_all.py                # functional probes (input→WRAM)
 make tests                                               # all of the above
 ```

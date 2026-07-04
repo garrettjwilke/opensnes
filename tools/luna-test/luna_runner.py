@@ -167,6 +167,12 @@ def run(update: bool, only: str | None) -> int:
     framebuffer pixels; the PNG is saved alongside for human diffing).
     Baselines: baselines/<label>.png + baselines.json (label = example path with
     '/'→'_'). Steps come from manifest.toml (per-example override or default).
+
+    Multi-frame opt-in: a manifest entry may set `steps = [a, b, ...]` (animated
+    examples) — each point is captured and compared independently, so a timing
+    shift breaks some-but-not-all points (diagnostic: drift) while a real visual
+    regression breaks them all. Point 1 keeps `<label>.png`; extra points write
+    `<label>@<steps>.png`. Single-point entries keep the scalar schema.
     """
     luna = find_luna()
     manifest = load_manifest()
@@ -174,6 +180,12 @@ def run(update: bool, only: str | None) -> int:
     BASELINE_DIR.mkdir(parents=True, exist_ok=True)
     manifest_path = BASELINE_DIR / "baselines.json"
     db = json.loads(manifest_path.read_text()) if manifest_path.is_file() else {}
+
+    def _points(steps) -> list[int]:
+        return list(steps) if isinstance(steps, list) else [steps]
+
+    def _png_for(base_dir: Path, label: str, step: int, first: bool) -> Path:
+        return base_dir / (f"{label}.png" if first else f"{label}@{step}.png")
 
     failures, count = 0, 0
     for rom in discover_example_roms():
@@ -183,34 +195,55 @@ def run(update: bool, only: str | None) -> int:
             continue
         count += 1
         steps = manifest["examples"].get(key, {}).get("steps", default_steps)
-        baseline_png = BASELINE_DIR / f"{label}.png"
+        points = _points(steps)
         if update:
-            fbhash, wdm = render(luna, rom, steps, baseline_png)
-            db[label] = {"fbhash": fbhash, "steps": steps,
+            hashes, wdm_any = [], False
+            for i, step in enumerate(points):
+                png = _png_for(BASELINE_DIR, label, step, i == 0)
+                fbhash, wdm = render(luna, rom, step, png)
+                hashes.append(fbhash)
+                wdm_any = wdm_any or wdm
+            single = len(points) == 1
+            db[label] = {"fbhash": hashes[0] if single else hashes,
+                         "steps": points[0] if single else points,
                          "rom_sha256": sha256_file(rom), "luna_version": LUNA_VERSION}
-            print(f"  BASELINE  {label}  fbhash={fbhash}"
-                  + ("  ⚠ in-ROM SNES_ASSERT/WDM fired!" if wdm else ""))
+            print(f"  BASELINE  {label}  fbhash={','.join(hashes)}"
+                  + ("  ⚠ in-ROM SNES_ASSERT/WDM fired!" if wdm_any else ""))
         else:
             ref = db.get(label)
             if not ref:
                 print(f"  MISS  {label}: no baseline — run --update first")
                 failures += 1
                 continue
-            actual_png = Path("/tmp/luna-test-actual") / f"{label}.png"
-            try:
-                fbhash, wdm = render(luna, rom, ref["steps"], actual_png)
-            except RuntimeError as e:
-                print(f"  ERROR {label}: {e}")
+            ref_points = _points(ref["steps"])
+            ref_hashes = ref["fbhash"] if isinstance(ref["fbhash"], list) else [ref["fbhash"]]
+            bad = []
+            wdm_any = False
+            err = None
+            for i, (step, want) in enumerate(zip(ref_points, ref_hashes)):
+                actual_png = _png_for(Path("/tmp/luna-test-actual"), label, step, i == 0)
+                try:
+                    fbhash, wdm = render(luna, rom, step, actual_png)
+                except RuntimeError as e:
+                    err = str(e)
+                    break
+                wdm_any = wdm_any or wdm
+                if fbhash != want:
+                    bad.append(f"@{step}: {fbhash} != {want} ({actual_png})")
+            if err:
+                print(f"  ERROR {label}: {err}")
                 failures += 1
-                continue
-            if wdm:
+            elif wdm_any:
                 print(f"  FAIL  {label}: in-ROM SNES_ASSERT/WDM fired during run")
                 failures += 1
-            elif fbhash == ref.get("fbhash"):
-                print(f"  PASS  {label}")
-            else:
-                print(f"  FAIL  {label}: fbhash {fbhash} != baseline {ref.get('fbhash')} ({actual_png})")
+            elif bad:
+                detail = "; ".join(bad)
+                note = ("" if len(bad) == len(ref_points) else
+                        f" [{len(bad)}/{len(ref_points)} points — timing drift?]")
+                print(f"  FAIL  {label}: {detail}{note}")
                 failures += 1
+            else:
+                print(f"  PASS  {label}" + (f" ({len(ref_points)} points)" if len(ref_points) > 1 else ""))
 
     if update:
         manifest_path.write_text(json.dumps(db, indent=2, sort_keys=True) + "\n")
