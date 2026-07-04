@@ -137,6 +137,16 @@ def sha256_file(path: Path) -> str:
     return h.hexdigest()
 
 
+def steps_points(steps) -> list[int]:
+    """Normalize a manifest `steps` value (scalar or multi-point list) to a list.
+
+    Every consumer of manifest steps MUST go through this — the multi-frame
+    opt-in means `steps` can be a list, and passing that raw to a single-shot
+    luna invocation is an error (caught in CI the first time: coverage passed
+    `[3000000, 6000000]` to `luna state --steps`)."""
+    return list(steps) if isinstance(steps, list) else [steps]
+
+
 def render(luna: str, rom: Path, steps: int, out_png: Path) -> tuple[str, bool]:
     """Render `rom` after `steps`; return (fbhash, wdm_fired).
 
@@ -181,9 +191,6 @@ def run(update: bool, only: str | None) -> int:
     manifest_path = BASELINE_DIR / "baselines.json"
     db = json.loads(manifest_path.read_text()) if manifest_path.is_file() else {}
 
-    def _points(steps) -> list[int]:
-        return list(steps) if isinstance(steps, list) else [steps]
-
     def _png_for(base_dir: Path, label: str, step: int, first: bool) -> Path:
         return base_dir / (f"{label}.png" if first else f"{label}@{step}.png")
 
@@ -195,7 +202,7 @@ def run(update: bool, only: str | None) -> int:
             continue
         count += 1
         steps = manifest["examples"].get(key, {}).get("steps", default_steps)
-        points = _points(steps)
+        points = steps_points(steps)
         if update:
             hashes, wdm_any = [], False
             for i, step in enumerate(points):
@@ -215,7 +222,7 @@ def run(update: bool, only: str | None) -> int:
                 print(f"  MISS  {label}: no baseline — run --update first")
                 failures += 1
                 continue
-            ref_points = _points(ref["steps"])
+            ref_points = steps_points(ref["steps"])
             ref_hashes = ref["fbhash"] if isinstance(ref["fbhash"], list) else [ref["fbhash"]]
             bad = []
             wdm_any = False
@@ -282,7 +289,8 @@ def coverage(luna: str) -> int:
     for rom in roms:
         key = example_key(rom)
         cfg = manifest["examples"].get(key, {})
-        steps = cfg.get("steps", default_steps)
+        # Liveness wants the LONGEST configured point (most frames = most signal).
+        steps = max(steps_points(cfg.get("steps", default_steps)))
         png = out_dir / f"{key.replace('/', '_')}.png"
         try:
             state = render_state(luna, rom, steps, png)
@@ -343,8 +351,8 @@ def main() -> int:
         manifest = load_manifest()
         for rom in discover_example_roms():
             key = example_key(rom)
-            steps = manifest["examples"].get(key, {}).get("steps", manifest["default_steps"])
-            print(f"  {key:40} -n {steps}")
+            steps = steps_points(manifest["examples"].get(key, {}).get("steps", manifest["default_steps"]))
+            print(f"  {key:40} -n {','.join(map(str, steps))}")
         return 0
     if args.coverage:
         return coverage(find_luna())

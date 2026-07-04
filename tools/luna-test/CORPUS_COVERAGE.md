@@ -36,9 +36,9 @@ luna v1.1.0 · `luna state -n <steps>` per ROM · 56 ROMs · **54 OK, 2 INPUT-DE
 | `graphics/effects/hdma_helpers` | OK | live (71f/70nmi) |
 | `graphics/effects/hdma_wave` | OK | live (73f/72nmi) |
 | `graphics/effects/mosaic` | OK | live (71f/70nmi) |
-| `graphics/effects/parallax_scrolling` | OK | live (72f/71nmi) |
+| `graphics/effects/parallax_scrolling` | OK | live (143f/142nmi) |
 | `graphics/effects/superfx_3d` | OK | live (289f/145nmi) |
-| `graphics/effects/transparency` | OK | live (71f/70nmi) |
+| `graphics/effects/transparency` | OK | live (141f/140nmi) |
 | `graphics/effects/transparent_window` | OK | live (72f/71nmi) |
 | `graphics/effects/window` | OK | live (72f/71nmi) |
 | `graphics/sprites/animated_sprite` | OK | live (73f/72nmi) |
