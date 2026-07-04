@@ -54,7 +54,7 @@ else
 endif
 
 .DEFAULT_GOAL := all
-.PHONY: all clean install compiler tools lib examples cli tests test-compiler test-wram bench submodules verify-toolchain lint-commits lint-docs lint-asm-abi lint-vram lint docs help release clean-release
+.PHONY: all clean clean-examples install compiler tools lib examples cli tests test-compiler test-tools test-wram bench submodules verify-toolchain lint-commits lint-docs lint-asm-abi lint-vram lint docs help release clean-release
 
 #------------------------------------------------------------------------------
 # Main targets
@@ -159,6 +159,11 @@ tests: test-compiler
 	@$(MAKE) -s -C devtools/libtests clean all
 	@python3 devtools/libtests/test_libtest.py
 	@echo "ALL CHECKS PASSED (luna)"
+
+# Clean example build artifacts only — keeps the toolchain binaries in bin/
+# (a full `make clean` wipes bin/ and forces a compiler rebuild).
+clean-examples:
+	$(MAKE) -C $(EXAMPLES_PATH) clean
 
 # Compile-time cc65816 C→ASM pattern checks (no emulator needed).
 test-compiler:
