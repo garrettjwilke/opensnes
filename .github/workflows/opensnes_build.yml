@@ -236,8 +236,20 @@ jobs:
   # channel. Runs: corpus liveness, visual regression, functional probes.  #
   # ====================================================================== #
   functional-tests:
-    name: Functional Tests (luna)
-    runs-on: ubuntu-latest
+    name: Functional Tests (luna, ${{ matrix.arch }})
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            arch: x86_64
+          # linux/arm64 is a SHIPPED release artifact (release.yml builds
+          # opensnes_*_linux_arm64.zip) — it must execute ROMs in CI too,
+          # not just compile. Baselines are captured on aarch64, so the
+          # fbhash comparison is native here.
+          - os: ubuntu-24.04-arm
+            arch: arm64
+    runs-on: ${{ matrix.os }}
     timeout-minutes: 20
     steps:
       - name: Check out OpenSNES (with submodules)

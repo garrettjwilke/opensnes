@@ -160,6 +160,21 @@ jobs:
           done
           true
 
+      - name: Smoke-test ROMs with luna (Linux)
+        # A shipped artifact must have EXECUTED ROMs on its own arch before
+        # publishing — build success alone proved nothing about the arm64
+        # zip until now. Corpus liveness boots all 56 examples (incl. SA-1,
+        # SuperFX and DSP-1, which luna runs natively) in ~1 minute. The
+        # full 3-pillar suite still gates PRs in opensnes_build.yml; this
+        # is the release-side execution check (luna ships for both linux
+        # x86_64 and aarch64).
+        if: matrix.name == 'linux'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          scripts/install-luna.sh
+          python3 tools/luna-test/luna_runner.py --coverage
+
       # ------------------------------------ #
       # Upload zip as artifact for release   #
       # ------------------------------------ #
