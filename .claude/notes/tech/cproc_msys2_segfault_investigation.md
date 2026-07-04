@@ -55,8 +55,10 @@ existe hors MSYS2, contrairement au commentaire historique du workflow).
 1. ✅ (2026-07-04) Télémétrie : `CC65816_RETRY_LOG` dans le wrapper + rapport
    `GITHUB_STEP_SUMMARY` par build Windows (opensnes_build.yml, release.yml).
 2. ✅ (2026-07-04) Workflow diagnostic réparé + cron mensuel gating.
-3. ⬜ Après 2-3 mois de compteur à zéro : retirer le retry make-level
-   (masque aussi de vrais échecs), garder ou retirer le retry cc65816,
+3. ✅ (2026-07-04, décision mainteneur) Retry make-level démonté sans
+   attendre — il pouvait masquer de vrais échecs de build ; le retry
+   cc65816 (x3 sur exit 139) reste la seule assurance, avec compteur.
+4. ⬜ Après 2-3 mois de compteur à zéro : retirer aussi le retry cc65816,
    fermer l'entrée KNOWN_LIMITATIONS, archiver cette note avec le verdict
    final.
 

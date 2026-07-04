@@ -247,15 +247,16 @@ Windows-only footprint). A 2026-07-04 investigation found zero retry
 firings across sampled Windows CI builds (late June–July window) and
 zero ASan/UBSan/MSan findings on Linux over the full corpus, including
 a 200x stress of the five historical culprit files. The status is
-**under surveillance, not closed**: the retry layers (`cc65816` x3 on
-exit 139; make-level x3 in the Windows CI steps) are kept as insurance
-while telemetry proves the fix out — every Windows build reports its
-retry count in the job summary, and
+**under surveillance, not closed**: the make-level retry loop was
+dismantled on 2026-07-04 (it could also mask real build failures); the
+`cc65816`-level retry (x3 on exit 139) stays as cheap insurance while
+telemetry proves the fix out — every Windows build reports its retry
+count in the job summary, and
 `.github/workflows/msys2_cproc_diagnostic.yml` stress-tests the
-culprit files 100x monthly and fails on any segfault. Retirement plan:
-after 2–3 months of zero-count telemetry, drop the make-level retry
-(it can mask real failures) and close this entry. Full investigation
-log: `.claude/notes/tech/cproc_msys2_segfault_investigation.md`.
+culprit files 100x monthly and fails on any segfault. Remaining
+retirement step: after 2–3 months of zero-count telemetry, drop the
+cc65816 retry too and close this entry. Full investigation log:
+`.claude/notes/tech/cproc_msys2_segfault_investigation.md`.
 
 ---
 

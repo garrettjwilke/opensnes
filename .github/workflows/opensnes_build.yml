@@ -109,21 +109,13 @@ jobs:
           set -o pipefail
           export OPENSNES_HOME=$(pwd)
           # The MSYS2 cproc segfault class is believed FIXED since cproc
-          # ea95cac (2026-03-07, mktype uninitialized fields). The retries
-          # remain as insurance while the telemetry below proves it out;
-          # see KNOWN_LIMITATIONS.md (MSYS2 note) for the retirement plan.
+          # ea95cac (2026-03-07, mktype uninitialized fields); the make-level
+          # retry loop was dismantled 2026-07-04 (it could also mask real
+          # build failures). The cc65816-level retry (x3 on exit 139) stays
+          # as cheap insurance, with its firings counted below — see
+          # KNOWN_LIMITATIONS.md (MSYS2 note).
           export CC65816_RETRY_LOG=$(pwd)/cproc_retries.log
-          for attempt in 1 2 3; do
-            if make release 2>&1 | tee opensnes_release_${{ matrix.name }}.log; then
-              break
-            fi
-            if [ "$attempt" -eq 3 ]; then
-              echo "Build failed after 3 attempts"
-              exit 1
-            fi
-            echo "=== Build attempt $attempt failed (likely cproc segfault), retrying... ==="
-            make clean
-          done
+          make release 2>&1 | tee opensnes_release_${{ matrix.name }}.log
 
       - name: Report cproc segfault-retry count (Windows)
         if: matrix.name == 'windows'

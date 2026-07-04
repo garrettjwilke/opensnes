@@ -118,20 +118,11 @@ jobs:
         run: |
           set -o pipefail
           export OPENSNES_HOME=$(pwd)
-          # Retries kept as insurance; the segfault class is believed FIXED
-          # since cproc ea95cac — telemetry below tracks any resurgence.
+          # Make-level retry dismantled 2026-07-04 (segfault class believed
+          # FIXED since cproc ea95cac; the loop could mask real failures).
+          # The cc65816-level retry stays, with telemetry below.
           export CC65816_RETRY_LOG=$(pwd)/cproc_retries.log
-          for attempt in 1 2 3; do
-            if make release VERSION=${{ steps.version.outputs.tag }} 2>&1 | tee opensnes_release_${{ matrix.name }}.log; then
-              break
-            fi
-            if [ "$attempt" -eq 3 ]; then
-              echo "Build failed after 3 attempts"
-              exit 1
-            fi
-            echo "=== Build attempt $attempt failed (likely cproc segfault), retrying... ==="
-            make clean
-          done
+          make release VERSION=${{ steps.version.outputs.tag }} 2>&1 | tee opensnes_release_${{ matrix.name }}.log
 
       - name: Report cproc segfault-retry count (Windows)
         if: matrix.name == 'windows'
