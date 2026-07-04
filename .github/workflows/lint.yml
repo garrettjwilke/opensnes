@@ -150,6 +150,25 @@ jobs:
         working-directory: devtools
         run: python3 -m unittest test_check_vram_layout
 
+  tools-golden:
+    name: Asset-tool golden outputs (gfx4snes, smconv)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out OpenSNES
+        uses: actions/checkout@v4
+
+      - name: Build asset tools
+        run: make tools
+
+      - name: Run golden-output tests
+        # Byte-compares gfx4snes/smconv output against committed goldens.
+        # These converters feed every example's graphics/audio; a silent
+        # regression here previously only surfaced as an unlocalized
+        # visual-hash churn downstream. Also runs via `make test-tools`.
+        run: |
+          python3 tools/gfx4snes/tests/run_golden.py
+          python3 tools/smconv/tests/run_golden.py
+
   doc-render:
     name: Doc render leaks (check_doc_render.py)
     runs-on: ubuntu-latest
