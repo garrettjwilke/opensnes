@@ -150,13 +150,20 @@ tests: test-compiler
 	@# Runtime fixture ROMs are rebuilt from clean: a stale .sfc built with an
 	@# experimental toolchain once produced misleading XPASSes (a6_farptr trap,
 	@# 2026-07-04). Each is a single-TU ROM; the clean rebuild costs seconds.
-	@$(MAKE) -s -C devtools/compiler-tests/runtime/a7_32bit clean all
+	@# clean and the build are SEPARATE invocations — this Makefile exports
+	@# -j, and `clean all` in one command runs both goals concurrently
+	@# (clean deleted crt0.o mid-link on the first parallel run).
+	@$(MAKE) -s -C devtools/compiler-tests/runtime/a7_32bit clean
+	@$(MAKE) -s -C devtools/compiler-tests/runtime/a7_32bit
 	@python3 devtools/compiler-tests/runtime/a7_32bit/test_a7_32bit.py
-	@$(MAKE) -s -C devtools/compiler-tests/runtime/debug_channel clean all
+	@$(MAKE) -s -C devtools/compiler-tests/runtime/debug_channel clean
+	@$(MAKE) -s -C devtools/compiler-tests/runtime/debug_channel
 	@python3 devtools/compiler-tests/runtime/debug_channel/test_debug_channel.py
-	@$(MAKE) -s -C devtools/compiler-tests/runtime/a6_farptr clean all
+	@$(MAKE) -s -C devtools/compiler-tests/runtime/a6_farptr clean
+	@$(MAKE) -s -C devtools/compiler-tests/runtime/a6_farptr
 	@python3 devtools/compiler-tests/runtime/a6_farptr/test_a6_farptr.py
-	@$(MAKE) -s -C devtools/libtests clean all
+	@$(MAKE) -s -C devtools/libtests clean
+	@$(MAKE) -s -C devtools/libtests
 	@python3 devtools/libtests/test_libtest.py
 	@echo "ALL CHECKS PASSED (luna)"
 
