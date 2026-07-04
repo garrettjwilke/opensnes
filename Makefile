@@ -147,13 +147,16 @@ tests: test-compiler
 	@python3 tools/luna-test/luna_runner.py --coverage
 	@python3 tools/luna-test/luna_runner.py --compare
 	@python3 tools/luna-test/probes/run_all.py
-	@$(MAKE) -s -C devtools/compiler-tests/runtime/a7_32bit
+	@# Runtime fixture ROMs are rebuilt from clean: a stale .sfc built with an
+	@# experimental toolchain once produced misleading XPASSes (a6_farptr trap,
+	@# 2026-07-04). Each is a single-TU ROM; the clean rebuild costs seconds.
+	@$(MAKE) -s -C devtools/compiler-tests/runtime/a7_32bit clean all
 	@python3 devtools/compiler-tests/runtime/a7_32bit/test_a7_32bit.py
-	@$(MAKE) -s -C devtools/compiler-tests/runtime/debug_channel
+	@$(MAKE) -s -C devtools/compiler-tests/runtime/debug_channel clean all
 	@python3 devtools/compiler-tests/runtime/debug_channel/test_debug_channel.py
-	@$(MAKE) -s -C devtools/compiler-tests/runtime/a6_farptr
+	@$(MAKE) -s -C devtools/compiler-tests/runtime/a6_farptr clean all
 	@python3 devtools/compiler-tests/runtime/a6_farptr/test_a6_farptr.py
-	@$(MAKE) -s -C devtools/libtests
+	@$(MAKE) -s -C devtools/libtests clean all
 	@python3 devtools/libtests/test_libtest.py
 	@echo "ALL CHECKS PASSED (luna)"
 

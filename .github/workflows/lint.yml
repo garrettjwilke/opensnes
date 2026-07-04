@@ -154,8 +154,12 @@ jobs:
     name: Asset-tool golden outputs (gfx4snes, smconv)
     runs-on: ubuntu-latest
     steps:
-      - name: Check out OpenSNES
+      - name: Check out OpenSNES (with submodules)
+        # `make tools` runs the top-level verify-toolchain dependency, which
+        # needs the compiler submodules checked out.
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Build asset tools
         run: make tools

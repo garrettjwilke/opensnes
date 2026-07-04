@@ -35,9 +35,13 @@ CASES = [
 # FINDING (A1 baseline): l2_0 — the Kl (u32) load — is ALREADY bank-aware on qbe
 # 1884a20 (reads bank $02 correctly) while byte/word/param/phi are not. So the
 # long-load emit path is the working model to replicate for the other forms in A2.
-# 2026-07-04: b2_0/b2_7 (byte) and fp2 (param) promoted out — they XPASSed once
-# the A6 Tier-1 byte-load path landed; only word and phi derefs remain open.
-KNOWN_FAIL = {"w2_0", "w2_2", "ph2"}
+#
+# TRAP (2026-07-04): b2_0/b2_7/fp2 were briefly promoted out after XPASSing
+# locally — the XPASS came from a STALE local a6_farptr.sfc built during the
+# A2 cell-#1 byte-load experiment (matrix green, corpus regressed, never
+# merged). A clean rebuild on the PINNED toolchain fails them. Before trusting
+# an XPASS here, `make clean` this directory first; `make tests` now does.
+KNOWN_FAIL = {"b2_0", "b2_7", "w2_0", "w2_2", "fp2", "ph2"}
 
 
 def le(v, w):
