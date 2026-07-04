@@ -46,12 +46,17 @@ CROSS_ARCH_EXCLUDE = {"games_mapandobjects", "maps_slopemario"}
 def stream_hash(luna: str, rom: Path) -> str:
     out = Path("/tmp/luna-wram") / f"{example_key(rom).replace('/', '_')}.txt"
     out.parent.mkdir(parents=True, exist_ok=True)
+    # Unlink first: a stale file from a previous run would pass the is_file()
+    # check below and get hashed if wram-trace fails silently — which poisons
+    # the baseline with an outdated stream instead of surfacing the failure.
+    out.unlink(missing_ok=True)
     proc = subprocess.run(
         [luna, "wram-trace", "-n", "0", "-c", str(FRAMES), "--out", str(out), str(rom)],
         capture_output=True, text=True, timeout=300,
     )
-    if not out.is_file() or out.stat().st_size == 0:
-        raise RuntimeError(f"wram-trace failed for {rom.name}: {proc.stderr.strip()[:200]}")
+    if proc.returncode != 0 or not out.is_file() or out.stat().st_size == 0:
+        raise RuntimeError(f"wram-trace failed for {rom.name} "
+                           f"(exit {proc.returncode}): {proc.stderr.strip()[:200]}")
     return hashlib.sha256(out.read_bytes()).hexdigest()
 
 
