@@ -387,14 +387,15 @@ void oamSetTile(u8 id, u16 tile);
 /**
  * @brief Set sprite visibility
  *
- * @param id Sprite ID (0-127)
- * @param visible OBJ_SHOW (1) or OBJ_HIDE (0)
+ * @deprecated The OBJ_SHOW direction has never worked: SNES sprite
+ * visibility is Y-position-based and this function cannot know which Y to
+ * restore, so `oamSetVisible(id, OBJ_SHOW)` is a silent no-op. Use
+ * oamHide() to hide and oamSetY()/oamSet() with a valid Y to show — both
+ * say exactly what they do. Kept for source compatibility; may be removed
+ * in a future major release.
  *
- * @note **Important**: SNES sprite visibility is controlled by Y position.
- * Setting Y to 240 (OBJ_HIDE_Y) hides the sprite below the visible screen.
- * This function only handles HIDING (sets Y=240). Passing OBJ_SHOW does
- * nothing - to show a sprite, set a valid Y coordinate using oamSetY() or
- * oamSet(). For explicit hiding, use oamHide() which is clearer.
+ * @param id Sprite ID (0-127)
+ * @param visible OBJ_SHOW (1, does nothing) or OBJ_HIDE (0, same as oamHide)
  *
  * @code
  * oamSetVisible(0, OBJ_HIDE);  // Hides sprite 0 (sets Y=240)
