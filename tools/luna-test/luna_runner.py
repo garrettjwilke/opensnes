@@ -161,9 +161,10 @@ def render(luna: str, rom: Path, steps: int, out_png: Path) -> tuple[str, bool]:
 
 
 def run(update: bool, only: str | None) -> int:
-    """Visual-regression over the WHOLE corpus (56 examples).
+    """Visual-regression over the whole corpus (auto-discovered via main.c).
 
-    Key = SHA-256 of the rendered framebuffer PNG (byte-deterministic run-to-run).
+    Key = luna's `--print-fbhash` (a cross-arch-stable hash of the rendered
+    framebuffer pixels; the PNG is saved alongside for human diffing).
     Baselines: baselines/<label>.png + baselines.json (label = example path with
     '/'→'_'). Steps come from manifest.toml (per-example override or default).
     """

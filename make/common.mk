@@ -365,10 +365,10 @@ endif
 	@# The compiler emits 16-bit addresses that always read bank $$00, so spilled
 	@# string.N symbols return GARBAGE silently in production. The fail-threshold
 	@# is a ratchet: catches "one-const-literal-away-from-spill" regressions
-	@# before they ship. Default 16 sits below the current example minimum
-	@# (28 bytes free in mapscroll.sfc as of v0.16.0) so the build still passes;
-	@# bumping it tighter is a deliberate audit step — see
-	@# .claude/rules/bank0_budget.md for the policy.
+	@# before they ship. The default lives at the BANK0_FAIL_THRESHOLD
+	@# definition near the top of this file (single source of truth) and is
+	@# always set just below the current example minimum; bumping it tighter
+	@# is a deliberate audit step — see .claude/rules/bank0_budget.md.
 	@# exit 1 from symmap = critical spill OR imminent overflow (hard fail).
 	@# exit 2 = soft warning (low free space) — printed but build continues.
 	@# Set SKIP_BANK0_CHECK=1 to disable; BANK0_FAIL_THRESHOLD=N to retune.

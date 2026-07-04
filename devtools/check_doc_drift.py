@@ -457,6 +457,37 @@ def check_roadmap_footer_date(canonical_date: str) -> list[str]:
 
 
 # --------------------------------------------------------------------------
+# Check 9: stale pre-A6 bank-assumption comments in hand-written ASM
+# --------------------------------------------------------------------------
+
+# Post-A6, every lib ASM function reads the source bank from the far
+# pointer's bank byte — prose claiming a bank $00 assumption or 16-bit-only
+# pointers describes the pre-A6 world. dma.asm's "BANK LIMITATION" header
+# survived two chantiers this way (the ABI lint only reads `lda N,s`
+# annotations, never prose).
+_STALE_BANK_COMMENT_RE = re.compile(
+    r"assumes?[^\n]*bank \$00|only passes 16-bit pointers", re.IGNORECASE)
+
+
+def check_asm_bank_comments() -> list[str]:
+    drifts: list[str] = []
+    src = repo_path("lib/source")
+    if not src.is_dir():
+        return []
+    for asm in sorted(src.glob("*.asm")):
+        text = asm.read_text(encoding="utf-8", errors="replace")
+        m = _STALE_BANK_COMMENT_RE.search(text)
+        if m:
+            lineno = text.count("\n", 0, m.start()) + 1
+            drifts.append(
+                f"lib/source/{asm.name}:{lineno}: comment claims a pre-A6 "
+                f"bank-$00 / 16-bit-pointer limitation — post-A6 the bank is "
+                f"read from the far pointer; fix the prose (see compiler/ABI.md)"
+            )
+    return drifts
+
+
+# --------------------------------------------------------------------------
 # Check 4: ABI.md C prototypes vs canonical headers
 # --------------------------------------------------------------------------
 
@@ -633,6 +664,7 @@ def run_checks(quiet: bool) -> int:
     all_drifts.extend(check_example_paths())
     all_drifts.extend(check_category_sums(canonical_n))
     all_drifts.extend(check_roadmap_footer_date(canonical_date))
+    all_drifts.extend(check_asm_bank_comments())
 
     if all_drifts:
         print("DRIFT DETECTED:", file=sys.stderr)

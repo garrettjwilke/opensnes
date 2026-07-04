@@ -50,6 +50,13 @@ opt-in list.
    predate the head release date in `CHANGELOG.md`. Caught historically
    as a 2026-05-07 footer under a post-v0.26.0 (2026-07-02) status line.
 
+8. **No pre-A6 bank-assumption prose in `lib/source/*.asm`** — comments
+   claiming "assumes … bank $00" or "only passes 16-bit pointers"
+   describe the pre-A6 ABI; post-A6 the bank is read from the far
+   pointer's bank byte. Caught historically as dma.asm's "BANK
+   LIMITATION" header contradicting its own per-function stack maps —
+   prose the ABI lint (which only reads `lda N,s` annotations) can't see.
+
 Count claims (anchor 3) are matched on a **soft-wrapped** view of each doc
 (single newlines count as spaces), so a claim split across two lines —
 ROADMAP's historical `54\nworking examples` — can no longer hide, and the

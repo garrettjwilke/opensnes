@@ -50,7 +50,9 @@ so validation is now 2 pillars:
 4. **For library changes (Class B)**: grep all example Makefiles for the changed
    module name in LIB_MODULES to enumerate the candidate set, then triage.
 5. **NEVER commit without user validation.** Do not assume examples work because
-   they compiled. Visual validation in Mesen2 is required on the triaged subset.
+   they compiled. The luna visual-regression pass is the visual reference; the
+   triaged subset is presented to the user, who may additionally spot-check
+   interactively (luna GUI / `luna mcp`, or Mesen2 as debugger).
 6. Conventional Commits format in message
 
 ## Impacted-Examples Triage
