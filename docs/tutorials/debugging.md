@@ -5,10 +5,11 @@ Its headless CLI and its MCP server expose the full machine state (CPU, PPU,
 APU, DMA, every memory space) to scripts and AI agents, with no Lua layer
 and no external emulator required.
 
-This guide shows the standard debugging workflows with the tools available
-today. Symbol names, first-class breakpoints and MCP-side disassembly are
-being added in luna (tracked upstream as luna issue #63); until then the
-recipes below resolve symbols from the `.sym` file explicitly.
+This guide shows the standard debugging workflows. Since luna v1.6.0 the
+debugger is feature-complete for these: first-class breakpoints
+(`bp_add` / `run_until_break`), native WLA-DX symbol support
+(`load_symbols` / `resolve_symbol` — debug by variable name), MCP-side
+disassembly, save/load states and CPU/memory traces.
 
 ## Setup
 
@@ -27,23 +28,25 @@ Two ways to drive it:
 claude mcp add luna -- tools/luna-test/bin/luna mcp
 ```
 
-The MCP session exposes `load_rom`, `reset`, `step`, `step_until_frame`,
-`state`, `screenshot`, `peek_memory`, `poke_memory`, `search_memory`,
-`run_until_pc`, `run_until_mem_write`, `run_until_mem_read`,
-`set_joypad`, `set_cpu_register`, `peek_vram`, `peek_aram`, `drain_audio`.
+The MCP session exposes the full debugger surface: run control
+(`load_rom`, `reset`, `step`, `step_until_frame`, `run_until_pc`,
+`run_until_mem_write/read`), **breakpoints** (`bp_add`, `bp_remove`,
+`bp_list`, `bp_clear_all`, `run_until_break`), **symbols**
+(`load_symbols`, `resolve_symbol`), memory (`peek_memory`, `poke_memory`,
+`search_memory`, `peek_vram`, `peek_aram`, `peek_cgram`), inspection
+(`state`, `screenshot`, `disasm_cpu`, `disasm_spc`,
+`render_tilemap/vram_tiles/palette/sprite_sheet`), traces
+(`enable/take_cpu_trace`, `enable/take_mem_trace`), save/load states and
+input (`set_joypad`, `set_mouse`, `set_superscope`, `set_cpu_register`).
 
-## Resolving a variable's address
+## Working with symbols
 
-Every build produces a wlalink `.sym` next to the ROM. Until luna ingests
-it natively, look an address up directly:
-
-```bash
-grep -i ' monster_x$' examples/games/breakout/breakout.sym
-# 00:0b3c monster_x        →  bank $00, offset $0B3C
-```
-
-(The Python probes use the same lookup — `sym_of()` in
-`tools/luna-test/probes/lib.py`.)
+Every build produces a wlalink `.sym` next to the ROM. Load it once per
+session (`load_symbols` over MCP) — every address-taking tool then accepts
+variable and function names directly: `peek_memory` on `monster_x`,
+`bp_add` on a function label. `resolve_symbol` answers one-off lookups,
+and `disasm_cpu` output is symbol-annotated. (The manual fallback stays a
+one-liner: `grep -i ' monster_x$' game.sym`.)
 
 ## Recipe 1 — Inspect the machine at a point in time
 
@@ -58,21 +61,23 @@ Over MCP: `load_rom` → `step` → `state`.
 
 ## Recipe 2 — "Who writes this variable?"
 
-The classic corruption hunt. Resolve the address (above), then over MCP:
+The classic corruption hunt, over MCP:
 
-1. `load_rom`, then `run_until_mem_write` with the bank/offset.
-2. Execution stops right after the write: `state` gives the PC of the
-   writing instruction; `peek_memory` confirms the new value.
-3. Repeat `run_until_mem_write` to catch the next writer.
+1. `load_rom`, `load_symbols`, then `bp_add` (write watchpoint on the
+   variable's name) and `run_until_break`.
+2. Execution halts on the writing instruction at full speed: `state`
+   gives the PC, `disasm_cpu` shows the guilty code with symbol
+   annotations, `peek_memory` confirms the new value.
+3. `run_until_break` again to catch the next writer.
 
 This replaces the old snesdbg `dbg.watch()` callback — the "callback" is
 simply whatever you (or the agent driving MCP) do at each stop.
 
 ## Recipe 3 — Break at a function
 
-Resolve the function's address from the `.sym`, then `run_until_pc`.
-Single-step from there with `step` and read `state.cpu` at each step to
-trace the execution path.
+`bp_add` on the function's label, `run_until_break`, then single-step
+with `step` and follow `disasm_cpu` / `state.cpu` to trace the execution
+path. Multiple breakpoints can be armed at once (`bp_list` shows them).
 
 ## Recipe 4 — Sprite/OAM debugging (shadow buffer vs hardware)
 

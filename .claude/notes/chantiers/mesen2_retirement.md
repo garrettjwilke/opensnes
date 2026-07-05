@@ -1,15 +1,18 @@
 # Chantier — Retire Mesen2 + snesdbg (luna as sole emulator, incl. interactive debug)
 
-**Status:** in progress. Scoped 2026-07-05 (joint read-only audit); luna-side
-work tracked as [luna#63](https://github.com/k0b3n4irb/luna/issues/63)
-(epic) → #65 MCP wiring / #66 breakpoints / #67 .sym / #68 GUI.
-Executed same day on the OpenSNES side, ahead of luna#63 where today's
-luna surface already suffices: **Phase 0 done** (doctor detects luna),
-**Phase 1 done** (docs/tutorials/debugging.md — 6 workflows on the current
-CLI/MCP tools), **snesdbg deleted** (maintainer's API-pruning directive:
-unused = removed; the 4 workflows are covered by the guide, ergonomics
-improve as luna#66/#67 land). Remaining: Phase 2 rules/docs re-point
-(Mesen2 → luna-first) — see list below.
+**Status: COMPLETE (2026-07-05, same-day round-trip).** Scoped in the
+morning (joint read-only audit); luna-side spec filed as
+[luna#63](https://github.com/k0b3n4irb/luna/issues/63) → #65 MCP wiring /
+#66 breakpoints / #67 .sym / #68 GUI. The luna team shipped #65+#66+#67
+**the same day** as **luna v1.6.0** ("interactive-debugger parity").
+OpenSNES side, all phases done: Phase 0 (doctor detects luna), Phase 1
+(docs/tutorials/debugging.md), snesdbg deleted (Lua gone from the repo),
+Phase 2 rules/docs re-pointed (Mesen2 optional), and the pin bumped
+v1.1.0 → v1.6.0 with the documented rebaseline (2 visual + 2 WRAM drifts,
+all verified as legitimate accuracy churn: HDMA-faithful gradient shift,
+timing-phase cube rotation). Acceptance met: the four workflows run over
+`luna mcp` with native symbols and first-class breakpoints, no Mesen2,
+no Lua. Remaining upstream (non-blocking): #68 GUI step/bp controls.
 
 **Goal:** luna becomes the single emulator for OpenSNES — automated pillars
 (done since the luna migration) *and* interactive debugging (today still
