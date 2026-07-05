@@ -1,8 +1,15 @@
 # Chantier — Retire Mesen2 + snesdbg (luna as sole emulator, incl. interactive debug)
 
-**Status:** scoped 2026-07-05 (joint read-only audit of both codebases); blocked on
-luna gaining interactive-debugger parity — tracked as
-[luna#63](https://github.com/k0b3n4irb/luna/issues/63).
+**Status:** in progress. Scoped 2026-07-05 (joint read-only audit); luna-side
+work tracked as [luna#63](https://github.com/k0b3n4irb/luna/issues/63)
+(epic) → #65 MCP wiring / #66 breakpoints / #67 .sym / #68 GUI.
+Executed same day on the OpenSNES side, ahead of luna#63 where today's
+luna surface already suffices: **Phase 0 done** (doctor detects luna),
+**Phase 1 done** (docs/tutorials/debugging.md — 6 workflows on the current
+CLI/MCP tools), **snesdbg deleted** (maintainer's API-pruning directive:
+unused = removed; the 4 workflows are covered by the guide, ergonomics
+improve as luna#66/#67 land). Remaining: Phase 2 rules/docs re-point
+(Mesen2 → luna-first) — see list below.
 
 **Goal:** luna becomes the single emulator for OpenSNES — automated pillars
 (done since the luna migration) *and* interactive debugging (today still

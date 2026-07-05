@@ -3,7 +3,7 @@
 Headless equivalent of the snes9x-MCP `test/functional/*.test.mjs` probes:
 drive luna with a scripted joypad, run, and assert on WRAM read back via
 `luna state --peek`. Symbol names resolve through the example's `.sym`
-(the headless equivalent of devtools/snesdbg's `sym.addr("name")`).
+(symbol-aware helpers over the luna CLI; see docs/tutorials/debugging.md).
 
 luna `--input` is frame-latched (`frame:hex` held until the next checkpoint);
 `-n` is *instructions*, so we end runs at a generous -n that comfortably passes
