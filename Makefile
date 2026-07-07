@@ -124,6 +124,7 @@ lint-vram:
 # Aggregate lint target — runs every lint we have. Run before opening a PR.
 lint: lint-docs
 	@python3 devtools/lint_asm.py
+	@python3 devtools/check_lib_rodata.py
 	@$(MAKE) lint-asm-abi
 	@$(MAKE) lint-vram
 	@$(MAKE) lint-commits

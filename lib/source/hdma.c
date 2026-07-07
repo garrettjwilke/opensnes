@@ -147,13 +147,15 @@ extern u8 hdma_wave_mode;
 static void fillRippleTableRAM(u8 *table, u8 frame, u8 maxAmplitude, u8 frequency);
 
 /*
- * Channel number to bitmask lookup.
- * The cc65816 compiler does not support variable-count left shifts
- * (1 << variable), so we use a lookup table instead.
+ * Channel number to bitmask: a plain variable shift. This used to be a
+ * const LUT ("cc65816 does not support variable-count shifts") — both
+ * halves of that are stale: the compiler emits a correct asl loop, and
+ * lib C modules must not carry ROM const data at all (a SUPERFREE
+ * .rodata section can land in bank $01+ on a tight example — placement
+ * varies by platform — where the 16-bit C deref reads garbage; caught
+ * by the symmap ratchet on macOS, window example, 2026-07-07).
  */
-static const u8 channel_mask[] = {
-    0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80
-};
+#define channel_mask(n) ((u8)(1 << (n)))
 
 
 /**
@@ -224,7 +226,7 @@ void hdmaWaveH(u8 channel, u8 bg, u8 amplitude, u8 frequency) {
     hdma_wave_enabled = 1;
 
     hdmaSetupBank(channel, HDMA_MODE_1REG_2X, destReg, hdma_table_a, 0x00);
-    hdmaEnable(channel_mask[channel]);
+    hdmaEnable(channel_mask(channel));
 }
 
 void hdmaWaveUpdate(void) {
@@ -264,7 +266,7 @@ void hdmaWaveStop(void) {
     if (!hdma_wave_enabled) return;
 
     /* Disable HDMA channel */
-    hdmaDisable(channel_mask[hdma_wave_channel]);
+    hdmaDisable(channel_mask(hdma_wave_channel));
     hdma_wave_enabled = 0;
 
     /* Reset BG scroll offset to 0 so the wave doesn't leave the
@@ -310,11 +312,11 @@ void hdmaBrightnessGradient(u8 channel, u8 topBrightness, u8 bottomBrightness) {
     *p = 0x00;  /* End marker */
 
     hdmaSetupBank(channel, HDMA_MODE_1REG, HDMA_DEST_INIDISP, hdma_brightness_table, 0x00);
-    hdmaEnable(channel_mask[channel]);
+    hdmaEnable(channel_mask(channel));
 }
 
 void hdmaBrightnessGradientStop(u8 channel) {
-    hdmaDisable(channel_mask[channel]);
+    hdmaDisable(channel_mask(channel));
     /* Restore full brightness */
     REG_INIDISP = 0x0F;
 }
@@ -356,11 +358,11 @@ void hdmaColorGradient(u8 channel, u8 colorIndex, u16 topColor, u16 bottomColor)
     *p = 0x00;  /* End marker */
 
     hdmaSetupBank(channel, HDMA_MODE_2REG_2X, HDMA_DEST_CGADD, hdma_color_table, 0x00);
-    hdmaEnable(channel_mask[channel]);
+    hdmaEnable(channel_mask(channel));
 }
 
 void hdmaColorGradientStop(u8 channel) {
-    hdmaDisable(channel_mask[channel]);
+    hdmaDisable(channel_mask(channel));
     /* Note: CGRAM retains per-scanline gradient values after HDMA stops.
      * Caller must restore the original palette if needed — the library
      * cannot know what the original colors were. */
@@ -438,7 +440,7 @@ void hdmaIrisWipe(u8 channel, u8 layers, u8 centerX, u8 centerY, u8 radius) {
     /* Setup and enable HDMA to drive WH0/WH1 per scanline.
      * Use bank $00 explicitly — tables are in bank $00 RAMSECTION. */
     hdmaSetupBank(channel, HDMA_MODE_2REG, HDMA_DEST_WH0, build_table, 0x00);
-    hdmaEnable(channel_mask[channel]);
+    hdmaEnable(channel_mask(channel));
 
     /* Wait for HDMA to initialize (happens at start of VBlank).
      * Only THEN enable window masking — ensures WH0/WH1 are being
@@ -455,7 +457,7 @@ void hdmaIrisWipe(u8 channel, u8 layers, u8 centerX, u8 centerY, u8 radius) {
 }
 
 void hdmaIrisWipeStop(u8 channel) {
-    hdmaDisable(channel_mask[channel]);
+    hdmaDisable(channel_mask(channel));
 
     /* Restore all window registers to fully open */
     REG_W12SEL  = 0x00;
@@ -521,5 +523,5 @@ void hdmaWaterRipple(u8 channel, u8 bg, u8 amplitude, u8 speed) {
     hdma_wave_enabled = 1;
 
     hdmaSetupBank(channel, HDMA_MODE_1REG_2X, destReg, hdma_table_a, 0x00);
-    hdmaEnable(channel_mask[channel]);
+    hdmaEnable(channel_mask(channel));
 }
