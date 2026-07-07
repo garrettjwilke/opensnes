@@ -80,8 +80,16 @@ void hdmaWindowShape(u8 channel, const void *windowTable) {
  * sine_quarter[i] = round(255 * sin(i * pi / 128)) for i in [0..63].
  * The peak is 255 (not 256) so the table fits in u8 without truncation;
  * the 1/256 precision loss at sin(90°) is imperceptible for HDMA effects.
+ *
+ * Deliberately NOT const: as ROM data this table gets a SUPERFREE section
+ * that can spill to bank $01+ when a linking example's bank $00 is full —
+ * and the 16-bit C deref then reads garbage (the KNOWN_LIMITATIONS bank $00
+ * class; it actually spilled in the window example, caught 2026-07-07 by
+ * the symmap ratchet). As initialized RAM it is copied by the bank-aware
+ * data_init DMA loop and read from WRAM, which is always safe. Cost: 64
+ * bytes of RAM in ROMs linking the hdma module.
  */
-static const u8 sine_quarter[64] = {
+static u8 sine_quarter[64] = {
       0,   6,  13,  19,  25,  31,  37,  44,
      50,  56,  62,  68,  74,  80,  86,  92,
      98, 103, 109, 115, 120, 126, 131, 136,
