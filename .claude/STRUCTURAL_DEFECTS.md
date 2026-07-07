@@ -823,6 +823,14 @@ representation in the toolchain.
   Pattern to remember: lib C modules should avoid `static const` LUTs, and
   nearly-full examples can use RAM-backed anim clips (documented in
   `anim.h` @warning + likemario).
+  **Follow-up same day**: the macOS CI leg then failed where Linux passed —
+  WLA-DX SUPERFREE placement varies by platform, so a *different* hdma LUT
+  (`channel_mask`) spilled only there. Placement whack-a-mole is unwinnable;
+  the class was removed at the source: **lib C modules now carry zero ROM
+  const data** (channel_mask → variable shift, hex_chars/atan_lut →
+  initialized RAM), enforced by `devtools/check_lib_rodata.py` in
+  `make lint`. Examples' own const data remains user-controlled and
+  ratchet-guarded.
 - **2026-06-25 (A6 closed for now; Tier 1 shipped, Tier 2 scoped)** —
   Re-scoped A6 into three tiers (see
   `.claude/notes/chantiers/32bit_pointers_a7_a6_b1_b2.md` §8 for the full
