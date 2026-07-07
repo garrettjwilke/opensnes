@@ -18,18 +18,28 @@
  * tick. Pausing an animation = not ticking it (costs nothing).
  *
  * @par Layout contract (tooling-facing)
- * AnimClip (8 bytes) and AnimPlayer (6 bytes) layouts below are a public
- * contract: editors (Cooper) emit AnimClip as generated C data. Field
- * order, sizes and semantics are stable; `reserved` fields must be 0.
+ * AnimClip (12 bytes: two 4-byte far pointers + 4 u8 fields) and
+ * AnimPlayer (8 bytes: one far pointer + 4 u8 fields) layouts below are a
+ * public contract: editors (Cooper) emit AnimClip as generated C data.
+ * Field order, sizes and semantics are stable; `reserved` fields must
+ * be 0.
  *
  * @par Cost (per PHILOSOPHY.md P5)
  * animTick() on the non-advancing path is a NULL check, a finished
  * check, a decrement/compare and one indexed u16 load — on the order of
  * 60–90 cycles per player per frame including call overhead. RAM cost is
- * 6 bytes per player; ROM cost 8 bytes per clip + 2 bytes per frame
+ * 8 bytes per player; ROM cost 12 bytes per clip + 2 bytes per frame
  * (+1/frame if per-frame durations are used). Nothing runs in NMI; VRAM
  * upload only happens when a frame actually changes (the dynamic
  * engine's existing budget).
+ *
+ * @warning Clips declared with DECLARE_ANIM_CLIP are ROM const data and
+ * count against the bank $00 budget (see KNOWN_LIMITATIONS.md): if bank
+ * $00 is full they spill to bank $01+ and are read as garbage. The build
+ * hard-fails when that happens (symmap ratchet). Mitigation for a
+ * nearly-full ROM: declare the clip and its frames array as initialized
+ * non-const statics — RAM-backed clips have the identical layout and API
+ * (see examples/games/likemario).
  *
  * Requires 'anim' in LIB_MODULES.
  *
@@ -53,7 +63,7 @@
 #define ANIM_NONE  0xFFFF
 
 /**
- * @brief An animation clip — ROM-resident, 8 bytes.
+ * @brief An animation clip — ROM-resident, 12 bytes.
  *
  * Declare with DECLARE_ANIM_CLIP() for the uniform-speed case, or as a
  * raw struct when per-frame durations are needed:
@@ -74,7 +84,7 @@ typedef struct {
 } AnimClip;
 
 /**
- * @brief A playback head — RAM, 6 bytes, array-friendly.
+ * @brief A playback head — RAM, 8 bytes, array-friendly.
  *
  * Zero-initialised (or ANIM_PLAYER_INIT) = stopped. One per animated
  * entity; e.g. `static AnimPlayer obj_anim[OB_MAX];` next to the object
