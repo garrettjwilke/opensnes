@@ -111,7 +111,7 @@ jobs:
             compiler/cproc
             compiler/qbe
             compiler/wla-dx
-          key: toolchain-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('compiler/PINS.md', 'Makefile', 'make/**', 'tools/**') }}
+          key: toolchain-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('compiler/PINS.md') }}
 
       - name: Stamp cached toolchain up-to-date (cache hit)
         if: steps.toolchain.outputs.cache-hit == 'true'

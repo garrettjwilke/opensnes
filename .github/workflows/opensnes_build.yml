@@ -95,8 +95,8 @@ jobs:
 
       # Prebuilt toolchain cache (see functional-tests for the rationale). Same
       # key formula, so build-linux/x86_64 shares its cache with the
-      # functional-tests x86_64 leg. Biggest win on Windows, where the
-      # toolchain build is ~2 minutes.
+      # functional-tests x86_64 leg. Saves the toolchain-compile portion of
+      # each build (~20-30s/leg; the rest — lib+examples+docs+zip — still runs).
       - name: Restore prebuilt toolchain
         id: toolchain
         uses: actions/cache/restore@v4
@@ -106,7 +106,7 @@ jobs:
             compiler/cproc
             compiler/qbe
             compiler/wla-dx
-          key: toolchain-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('compiler/PINS.md', 'Makefile', 'make/**', 'tools/**') }}
+          key: toolchain-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('compiler/PINS.md') }}
 
       - name: Stamp cached toolchain up-to-date (cache hit)
         if: steps.toolchain.outputs.cache-hit == 'true'
@@ -325,7 +325,7 @@ jobs:
             compiler/cproc
             compiler/qbe
             compiler/wla-dx
-          key: toolchain-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('compiler/PINS.md', 'Makefile', 'make/**', 'tools/**') }}
+          key: toolchain-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('compiler/PINS.md') }}
 
       - name: Stamp cached toolchain up-to-date (cache hit)
         if: steps.toolchain.outputs.cache-hit == 'true'
