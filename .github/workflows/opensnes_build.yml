@@ -16,6 +16,16 @@ on:
       - "main"
       - "develop"
 
+# One run per branch head. `head_ref` (PR source) and `ref_name` (push) both
+# resolve to the same branch name, so the push-to-develop run and the
+# develop→main release-PR run land in the same group and the newer cancels
+# the older — killing the push+PR double-fire. Superseded rapid pushes are
+# cancelled too. Safe: neither main nor develop is a protected branch with
+# required checks. Release tags are handled by release.yml (unique per tag).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref_name }}
+  cancel-in-progress: true
+
 # ------------------------------------ #
 # Set O.S matrix                       #
 # ------------------------------------ #
