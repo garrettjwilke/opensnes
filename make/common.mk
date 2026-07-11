@@ -63,6 +63,17 @@ TEMPLATES := $(OPENSNES)/templates
 # See .claude/rules/bank0_budget.md for the policy.
 BANK0_FAIL_THRESHOLD ?= 8
 
+# C RAM band ($00:0000-$1FFF) budget — the RAM twin of the ROM ratchet
+# above (structural defect B2: all C-accessible RAM must sit in the 8 KB
+# WRAM mirror; anything higher is silently wrong-banked). Placement past
+# $2000 always hard-fails; the free-space ratchet is set just below the
+# corpus minimum (breakout: 668 bytes free as of 2026-07-11) so the next
+# big RAMSECTION fails fast instead of corrupting at runtime. The warn
+# threshold gives early drift visibility (breakout/tetris warn today —
+# deliberate: they ARE within 1 KB of the ceiling).
+RAM_FAIL_THRESHOLD ?= 512
+RAM_WARN_THRESHOLD ?= 1024
+
 # Check toolchain exists (skip for 'clean' target)
 ifneq ($(MAKECMDGOALS),clean)
 ifeq ($(wildcard $(CC)),)
@@ -387,6 +398,25 @@ ifneq ($(SKIP_BANK0_CHECK),1)
 		if [ "$$rc" -eq 1 ]; then \
 			echo "ERROR: bank \$$00 ROM overflow / imminent overflow — see symmap output above"; \
 			echo "       reduce const data, split arrays, or set SKIP_BANK0_CHECK=1 to bypass."; \
+			exit 1; \
+		fi; \
+	fi
+endif
+	@# C RAM band budget check — the RAM twin of the ROM ratchet above
+	@# (defect B2: C RAM must sit below $$2000; higher is silently
+	@# wrong-banked). Prints the free-space number at every link so
+	@# approaching the 8 KB ceiling is visible long before it corrupts.
+	@# Set SKIP_RAM_CHECK=1 to disable; RAM_{FAIL,WARN}_THRESHOLD=N to retune.
+ifneq ($(SKIP_RAM_CHECK),1)
+	@SYM=$(TARGET:.sfc=.sym); \
+	if [ -f "$$SYM" ]; then \
+		python3 $(OPENSNES)/devtools/symmap/symmap.py --check-ram-budget \
+			--ram-fail-threshold $(RAM_FAIL_THRESHOLD) \
+			--ram-warn-threshold $(RAM_WARN_THRESHOLD) "$$SYM"; \
+		rc=$$?; \
+		if [ "$$rc" -eq 1 ]; then \
+			echo "ERROR: C RAM band overflow / imminent overflow — see symmap output above"; \
+			echo "       shrink RAM usage below \$$2000, or set SKIP_RAM_CHECK=1 to bypass."; \
 			exit 1; \
 		fi; \
 	fi

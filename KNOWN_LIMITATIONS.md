@@ -97,10 +97,16 @@ If you hit this:
 RAM section above $2000, C code reading via short addressing reads from bank
 $00 instead — silent corruption.
 
-**Mitigation:** the templates' memory maps reserve `$00:0000-$1FFF` for C RAM
-and don't put C-accessible variables higher. Custom RAMSECTION users must respect
-this. If you really need data above $2000, access it via assembly with explicit
-bank prefix (`lda.l $7E:NNNN,x`).
+**Mitigation (checked at link time since 2026-07-11):** the templates' memory
+maps reserve `$00:0000-$1FFF` for C RAM, and `make/common.mk` runs
+`symmap.py --check-ram-budget` after every link — the RAM twin of the bank
+$00 ROM ratchet. A bank-$00 RAM section crossing or placed past $2000 fails
+the build; free space below `RAM_FAIL_THRESHOLD` (default 512 bytes) fails
+too, and below `RAM_WARN_THRESHOLD` (default 1024) prints the largest RAM
+sections as refactor candidates. The free-byte count prints at every link,
+so approaching the 8 KB ceiling is a visible number, not a surprise. Set
+`SKIP_RAM_CHECK=1` to bypass for debugging. If you really need data above
+$2000, access it via assembly with explicit bank prefix (`lda.l $7E:NNNN,x`).
 
 ---
 
