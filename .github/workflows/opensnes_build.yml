@@ -277,6 +277,33 @@ jobs:
         with:
           submodules: recursive
 
+      # Restore the prebuilt cc65816 toolchain (cproc+qbe+wla-dx). The key
+      # hashes every toolchain determinant — the pinned submodule SHAs
+      # (PINS.md), the build orchestration (Makefile, make/**) and the tools
+      # source — so any toolchain change busts it. restore/save is split so a
+      # failed build never poisons the cache (save runs only after a green
+      # toolchain build).
+      - name: Restore prebuilt toolchain
+        id: toolchain
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            bin
+            compiler/cproc
+            compiler/qbe
+            compiler/wla-dx
+          key: toolchain-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('compiler/PINS.md', 'Makefile', 'make/**', 'tools/**') }}
+
+      - name: Stamp cached toolchain up-to-date (cache hit)
+        if: steps.toolchain.outputs.cache-hit == 'true'
+        run: |
+          # A hit means the toolchain sources are byte-identical (the key
+          # hashes them), so the cached binaries are valid. Stamp them to a
+          # fixed future time so make treats the toolchain as up-to-date and
+          # skips recompilation. If the stamp somehow doesn't take, make just
+          # rebuilds from the same-SHA cached source — never wrong output.
+          find bin compiler/cproc compiler/qbe compiler/wla-dx -exec touch -t 203001010000 {} + 2>/dev/null || true
+
       - name: Verify compiler toolchain pins
         run: python3 devtools/verify_toolchain.py
 
@@ -284,6 +311,17 @@ jobs:
         run: |
           export OPENSNES_HOME=$(pwd)
           make
+
+      - name: Save prebuilt toolchain (cache miss only)
+        if: steps.toolchain.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            bin
+            compiler/cproc
+            compiler/qbe
+            compiler/wla-dx
+          key: ${{ steps.toolchain.outputs.cache-primary-key }}
 
       - name: Compiler C→ASM pattern checks
         run: python3 devtools/compiler-tests/run.py
