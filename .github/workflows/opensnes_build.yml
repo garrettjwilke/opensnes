@@ -93,6 +93,26 @@ jobs:
         with:
           submodules: recursive
 
+      # Prebuilt toolchain cache (see functional-tests for the rationale). Same
+      # key formula, so build-linux/x86_64 shares its cache with the
+      # functional-tests x86_64 leg. Biggest win on Windows, where the
+      # toolchain build is ~2 minutes.
+      - name: Restore prebuilt toolchain
+        id: toolchain
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            bin
+            compiler/cproc
+            compiler/qbe
+            compiler/wla-dx
+          key: toolchain-${{ matrix.os }}-${{ matrix.arch }}-${{ hashFiles('compiler/PINS.md', 'Makefile', 'make/**', 'tools/**') }}
+
+      - name: Stamp cached toolchain up-to-date (cache hit)
+        if: steps.toolchain.outputs.cache-hit == 'true'
+        shell: bash
+        run: find bin compiler/cproc compiler/qbe compiler/wla-dx -exec touch -t 203001010000 {} + 2>/dev/null || true
+
       # ------------------------------------ #
       # Verify compiler toolchain pins        #
       # ------------------------------------ #
@@ -155,6 +175,19 @@ jobs:
         run: |
           export OPENSNES_HOME=$(pwd)
           devtools/check_debug_info.sh
+
+      # Save the toolchain once it's built (cache miss only; after a green
+      # `make release`, so a failed build never poisons the cache).
+      - name: Save prebuilt toolchain (cache miss only)
+        if: steps.toolchain.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            bin
+            compiler/cproc
+            compiler/qbe
+            compiler/wla-dx
+          key: ${{ steps.toolchain.outputs.cache-primary-key }}
 
       # ------------------------------------ #
       # Functional tests run in a separate   #
