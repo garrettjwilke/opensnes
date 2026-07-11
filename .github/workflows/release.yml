@@ -73,9 +73,7 @@ jobs:
         if: matrix.name == 'windows'
         uses: msys2/setup-msys2@v2
         with:
-          # See opensnes_build.yml: skip the ~70s `pacman -Syuu`; packages
-          # install against the pinned base with the warm cache.
-          update: false
+          update: true
           msystem: UCRT64
           install: >-
             mingw-w64-ucrt-x86_64-clang

@@ -67,12 +67,7 @@ jobs:
         if: matrix.name == 'windows'
         uses: msys2/setup-msys2@v2
         with:
-          # No full `pacman -Syuu` every run (~70s): the action pins a recent
-          # MSYS2 base release and the package cache (cache:true default) is
-          # already warm, so packages install against the pinned base without
-          # a system upgrade. Revert to `update: true` if a build ever needs a
-          # package newer than the pinned base ships.
-          update: false
+          update: true
           msystem: UCRT64
           install: >-
             mingw-w64-ucrt-x86_64-clang
