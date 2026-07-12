@@ -5,8 +5,9 @@
  *
  * Builds an HDMA table BY HAND in C and animates it the way the original
  * assembler demo does: the table is written once, and each VBlank the
- * table START POINTER advances one entry — the wave scrolls down the
- * screen without a single byte of the table being rewritten. This is the
+ * table START POINTER advances one entry — the ripple pattern flows up
+ * the screen (line L reads entry phase+L, so each crest sits at
+ * X0-phase) without a single byte of the table being rewritten. This is the
  * classic per-scanline effect that plain DMA cannot do: one BG1 horizontal
  * scroll value per line, traced along a sine.
  *
@@ -33,7 +34,8 @@
  *   tilemap upload — the whole example ships zero binary assets
  *
  * @par What to Observe
- * - Vertical stripes distorted into a sine wave that scrolls DOWNWARD
+ * - Vertical stripes distorted into tight sine ripples flowing UPWARD
+ *   at one scanline per frame (krom's exact animation rate)
  * - White horizontal ruler lines every 64px stay perfectly straight
  *   (HOFS only shifts lines horizontally) while the verticals undulate
  * - No flicker or black lines: the table always covers 224 lines from
@@ -50,8 +52,10 @@
 
 /** @brief Visible scanlines fed by the HDMA table */
 #define NLINES        224
-/** @brief Wave period in scanlines (one full sine every 112 lines) */
-#define WAVE_PERIOD   112
+/** @brief Wave period in scanlines — krom's tight water-ripple look.
+ *  (His exact samples drift slightly because his generator's period was
+ *  not an integer; 26 is the closest integer period, same amplitude.) */
+#define WAVE_PERIOD   26
 /** @brief Bytes per HDMA entry in 1REG_2X mode: count + 16-bit value */
 #define ENTRY_BYTES   3
 
@@ -63,18 +67,15 @@
 /**
  * @brief One sine period of BG1HOFS offsets, amplitude ±10 px.
  *
- * round(10 * sin(2*pi*i / 112)) for i in [0..111] — same amplitude as
- * krom's original table. Kept as data (not computed) so the example has
- * no dependency on the math module and the table build stays trivial.
+ * round(10 * sin(2*pi*i / 26)) for i in [0..25] — same amplitude and
+ * (integer-rounded) period as krom's original table, giving the same
+ * tight water-ripple look (~8.6 wave crests down a 224-line screen).
+ * Kept as data (not computed) so the example has no dependency on the
+ * math module and the table build stays trivial.
  */
 static const s8 wave_sine[WAVE_PERIOD] = {
-      0,   1,   1,   2,   2,   3,   3,   4,   4,   5,   5,   6,   6,   7,   7,   7,
-      8,   8,   8,   9,   9,   9,   9,  10,  10,  10,  10,  10,  10,  10,  10,  10,
-     10,  10,   9,   9,   9,   9,   8,   8,   8,   7,   7,   7,   6,   6,   5,   5,
-      4,   4,   3,   3,   2,   2,   1,   1,   0,  -1,  -1,  -2,  -2,  -3,  -3,  -4,
-     -4,  -5,  -5,  -6,  -6,  -7,  -7,  -7,  -8,  -8,  -8,  -9,  -9,  -9,  -9, -10,
-    -10, -10, -10, -10, -10, -10, -10, -10, -10, -10,  -9,  -9,  -9,  -9,  -8,  -8,
-     -8,  -7,  -7,  -7,  -6,  -6,  -5,  -5,  -4,  -4,  -3,  -3,  -2,  -2,  -1,  -1,
+      0,   2,   5,   7,   8,   9,  10,  10,   9,   8,   7,   5,   2,
+      0,  -2,  -5,  -7,  -8,  -9, -10, -10,  -9,  -8,  -7,  -5,  -2,
 };
 
 /**
@@ -82,7 +83,9 @@ static const s8 wave_sine[WAVE_PERIOD] = {
  *
  * (NLINES + WAVE_PERIOD) entries so that from ANY start phase in
  * [0, WAVE_PERIOD) there are always >= NLINES valid entries ahead —
- * krom's trick (his table is 224+672 entries for the same reason).
+ * krom's trick (his table is 224+672 entries: his generator's period
+ * was non-integer, so his seamless wrap needed 672 lines; our integer
+ * 26-line period wraps in 26).
  * The trailing 0x00 terminator is belt-and-braces: with the invariant
  * above HDMA never reaches it, but it makes constant tweaks safe.
  */

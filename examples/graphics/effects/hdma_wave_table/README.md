@@ -4,8 +4,8 @@
 
 Builds a raw HDMA table by hand in C and animates it krom-style: the table is
 written once, and each VBlank only the table **start pointer** advances by one
-entry — the sine wave scrolls down the screen without rewriting a single table
-byte. This is the classic per-scanline effect plain DMA cannot do: a different
+entry — the ripple pattern flows up the screen without rewriting a single
+table byte. This is the classic per-scanline effect plain DMA cannot do: a different
 BG1 horizontal scroll value on every line.
 
 C port of "SNES Wave HDMA Demo" by krom (Peter Lemon),
@@ -26,7 +26,7 @@ the low-level counterpart that teaches the HDMA **table format** itself.
   frame): the table is immutable, so HDMA never sees a partial entry — no
   tearing, near-zero CPU cost
 - The 224+period entry layout: from any start phase there are always ≥224 valid
-  entries ahead (krom's 224+672 trick)
+  entries ahead (krom's 224+672 trick — our integer 26-line period wraps in 26)
 - Procedural 4bpp tile generation in C (planar format) and row-buffer tilemap
   upload
 
