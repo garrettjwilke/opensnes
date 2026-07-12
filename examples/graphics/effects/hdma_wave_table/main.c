@@ -31,11 +31,15 @@
  *   `table + phase*3`): the table itself is immutable, so HDMA never
  *   observes a partially rewritten entry — no tearing, ~zero CPU cost
  * - Procedural 4bpp tile generation in C (planar format), row-buffer
- *   tilemap upload — the whole example ships zero binary assets
+ *   tilemap upload — the whole example ships zero binary assets. The
+ *   texture is horizontally APERIODIC (LCG-seeded vertical streaks):
+ *   periodic art (e.g. fixed-width stripes) would make the per-line
+ *   displacement ambiguous modulo the stripe width, both to the eye
+ *   and to any screenshot-based measurement of the effect
  *
  * @par What to Observe
- * - Vertical stripes distorted into tight sine ripples flowing UPWARD
- *   at one scanline per frame (krom's exact animation rate)
+ * - Vertical streak texture distorted into tight sine ripples flowing
+ *   UPWARD at one scanline per frame (krom's exact animation rate)
  * - White horizontal ruler lines every 64px stay perfectly straight
  *   (HOFS only shifts lines horizontally) while the verticals undulate
  * - No flicker or black lines: the table always covers 224 lines from
@@ -113,34 +117,54 @@ static void buildWaveTable(void) {
     *p = 0;                              /* HDMA terminator */
 }
 
+/** @brief Deterministic LCG for the procedural texture (art, not gameplay) */
+static u16 lcg_state;
+static u8 lcgNext(void) {
+    lcg_state = (u16)(lcg_state * 25173u + 13849u);
+    return (u8)(lcg_state >> 8);
+}
+
+/** @brief Number of distinct streak tiles (tile 16 is the ruler) */
+#define NTILES 16
+
 /**
- * @brief Generate the two 4bpp tiles: vertical stripes, and a ruler row.
+ * @brief Generate NTILES aperiodic "streak" tiles + one ruler tile.
  *
  * 4bpp planar tile = 32 bytes: 8 rows of [plane0, plane1] then 8 rows of
- * [plane2, plane3]. Stripes 4px wide: pixels 0-3 color 1, 4-7 color 2 —
- * plane0 = 0xF0, plane1 = 0x0F. The ruler tile is the same with its top
- * row solid color 3 (planes 0+1 = 0xFF) for a straight horizontal
+ * [plane2, plane3]. Each tile gets 8 vertical 1px streaks whose colors
+ * (1..3) come from the LCG — column-constant so the texture reads as
+ * vertical water streaks that the wave visibly displaces. The ruler tile
+ * is a solid color-3 top row over streaks: a straight horizontal
  * reference the wave must NOT bend.
  */
 static void buildTiles(void) {
-    u8 tiles[64];
-    u8 row;
-    for (row = 0; row < 8; row++) {
-        tiles[row * 2]     = 0xF0;  /* tile 0 plane 0 */
-        tiles[row * 2 + 1] = 0x0F;  /* tile 0 plane 1 */
-        tiles[32 + row * 2]     = (row == 0) ? 0xFF : 0xF0;  /* tile 1 */
-        tiles[32 + row * 2 + 1] = (row == 0) ? 0xFF : 0x0F;
+    static u8 tiles[(NTILES + 1) * 32];
+    u16 t;
+    u8 col, row;
+    lcg_state = 0xC0DE;
+    for (t = 0; t <= NTILES; t++) {
+        u8 p0 = 0, p1 = 0;
+        for (col = 0; col < 8; col++) {
+            u8 c = (u8)(1 + (lcgNext() % 3));   /* color 1..3 */
+            if (c & 1) p0 |= (u8)(0x80 >> col);
+            if (c & 2) p1 |= (u8)(0x80 >> col);
+        }
+        for (row = 0; row < 8; row++) {
+            u8 r0 = p0, r1 = p1;
+            if (t == NTILES && row == 0) { r0 = 0xFF; r1 = 0xFF; } /* ruler */
+            tiles[t * 32 + row * 2]     = r0;
+            tiles[t * 32 + row * 2 + 1] = r1;
+        }
     }
-    /* planes 2-3 of both tiles stay 0: colors only use palette 0-3.
-     * VRAM layout: tile 0 at word 16..31 relative to the gfx base is
-     * planes 2/3 — dmaFillVRAM below zeroes them. */
-    dmaFillVRAM(0, VRAM_BG1_GFX, 128);           /* clear tiles 0-1 fully */
-    dmaCopyVram(tiles, VRAM_BG1_GFX, 16);        /* tile 0 planes 0/1 */
-    dmaCopyVram(tiles + 32, VRAM_BG1_GFX + 16, 16); /* tile 1 planes 0/1 */
+    /* planes 2-3 stay 0 (colors 0-3 only): clear the region then write
+     * the interleaved planes 0/1 of each tile (16 bytes per tile). */
+    dmaFillVRAM(0, VRAM_BG1_GFX, (NTILES + 1) * 64);
+    for (t = 0; t <= NTILES; t++)
+        dmaCopyVram(tiles + t * 32, VRAM_BG1_GFX + t * 32, 16);
 }
 
 /**
- * @brief Fill the BG1 tilemap: stripes everywhere, a ruler every 8 rows.
+ * @brief Fill the BG1 tilemap: LCG-picked streak tiles, a ruler every 8 rows.
  *
  * Built one 32-entry row at a time in a 64-byte buffer and DMA'd during
  * force blank — no 2 KB tilemap buffer needed in the C RAM band.
@@ -148,10 +172,11 @@ static void buildTiles(void) {
 static void buildTilemap(void) {
     u16 rowbuf[32];
     u8 x, y;
+    lcg_state = 0xBEEF;
     for (y = 0; y < 32; y++) {
-        u16 tile = ((y & 7) == 0) ? 1 : 0;
+        u8 ruler = ((y & 7) == 0);
         for (x = 0; x < 32; x++)
-            rowbuf[x] = tile;
+            rowbuf[x] = ruler ? NTILES : (u16)(lcgNext() % NTILES);
         dmaCopyVram((u8 *)rowbuf, VRAM_BG1_MAP + y * 32, 64);
     }
 }

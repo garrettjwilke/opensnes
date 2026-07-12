@@ -11,7 +11,16 @@ BG1 horizontal scroll value on every line.
 C port of "SNES Wave HDMA Demo" by krom (Peter Lemon),
 [github.com/PeterLemon/SNES](https://github.com/PeterLemon/SNES)
 (`PPU/HDMA/WaveHDMA`) — the technique reproduced on the `snes/hdma.h` API.
-All art is original (procedural — this example ships zero binary assets).
+All art is original (procedural — this example ships zero binary assets):
+LCG-seeded aperiodic streak tiles, chosen deliberately because periodic art
+(fixed-width stripes) makes a per-scanline displacement ambiguous modulo the
+stripe width — to the eye and to any screenshot-based measurement.
+
+**Measured parity with the original** (both ROMs captured with `luna frames`,
+same displacement-field analysis): wave period 25 vs 26 scanlines, amplitude
+peak-to-peak 19.5 vs 20.0 px (±10), speed ~1 scanline/frame both, direction
+identical (ripples flow up). krom's period is not an integer (his samples
+drift each cycle), hence 26 — the closest integer period.
 
 The companion example [`hdma_wave`](../hdma_wave) shows the same visual through
 the library's high-level engine (`hdmaWaveH` / `hdmaWaveUpdate`); this one is
