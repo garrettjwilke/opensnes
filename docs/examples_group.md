@@ -43,6 +43,7 @@ Browse by category: @ref examples_by_category
 - @ref gradient_colors/main.c "Gradient Colors" — HDMA per-scanline palette
 - @ref hdma_wave/main.c "HDMA Wave" — Sine distortion
 - @ref hdma_wave_table/main.c "HDMA Wave Table" — Raw HDMA table in C (krom port)
+- @ref hdma_indirect_gradient/main.c "HDMA Indirect Gradient" — Pointer-table gradient (krom port)
 - @ref hdma_helpers/main.c "HDMA Helpers" — Library helper effects
 - @ref parallax_scrolling/main.c "Parallax" — HDMA scroll offsets
 

@@ -27,6 +27,7 @@
   "graphics_effects_fading": "9fe679ca97d8aab4c591e2630b63759f1592d467eac8f2ee8610eb9b9cb6f29f",
   "graphics_effects_gradient_colors": "fdb647fb871ff3e85fef53a67f7fa106675f7c5b1ccc2fd8c881ef4640ca54f3",
   "graphics_effects_hdma_helpers": "33f99b227f3b6080cd8e19061625e51dbf0db7538e81bd899a1362a7053fbda4",
+  "graphics_effects_hdma_indirect_gradient": "cc2e251d5a323c864a41abb6f8c4beec3d9cf6972de1688178abeeca1a30c323",
   "graphics_effects_hdma_wave": "e97431c7c78cfd6637cf5c1865dae46e159744dc7208b847e99b72495e33f463",
   "graphics_effects_hdma_wave_table": "d6536b128e14995cf02aa61e792a707caec8caa58c0b5e4747a91aa77c71b1fb",
   "graphics_effects_mosaic": "3cf154532ab3b8d425eb6131f2e0f8576bc0a6d0d47d801ea784e32fed4122d7",
