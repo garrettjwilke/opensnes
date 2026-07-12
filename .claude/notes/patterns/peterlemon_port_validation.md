@@ -67,3 +67,10 @@ because only the reference's main loop had been read, not its INIT.
 - [ ] Parity table measured with the same script; cited in the README.
 - [ ] Side-by-side stills eyeballed (character match, not just numbers).
 - [ ] Own art, aperiodic if the effect is a displacement; krom credited.
+- [ ] FINAL build rendered and LOOKED AT after the last edit (not just
+      measured mid-iteration — the wave port shipped a broken commit
+      after all measurements passed because nobody looked again).
+- [ ] Fresh-checkout build proof (git worktree add + make): every
+      committed file present — the gitignore catch-alls shipped 4 broken
+      commits before being fixed (c7ddf12d).
+- [ ] CI green BEFORE announcing the port done.

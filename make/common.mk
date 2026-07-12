@@ -186,6 +186,12 @@ ALL_CFLAGS := $(INCLUDES) $(CFLAGS)
 
 GFX_HEADERS := $(notdir $(addsuffix .h,$(basename $(GFXSRC))))
 C_OBJS := $(patsubst %.c,%.c.o,$(CSRC))
+
+# Example C objects must rebuild when the lib API changes (issue #105:
+# incremental builds linked stale-ABI objects against a new lib; the
+# aim_target WRAM stream diverged from a clean build twice before this).
+# Coarse — any header change recompiles the example — but correct.
+LIB_HEADERS := $(wildcard $(OPENSNES)/lib/include/snes.h) $(wildcard $(OPENSNES)/lib/include/snes/*.h)
 ASM_OBJS := $(patsubst %.asm,%.o,$(ASMSRC))
 GSU_BINS := $(patsubst %.sfx,%.sfx.bin,$(GSUSRC))
 SOUNDBANK_OBJ := $(if $(_HAS_SOUNDBANK),$(SOUNDBANK_OUT).o)
@@ -287,7 +293,7 @@ CLANG_LINT_FLAGS := -fsyntax-only -Wall -Wextra -Werror \
 # Step 3: wrap with memmap and assemble via wla-65816.
 # SKIP_LINT=1 disables the syntax check (escape hatch for environments
 # without clang; CI always runs with the check enabled).
-%.c.o: %.c $(GFX_HEADERS) $(MEMMAP_DEP)
+%.c.o: %.c $(GFX_HEADERS) $(MEMMAP_DEP) $(LIB_HEADERS)
 ifneq ($(SKIP_LINT),1)
 	@if command -v clang >/dev/null 2>&1; then \
 		clang $(CLANG_LINT_FLAGS) -I $(OPENSNES)/lib/include $< || \
@@ -417,6 +423,21 @@ ifneq ($(SKIP_RAM_CHECK),1)
 		if [ "$$rc" -eq 1 ]; then \
 			echo "ERROR: C RAM band overflow / imminent overflow — see symmap output above"; \
 			echo "       shrink RAM usage below \$$2000, or set SKIP_RAM_CHECK=1 to bypass."; \
+			exit 1; \
+		fi; \
+	fi
+endif
+	@# Bank-blind C reads of bank $$01+ data (issue #104): the read-side
+	@# symmetric of the spill ratchet. A symbol deref'd from C without a
+	@# bank reference must be linked in bank $$00 — otherwise the 16-bit
+	@# deref reads garbage. SKIP_BANKREAD_CHECK=1 to bypass.
+ifneq ($(SKIP_BANKREAD_CHECK),1)
+	@SYM=$(TARGET:.sfc=.sym); \
+	if [ -f "$$SYM" ]; then \
+		python3 $(OPENSNES)/devtools/check_bank_reads.py "$$SYM" . ; \
+		rc=$$?; \
+		if [ "$$rc" -ne 0 ]; then \
+			echo "ERROR: bank-blind C read of bank \$$01+ data — see above."; \
 			exit 1; \
 		fi; \
 	fi
