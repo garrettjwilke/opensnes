@@ -37,15 +37,16 @@ Register-level — krom's writes vs what this ROM's generated code does:
 One deliberate difference: krom rewrites only `A1T0L` each frame; this
 example re-runs `hdmaSetup` (same five values) — semantically identical.
 
-Behavioral — both ROMs captured with `luna frames` (30 consecutive frames)
-and measured with the same displacement-field analysis:
+Behavioral — proven EXACT (luna v1.9.0 `dma.channels[]` + displacement-field
+analysis on `luna frames` sequences of both ROMs):
 
-| Measure | krom | this example |
-|---|---|---|
-| Wave period | 25 scanlines | 26 scanlines (his generator's period was not an integer) |
-| Amplitude (peak-to-peak) | 19.5 px | 20.0 px (±10) |
-| Speed | ~1 scanline/frame | 1 scanline/frame |
-| Direction | ripples flow up | ripples flow up |
+| Proof | Result |
+|---|---|
+| HDMA table | **byte-identical**: krom's 896 entries extracted verbatim (`res/wavetable.bin`) |
+| This ROM's rendering | displacement field == table prediction, **residual 0** over 1400 line-measurements |
+| This ROM's cadence | exactly one +3-byte A1T0 step per frame, at VBlank (register-level, `dma.channels[0].a_addr`) |
+| Reference's rendering | every frame pair fits the same table with **residual 0** |
+| Reference's cadence in luna | irregular 2,1,1 entries/frame — a luna `$4210` polling emulation issue (luna#107), not a demo or port defect; on hardware both ROMs advance +3/frame |
 
 ## SNES Concepts
 

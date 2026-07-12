@@ -39,7 +39,9 @@
  *
  * @par What to Observe
  * - A water image distorted into tight sine ripples flowing UPWARD at
- *   one scanline per frame (krom's exact animation rate)
+ *   one scanline per frame — krom's exact TABLE (896 entries extracted
+ *   verbatim) and exact cadence (wrap at 672), so the displacement
+ *   field is byte-identical to the original demo's
  * - White horizontal ruler lines every 64px stay perfectly straight
  *   (HOFS only shifts lines horizontally) while the verticals undulate
  * - No flicker or black lines: the table always covers 224 lines from
@@ -54,12 +56,11 @@
 #include <snes.h>
 #include <snes/hdma.h>
 
-/** @brief Visible scanlines fed by the HDMA table */
-#define NLINES        224
-/** @brief Wave period in scanlines — krom's tight water-ripple look.
- *  (His exact samples drift slightly because his generator's period was
- *  not an integer; 26 is the closest integer period, same amplitude.) */
-#define WAVE_PERIOD   26
+/** @brief Wrap length of the start-pointer animation, in table entries.
+ *  krom's exact value: his sine's quasi-period is ~25.8 lines (non-
+ *  integer), so his seamless wrap needs 672 entries; the table holds
+ *  224 more so any start phase has a full screen of valid lines. */
+#define WAVE_WRAP     672
 /** @brief Bytes per HDMA entry in 1REG_2X mode: count + 16-bit value */
 #define ENTRY_BYTES   3
 
@@ -78,57 +79,19 @@ extern u8 tilemap[], tilemap_end[];
 extern u8 palette[], palette_end[];
 
 /**
- * @brief One sine period of BG1HOFS offsets, amplitude ±10 px.
+ * @brief krom's exact HDMA table, in ROM (data.asm, bank 2).
  *
- * round(10 * sin(2*pi*i / 26)) for i in [0..25] — same amplitude and
- * (integer-rounded) period as krom's original table, giving the same
- * tight water-ripple look (~8.6 wave crests down a 224-line screen).
- * Kept as data (not computed) so the example has no dependency on the
- * math module and the table build stays trivial. RAM, not const: the
- * 57 KB image fills bank $00's free ROM, so a C-deref'd const here
- * spills to bank $01+ and reads as garbage (the bank $00 ratchet
- * hard-fails the build — this is the documented RAM mitigation,
- * 26 bytes copied by data_init).
+ * 896 entries of [1][offset16] + terminator, extracted verbatim from
+ * the original demo: entry values are round(10*sin) samples with a
+ * quasi-period of ~25.8 lines. The table lives in ROM exactly like
+ * krom's (his in bank 0, ours in bank 2 — hdmaSetup reads the bank
+ * from the far pointer), and is never written: the animation only
+ * moves the start pointer.
  */
-static s8 wave_sine[WAVE_PERIOD] = {
-      0,   2,   5,   7,   8,   9,  10,  10,   9,   8,   7,   5,   2,
-      0,  -2,  -5,  -7,  -8,  -9, -10, -10,  -9,  -8,  -7,  -5,  -2,
-};
+extern u8 wavetable[];
 
-/**
- * @brief The HDMA table, built once at init and never rewritten.
- *
- * (NLINES + WAVE_PERIOD) entries so that from ANY start phase in
- * [0, WAVE_PERIOD) there are always >= NLINES valid entries ahead —
- * krom's trick (his table is 224+672 entries: his generator's period
- * was non-integer, so his seamless wrap needed 672 lines; our integer
- * 26-line period wraps in 26).
- * The trailing 0x00 terminator is belt-and-braces: with the invariant
- * above HDMA never reaches it, but it makes constant tweaks safe.
- */
-static u8 wave_table[(NLINES + WAVE_PERIOD) * ENTRY_BYTES + 1];
-
-/** @brief Current wave phase in scanlines (start entry of the table) */
+/** @brief Current wave phase in table entries (start of the table) */
 static u16 wave_phase;
-
-/**
- * @brief Build the immutable HDMA table: one `{1, sin, sin>>8}` per line.
- *
- * Each entry means "for 1 scanline, write these 2 bytes to BG1HOFS".
- * The 16-bit value is the sign-extended sine offset — negative offsets
- * scroll the line left, positive right.
- */
-static void buildWaveTable(void) {
-    u16 i;
-    u8 *p = wave_table;
-    for (i = 0; i < NLINES + WAVE_PERIOD; i++) {
-        s16 off = wave_sine[i % WAVE_PERIOD];
-        *p++ = 1;                        /* count: apply to 1 scanline */
-        *p++ = (u8)(off & 0xFF);         /* BG1HOFS low byte */
-        *p++ = (u8)((off >> 8) & 0xFF);  /* BG1HOFS high byte (sign) */
-    }
-    *p = 0;                              /* HDMA terminator */
-}
 
 /**
  * @brief Entry point — raw HDMA wave demo.
@@ -154,11 +117,10 @@ int main(void) {
     bgSetMapPtr(0, VRAM_BG1_MAP, SC_32x32);
     setMode(BG_MODE3, 0);
 
-    /* The table is built ONCE; animation only moves the start pointer. */
-    buildWaveTable();
+    /* The table is immutable ROM; animation only moves the start pointer. */
     wave_phase = 0;
     hdmaSetup(HDMA_CHANNEL_0, HDMA_MODE_1REG_2X, HDMA_DEST_BG1HOFS,
-              wave_table);
+              wavetable);
     hdmaEnable(1 << HDMA_CHANNEL_0);
 
     setMainScreen(TM_BG1);
@@ -166,14 +128,14 @@ int main(void) {
 
     while (1) {
         WaitForVBlank();
-        /* Advance one entry per frame, wrapping on the sine period —
-         * the wave scrolls downward. Repointing during VBlank is safe:
-         * HDMA reloads its table address at the start of every frame. */
+        /* krom's exact cadence: advance one entry per frame, wrap after
+         * 672 entries. Repointing during VBlank is safe: HDMA reloads
+         * its table address at the start of every frame. */
         wave_phase++;
-        if (wave_phase >= WAVE_PERIOD)
+        if (wave_phase >= WAVE_WRAP)
             wave_phase = 0;
         hdmaSetup(HDMA_CHANNEL_0, HDMA_MODE_1REG_2X, HDMA_DEST_BG1HOFS,
-                  wave_table + wave_phase * ENTRY_BYTES);
+                  wavetable + wave_phase * ENTRY_BYTES);
     }
 
     return 0;
