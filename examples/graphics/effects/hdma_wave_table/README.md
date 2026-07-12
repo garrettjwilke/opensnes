@@ -5,39 +5,57 @@
 Builds a raw HDMA table by hand in C and animates it krom-style: the table is
 written once, and each VBlank only the table **start pointer** advances by one
 entry — the ripple pattern flows up the screen without rewriting a single
-table byte. This is the classic per-scanline effect plain DMA cannot do: a different
-BG1 horizontal scroll value on every line.
+table byte. This is the classic per-scanline effect plain DMA cannot do: a
+different BG1 horizontal scroll value on every line.
 
 C port of "SNES Wave HDMA Demo" by krom (Peter Lemon),
 [github.com/PeterLemon/SNES](https://github.com/PeterLemon/SNES)
-(`PPU/HDMA/WaveHDMA`) — the technique reproduced on the `snes/hdma.h` API.
-All art is original (procedural — this example ships zero binary assets):
-LCG-seeded aperiodic streak tiles, chosen deliberately because periodic art
-(fixed-width stripes) makes a per-scanline displacement ambiguous modulo the
-stripe width — to the eye and to any screenshot-based measurement.
+(`PPU/HDMA/WaveHDMA`), reproduced on the `snes/hdma.h` API in the same
+configuration as the original: **BG Mode 3, a full-screen 256-color image**
+(~57 KB of unique 8bpp tiles split across two ROM banks, tilemap above them).
+The art is original (procedurally generated water caustics, `res/water.bmp` —
+no krom assets).
 
-**Measured parity with the original** (both ROMs captured with `luna frames`,
-same displacement-field analysis): wave period 25 vs 26 scanlines, amplitude
-peak-to-peak 19.5 vs 20.0 px (±10), speed ~1 scanline/frame both, direction
-identical (ripples flow up). krom's period is not an integer (his samples
-drift each cycle), hence 26 — the closest integer period.
+The companion example [`hdma_wave`](../hdma_wave) shows the same effect
+through the library's high-level engine (`hdmaWaveH`/`hdmaWaveUpdate`); this
+one is the low-level counterpart that teaches the HDMA **table format**.
 
-The companion example [`hdma_wave`](../hdma_wave) shows the same visual through
-the library's high-level engine (`hdmaWaveH` / `hdmaWaveUpdate`); this one is
-the low-level counterpart that teaches the HDMA **table format** itself.
+## Fidelity to the original (measured, not assumed)
+
+Register-level — krom's writes vs what this ROM's generated code does:
+
+| Register | krom (ASM) | this example (via the C API) |
+|---|---|---|
+| `$4300` DMAP0 | `%00000010` | `hdmaSetup` mode = `HDMA_MODE_1REG_2X` (0x02) |
+| `$4301` BBAD0 | `$0D` (BG1HOFS) | `HDMA_DEST_BG1HOFS` (0x0D) |
+| `$4302-3` A1T0 | table start, **+3 bytes/frame** | `hdmaSetup(…, wave_table + phase*3)` per VBlank |
+| `$4304` A1B0 | `$00` | far pointer's bank byte (table in bank-$00 RAM) |
+| `$420C` HDMAEN | `%1` once | `hdmaEnable(1 << HDMA_CHANNEL_0)` once |
+| `$2105` BGMODE | `$0B` (mode 3 + BG3-prio bit, no-op in mode 3) | `setMode(BG_MODE3, 0)` → mode 3 |
+| `$2107` BG1SC | `$FC` (word $FC00 → mirrors $7C00) | `bgSetMapPtr(0, 0x7C00, SC_32x32)` |
+
+One deliberate difference: krom rewrites only `A1T0L` each frame; this
+example re-runs `hdmaSetup` (same five values) — semantically identical.
+
+Behavioral — both ROMs captured with `luna frames` (30 consecutive frames)
+and measured with the same displacement-field analysis:
+
+| Measure | krom | this example |
+|---|---|---|
+| Wave period | 25 scanlines | 26 scanlines (his generator's period was not an integer) |
+| Amplitude (peak-to-peak) | 19.5 px | 20.0 px (±10) |
+| Speed | ~1 scanline/frame | 1 scanline/frame |
+| Direction | ripples flow up | ripples flow up |
 
 ## SNES Concepts
 
 - HDMA table format: `count` byte + register payload per entry, `0x00` terminator
 - `HDMA_MODE_1REG_2X`: one register written twice per line — the shape the
-  16-bit scroll registers (`$210D` BG1HOFS low/high) expect
-- Animation by start-pointer repoint (`hdmaSetup(..., table + phase*3)` once per
-  frame): the table is immutable, so HDMA never sees a partial entry — no
-  tearing, near-zero CPU cost
-- The 224+period entry layout: from any start phase there are always ≥224 valid
-  entries ahead (krom's 224+672 trick — our integer 26-line period wraps in 26)
-- Procedural 4bpp tile generation in C (planar format) and row-buffer tilemap
-  upload
+  16-bit scroll registers expect
+- Animation by start-pointer repoint: immutable table, no tearing, ~zero CPU
+- The 224+period entry layout: ≥224 valid entries from any start phase
+- Mode 3 (8bpp): a >32 KB tileset split across two ROM sections, loaded with
+  two `dmaCopyVram` calls (post-A6 far pointers carry the bank)
 
 ## How to Build
 
