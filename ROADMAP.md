@@ -220,7 +220,7 @@ This stretch focused on closing process gaps surfaced by an internal audit
 | Published performance benchmark | Done (`docs/BENCHMARK.md`) | Shows the 30 % improvement with data |
 | Migration guide PVSnesLib → OpenSNES | Not started | Smoothest adoption path for existing PVSnesLib users |
 | FAQ | Not started | Reduces support load |
-| `examples/maps/dynamic_map` cleanup | Not started | Last example with non-trivial dead-code (`convertC64Sprite`) |
+| `examples/maps/dynamic_map` cleanup | **Done (2026-07-12)** | Dead code removed: unused `maputil.c` TU, `getSprite*`/`updateSprite*`/`calculateSprite*` engine paths, `sram*` ASM helpers + 16 KB dead `$7F` RAMSECTION; stale C64-converter claims corrected |
 
 ### Nice-to-have
 
