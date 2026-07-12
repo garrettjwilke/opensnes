@@ -1,6 +1,6 @@
 # OpenSNES Examples
 
-Learn SNES development step by step. 56 examples organized by topic, building
+Learn SNES development step by step. 57 examples organized by topic, building
 from basic concepts to complete games.
 
 ## Categories
@@ -9,7 +9,7 @@ from basic concepts to complete games.
 |----------|----------|----------------|
 | [text/](text/) | 2 | Text display, fonts, tilemaps |
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
-| [graphics/](graphics/) | 26 | Backgrounds, sprites, visual effects, Mode 7 |
+| [graphics/](graphics/) | 27 | Backgrounds, sprites, visual effects, Mode 7 |
 | [input/](input/) | 4 | Joypads, mouse, Super Scope, multi-player |
 | [audio/](audio/) | 4 | Music and sound effects via SNESMOD |
 | [maps/](maps/) | 4 | Tile maps, dynamic streaming, slopes |
@@ -51,6 +51,7 @@ deep-dive of a step below.
 | 13 | [graphics/backgrounds/continuous_scroll](graphics/backgrounds/continuous_scroll/) | Streaming background scroll with dynamic tile loading |
 | 14 | [graphics/backgrounds/mixed_scroll](graphics/backgrounds/mixed_scroll/) | Multiple BG layers scrolling at different rates |
 | 15 | [graphics/effects/hdma_wave](graphics/effects/hdma_wave/) | HDMA scanline wave distortion |
+| 15b | [graphics/effects/hdma_wave_table](graphics/effects/hdma_wave_table/) | Raw HDMA table built in C, krom-style repoint animation |
 | 16 | [graphics/effects/gradient_colors](graphics/effects/gradient_colors/) | HDMA + CGRAM color gradients |
 | 17 | [graphics/effects/parallax_scrolling](graphics/effects/parallax_scrolling/) | HDMA parallax scrolling |
 | 18 | [graphics/effects/transparency](graphics/effects/transparency/) | Color math (add/subtract blending) |

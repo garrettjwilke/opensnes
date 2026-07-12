@@ -173,6 +173,18 @@
     "rom_sha256": "643f7de0c2c3a2868116b9fe74b4ec5ff95b97d852627613cb368f96cb4c4d28",
     "steps": 3000000
   },
+  "graphics_effects_hdma_wave_table": {
+    "fbhash": [
+      "991fb9b5c63ce1c6",
+      "8de179b73d336650"
+    ],
+    "luna_version": "v1.7.0",
+    "rom_sha256": "048435b508b1243345741cbeebe6b0bb30f6c463297265b9fa5a29e25fd5e65e",
+    "steps": [
+      3000000,
+      6000000
+    ]
+  },
   "graphics_effects_mosaic": {
     "fbhash": "c641b594c398e9b1",
     "luna_version": "v1.7.0",
