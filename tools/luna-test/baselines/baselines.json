@@ -175,11 +175,11 @@
   },
   "graphics_effects_hdma_wave_table": {
     "fbhash": [
-      "2e1f6169dfd35cff",
-      "fab4a89feb03677f"
+      "cea53255935f2d66",
+      "34867d5810d3875d"
     ],
     "luna_version": "v1.7.0",
-    "rom_sha256": "7ee9354587a1f7809212af1f1d9c7c8fa3755e9105d58890820018b682d73f49",
+    "rom_sha256": "764fff08fa1829cd668602e57c1be7527d64237f32b457cd3398474ea39ebfad",
     "steps": [
       3000000,
       6000000
