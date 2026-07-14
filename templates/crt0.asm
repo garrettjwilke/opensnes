@@ -160,6 +160,12 @@
     nmitimen_shadow dsb 1   ; Software copy of $4200 (write-only reg). ALL
                             ; NMITIMEN writes must go through this shadow so
                             ; nmiSet/irqEnable don't clobber each other's bits.
+    in_nmi_ctx      dsb 1   ; 1 while the user NMI callback runs. tcc_mul16 /
+                            ; tcc_div16 test it and take their software path:
+                            ; the hardware mul/div unit ($4202-$4217) reads
+                            ; garbage during the auto-joypad window the
+                            ; callback runs in, and is not reentrant against
+                            ; a main-thread multiply the NMI interrupted.
 .ENDS
 
 ;------------------------------------------------------------------------------
@@ -1083,6 +1089,15 @@ FastNmi:
     .INDEX 16
 
 @do_callback:
+    ; Flag the NMI context so the mul/div runtime avoids the hardware
+    ; unit (auto-joypad window + non-reentrancy — see in_nmi_ctx decl).
+    sep #$20
+    .ACCU 8
+    lda #1
+    sta.w in_nmi_ctx
+    rep #$20
+    .ACCU 16
+
     ; Set data bank to $7E for C variable access
     ; D already = tcc__nmi_registers (callback uses NMI register space)
     pea $7E7E
@@ -1098,6 +1113,12 @@ FastNmi:
     pea $0000
     plb
     plb
+
+    sep #$20
+    .ACCU 8
+    stz.w in_nmi_ctx
+    rep #$20
+    .ACCU 16
 
 @skip_callback:
     sep #$20            ; 8-bit A

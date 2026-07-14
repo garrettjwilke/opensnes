@@ -13,9 +13,9 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 60 ROMs · **58 OK, 2 INPUT-DE
 | `basics/aim_target` | OK | live (77f/77nmi) |
 | `basics/collision_demo` | OK | live (82f/81nmi) |
 | `basics/fix32_orbit` | OK | live (76f/75nmi) |
-| `basics/random` | OK | live (298f/297nmi) |
+| `basics/random` | OK | live (303f/303nmi) |
 | `basics/scene_stack` | OK | live (72f/71nmi) |
-| `basics/timer` | OK | live (184f/184nmi) |
+| `basics/timer` | OK | live (187f/186nmi) |
 | `games/breakout` | OK | live (85f/84nmi) |
 | `games/likemario` | OK | live (109f/100nmi) |
 | `games/mapandobjects` | OK | live (88f/87nmi) |
@@ -41,7 +41,7 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 60 ROMs · **58 OK, 2 INPUT-DE
 | `graphics/effects/mode7_perspective_rotate` | OK | live (77f/76nmi) |
 | `graphics/effects/mosaic` | OK | live (71f/70nmi) |
 | `graphics/effects/parallax_scrolling` | OK | live (143f/142nmi) |
-| `graphics/effects/superfx_3d` | OK | live (289f/145nmi) |
+| `graphics/effects/superfx_3d` | OK | live (289f/146nmi) |
 | `graphics/effects/transparency` | OK | live (141f/140nmi) |
 | `graphics/effects/transparent_window` | OK | live (72f/71nmi) |
 | `graphics/effects/window` | OK | live (72f/71nmi) |
@@ -51,7 +51,7 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 60 ROMs · **58 OK, 2 INPUT-DE
 | `graphics/sprites/metasprite` | OK | live (185f/184nmi) |
 | `graphics/sprites/object_size` | OK | live (75f/74nmi) |
 | `graphics/sprites/simple_sprite` | OK | live (71f/70nmi) |
-| `input/controller` | OK | live (109f/108nmi) |
+| `input/controller` | OK | live (110f/109nmi) |
 | `input/mouse` | INPUT-DEP | live (73f/72nmi) |
 | `input/superscope` | INPUT-DEP | live (73f/72nmi) |
 | `input/two_players` | OK | live (75f/74nmi) |

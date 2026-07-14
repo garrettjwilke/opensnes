@@ -54,9 +54,9 @@
     "steps": 3000000
   },
   "basics_timer": {
-    "fbhash": "e8e51e46a90a3b2c",
-    "luna_version": "v1.7.0",
-    "rom_sha256": "31e5135051a0430ad1ea1abda47545f3a3707d023108d42c15bad5514629467f",
+    "fbhash": "b039bdac27481a77",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "add8347fdc8ab9760d1e3778dfc29034034f79c3239e26b6d7682f7b0234bf11",
     "steps": 3000000
   },
   "games_breakout": {
@@ -78,9 +78,9 @@
     "steps": 3000000
   },
   "games_shmup_1942": {
-    "fbhash": "e451eeef98e4139c",
+    "fbhash": "0b8b85a605f4544d",
     "luna_version": "v1.9.0",
-    "rom_sha256": "286a7d2ffdf0f6bd0ab700aab7ec6a0287222a0e65707c77dfb7aab80c30bd8d",
+    "rom_sha256": "949aee63855f51f1d96e870767f7f8f9078cf49796e72435b91b6bb51e9911c4",
     "steps": 3000000
   },
   "games_tetris": {
@@ -222,9 +222,9 @@
     ]
   },
   "graphics_effects_superfx_3d": {
-    "fbhash": "7b36b6ea0e2a88ac",
+    "fbhash": "7fa89bfffd841ce9",
     "luna_version": "v1.9.0",
-    "rom_sha256": "14359264bb5da4c7c084c3395d3c75002703aa82b4ed49d5be6d425f02a9be4a",
+    "rom_sha256": "85427fcc0184efc1585d1f4df6134c8dec4699fd15bcdff8bfa4172548750d65",
     "steps": 3000000
   },
   "graphics_effects_transparency": {

@@ -33,6 +33,9 @@ CASES = [
     ("r_div_zero", 2, 0),
     ("r_mod_zero", 2, 0),
     ("r_mul",      2, 5535),
+    ("r_nmi_mul",  2, 17243),  # 123*673 & 0xFFFF, computed in the nmiSet callback (#113)
+    ("r_nmi_div",  2, 4714),   # 33000/7 in the callback — 8-bit-divisor (hardware) path pre-fix
+    ("r_nmi_mod",  2, 2),      # 33000%7 in the callback
     ("r_sqrt",     2, 12),
     ("r_rmw_u8",      2, 200),
     ("r_anim_loop",   2, 10),
