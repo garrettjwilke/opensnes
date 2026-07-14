@@ -1,6 +1,6 @@
 # Learn SNES Development {#learning_path}
 
-A progressive learning path through 60 examples, from your first ROM to complete games.
+A progressive learning path through 61 examples, from your first ROM to complete games.
 Each example builds on concepts from earlier ones.
 
 ## Level 1: First Steps

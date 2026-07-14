@@ -166,6 +166,11 @@
                             ; garbage during the auto-joypad window the
                             ; callback runs in, and is not reentrant against
                             ; a main-thread multiply the NMI interrupted.
+    setini_shadow   dsb 1   ; Software copy of SETINI $2133 (write-only).
+                            ; videoSetInterlace/ObjInterlace/Overscan/
+                            ; PseudoHires compose their bits through it
+                            ; (same pattern as nmitimen_shadow). Zeroed
+                            ; by the WRAM clear at boot = reset state.
 .ENDS
 
 ;------------------------------------------------------------------------------

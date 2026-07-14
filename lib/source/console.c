@@ -326,3 +326,22 @@ void irqDisable(void) {
     /* Drop any already-latched timer IRQ so it can't fire one last time. */
     clearIrqFlag();
 }
+
+/*============================================================================
+ * SETINI ($2133, write-only) — see video.h for the setter contracts
+ *============================================================================*/
+
+extern volatile u8 setini_shadow; /* crt0 sysvar, zeroed at boot */
+
+static void setiniWrite(u8 bit, u8 on) {
+    if (on)
+        setini_shadow |= bit;
+    else
+        setini_shadow &= (u8)~bit;
+    REG_SETINI = setini_shadow;
+}
+
+void videoSetInterlace(u8 on)    { setiniWrite(0x01, on); }
+void videoSetObjInterlace(u8 on) { setiniWrite(0x02, on); }
+void videoSetOverscan(u8 on)     { setiniWrite(0x04, on); }
+void videoSetPseudoHires(u8 on)  { setiniWrite(0x08, on); }
