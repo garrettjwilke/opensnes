@@ -39,6 +39,7 @@
   "graphics_effects_transparency": "736cf4f046dee74ca9d2888824e0ab2ffefcdfc35b4a61c515bccadefdda1045",
   "graphics_effects_transparent_window": "0aa1ce04373bbd1b1609e4e64eb307f9a2ca6464507791823acfd098df2174c9",
   "graphics_effects_window": "63732a4282dcc92bcd5cc429262dfbaadb6c180e3bc021a29ccc9933d0e889ce",
+  "graphics_effects_window_multi_hdma": "44a37377a19b1d460f33a9bb6b26615d63d5a2eb9f37d3738b639f52cf225a0b",
   "graphics_sprites_animated_sprite": "a4f993c8127064c21a7eb4abede075f145a1a168632322b58851312877f0fed2",
   "graphics_sprites_dynamic_metasprite": "7920f0e5c5a52801e7c18da8ee33d94dc83fde8cef6bbdda827c81e8e17a2f67",
   "graphics_sprites_dynamic_sprite": "d628f0020ec845e42bd61e62bc2c1c2889d339a4e5959447991a9c7d05399e0f",
