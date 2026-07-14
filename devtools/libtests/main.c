@@ -36,9 +36,16 @@ u16 r_sqrt;     /* sqrt16(144)      -> 12 */
  * runtime must take its software path (in_nmi_ctx gate). Operands are
  * volatile so cproc can't constant-fold the ops away. Pre-fix, r_nmi_mul
  * read 0. */
+/* regression pin for opensnes#114: an explicit (s16) cast of an
+ * unsigned-derived operand must produce a SIGNED division. Pre-fix the
+ * stale look-through-casts heuristic emitted __div16 (unsigned):
+ * -30000/49 read 725 instead of -612. */
+u16 r_sdiv_cast; /* (s16)-30000 / (s16)(op|1), op=49 -> -612 = 0xFD9C */
+
 u16 r_nmi_mul;  /* 123 * 673 in callback -> 82779 & 0xFFFF = 17243 */
 u16 r_nmi_div;  /* 33000 / 7 in callback -> 4714 (8-bit-divisor path) */
 u16 r_nmi_mod;  /* 33000 % 7 in callback -> 2 */
+static volatile u16 sdiv_op = 49;
 static volatile u16 nmi_op_a = 123, nmi_op_b = 673;
 static volatile u16 nmi_op_c = 33000, nmi_op_d = 7;
 static volatile u8 nmi_math_done;
@@ -123,6 +130,7 @@ int main(void) {
     r_mod_zero = mod16(42, 0);
     r_mul      = mul16(123, 45);
     r_sqrt     = sqrt16(144);
+    r_sdiv_cast = (u16)((s16)-30000 / (s16)(sdiv_op | 1));
 
     rmw.tab = rmw_tab; rmw.idx = 0; rmw.cnt = 2; rmw.fl = 0; rmw.rsv = 0;
     rmw_step(&rmw);
