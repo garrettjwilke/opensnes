@@ -36,9 +36,9 @@
     "steps": 3000000
   },
   "basics_fix32_orbit": {
-    "fbhash": "aacf80a995eb8c67",
-    "luna_version": "v1.7.0",
-    "rom_sha256": "32a1ba1f8e354c5c5b60e38bce52ee1a55495cedcdcb4991c47a015f486eff16",
+    "fbhash": "21dca78f1b245f05",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "56eeb1d66974649873a04b49eee21cdfadc6dc68219f204509de89187fc31c91",
     "steps": 3000000
   },
   "basics_random": {
