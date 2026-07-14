@@ -223,6 +223,15 @@
 /** @brief Destination: Mode 7 matrix A ($211B) */
 #define HDMA_DEST_M7A       0x1B
 
+/** @brief Destination: Mode 7 matrix B ($211C) */
+#define HDMA_DEST_M7B       0x1C
+
+/** @brief Destination: Mode 7 matrix C ($211D) */
+#define HDMA_DEST_M7C       0x1D
+
+/** @brief Destination: Mode 7 matrix D ($211E) */
+#define HDMA_DEST_M7D       0x1E
+
 /*============================================================================
  * Core HDMA Functions
  *============================================================================*/
