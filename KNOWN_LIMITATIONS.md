@@ -173,6 +173,19 @@ before committing.
 
 ## Toolchain & emulator coverage
 
+### 🟡 `fixMul()` / `fixLerp()` are not safe inside nmiSet() callbacks
+
+They use the hardware multiplier ($4202-$4217) plus shared WRAM
+temporaries; the hardware unit reads auto-joypad garbage during the
+window NMI callbacks run in, and is not reentrant against an interrupted
+main-thread multiply. Plain C `*` / `/` / `%` **are** callback-safe —
+the compiler runtime detects the NMI context (`in_nmi_ctx`) and switches
+to software paths. Symptom if ignored: silently wrong fixed-point values,
+only when computed inside the callback. Mitigation: compute fixed-point
+math in the main loop, or use plain integer operators in the callback.
+(Headers carry the same @warning; see
+`.claude/notes/tech/nmi_context_hardware_muldiv.md` for the full story.)
+
 ### 🟡 SA-1 SIWP/CIWP write-protection polarity is disputed
 `templates/crt0.asm` enables SA-1 I-RAM access by writing the SIWP register
 `$002229` (twice: early init ~`:519-526`, and the SA-1 boot block
