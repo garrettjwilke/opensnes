@@ -203,6 +203,18 @@
     "rom_sha256": "8cfa955b1c650f13ac6215758e3855bdcef268905af9b628e837b9e65c360216",
     "steps": 3000000
   },
+  "graphics_effects_hicolor_blend": {
+    "fbhash": "7ca6dbfcdd9ccbe3",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "b63b93ccc3e12311dfb2e894181482747fbbf829138dd49f6a26c7f819d894e3",
+    "steps": 3000000
+  },
+  "graphics_effects_hicolor_hires": {
+    "fbhash": "2a1838341c8195ac",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "8dfa1bc54b6f5b04b732fffd97d8a90c9e6eaec96c71ed923ca09525cd40dc31",
+    "steps": 3000000
+  },
   "graphics_effects_hires_text": {
     "fbhash": "99f0df452fca5b37",
     "luna_version": "v1.9.0",
