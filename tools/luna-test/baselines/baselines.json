@@ -155,6 +155,12 @@
     "rom_sha256": "7f3af9df1092535c46e91532792dbc630ff4ee361c3cfccd66eb6223b86a35be",
     "steps": 3000000
   },
+  "graphics_effects_gradient_9bit": {
+    "fbhash": "b979654917d19695",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "a01a90ad58052cc081e9534b7f0c30d7db6467073e7e2c783ee04bb85b09c5dc",
+    "steps": 3000000
+  },
   "graphics_effects_gradient_colors": {
     "fbhash": "d4de1075b588d3b3",
     "luna_version": "v1.7.0",

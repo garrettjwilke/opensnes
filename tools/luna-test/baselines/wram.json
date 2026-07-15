@@ -25,6 +25,7 @@
   "graphics_backgrounds_mode7": "fa577399e9972b5eb78d14129cdecff55716df8db9eecdf6b894c01a7c857ee5",
   "graphics_backgrounds_mode7_perspective": "7b6532f9e524ee38e02871c32bc02df6dc74db1180b743d68de74adbfe0d0908",
   "graphics_effects_fading": "b77d3c5550485b5d7ac5f0c02c6c721e26008da92dec2e15da76b7d6623191b0",
+  "graphics_effects_gradient_9bit": "8535b85f33aa3e81b820216ae9a18e8c9eabf1ae5f9362ba6a833174a5fbf11c",
   "graphics_effects_gradient_colors": "740a6cb1dc4bf9b305ae83c76fa1eb374c7e0bd849d887bbb7f1d851c5cbd5bf",
   "graphics_effects_hdma_helpers": "58513a2106cfd246b90558f808ef9b470087f5c22a6ad0d395439e63650c4c79",
   "graphics_effects_hdma_indirect_gradient": "1792c41e5d28e0014760811027b3912cfa807872d93834e65be7e2bf5ed0b5ad",
