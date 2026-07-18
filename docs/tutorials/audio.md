@@ -248,3 +248,27 @@ Total audio RAM: 64KB
 
 - @ref snesmod.h "SNESMOD API Reference"
 - @ref tutorial_graphics "Back to Graphics"
+
+## The raw APU path (no snesmod)
+
+Since the SPC700 arc, the SDK has a second audio path: the `apu` module
+uploads a wla-spc700-assembled program straight through the IPL boot-ROM
+protocol — `apuWaitBoot()`, `apuUpload()`, `apuExecute()` — giving full
+DSP control (voices, ADSR, echo, pitch) with no tracker involved. Worked
+example: `audio/speech_synth` (phoneme-bank speech — upload, DSP
+config, per-phoneme sequencing). The two paths are exclusive:
+don't link `apu` and `snesmod` in one ROM.
+
+APU-side memory layout matters: the flat binary is laid out by
+`wlalink -b`, and an `.ORG` section that overlaps your growing code
+OVERWRITES it silently (the SPC700-arc sequencer died exactly this way during development).
+Budget the code page before placing the sample directory.
+
+## Debugging audio: luna's spc-dump
+
+`luna spc-dump` runs a ROM and exports the complete APU state — 64 KB of
+ARAM plus all 128 DSP registers — as a standard playable `.spc`. Diffing
+two dumps (yours vs a reference, or two instants of your own ROM) answers
+in seconds what ears cannot localize: upload integrity, directory/loop
+addresses, per-voice ADSR/pitch/envelope state, phoneme/note schedules.
+`--audio-out` (WAV capture) complements it for spectral verification.

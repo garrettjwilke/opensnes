@@ -1,6 +1,6 @@
 # OpenSNES Examples
 
-Learn SNES development step by step. 65 examples organized by topic, building
+Learn SNES development step by step. 66 examples organized by topic, building
 from basic concepts to complete games.
 
 ## Categories
@@ -11,7 +11,7 @@ from basic concepts to complete games.
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
 | [graphics/](graphics/) | 35 | Backgrounds, sprites, visual effects, Mode 7 |
 | [input/](input/) | 4 | Joypads, mouse, Super Scope, multi-player |
-| [audio/](audio/) | 4 | Music and sound effects via SNESMOD |
+| [audio/](audio/) | 5 | Music and sound effects via SNESMOD |
 | [maps/](maps/) | 4 | Tile maps, dynamic streaming, slopes |
 | [memory/](memory/) | 5 | HiROM mode, battery-backed saves, SA-1, SuperFX |
 | [games/](games/) | 5 | Complete game projects (Tetris, Breakout, Mario-like, map+objects, 1942-style shmup) |
@@ -79,6 +79,7 @@ deep-dive of a step below.
 | 27 | [memory/save_game](memory/save_game/) | SRAM persistence (battery saves) |
 | 28 | [audio/snesmod_music](audio/snesmod_music/) | SPC700 music playback via SNESMOD |
 | 29 | [audio/snesmod_sfx](audio/snesmod_sfx/) | Sound effects via SNESMOD |
+| 42c | [audio/speech_synth](audio/speech_synth/) | Phoneme-bank speech synthesis: the SNES says "OPEN SNES" (krom port) |
 
 ### Level 5 -- Maps and Complete Projects
 
