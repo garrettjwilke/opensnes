@@ -264,6 +264,27 @@ APU-side memory layout matters: the flat binary is laid out by
 OVERWRITES it silently (the SPC700-arc sequencer died exactly this way during development).
 Budget the code page before placing the sample directory.
 
+### Hot-swapping APU programs
+
+`apuWaitBoot()` only works once — the IPL handshake is consumed at
+boot. To replace the running program later, use the cooperative reset
+protocol (worked example: `audio/apu_switch`):
+
+1. Build the APU program with `APU_CHECK_RESET` (from
+   `templates/memmap_spc700.inc`) inside its wait loops. The idiom
+   polls CPUIO0 for `APU_RESET_MAGIC`; on match it silences the DSP,
+   acks, re-enables the IPL ROM and jumps to `$FFC0` — the boot ROM is
+   re-entrant.
+2. On the 65816, call `apuReset()`, then `apuUpload()`/`apuExecute()`
+   for the next program — but NOT `apuWaitBoot()` (the reset already
+   consumed the ready signal).
+
+Two contract points, both learned the hard way in `apu_switch`:
+`apuReset()` blocks forever on a program that never polls for the
+magic, and the next program receives the DSP *dirty* — a residual
+`ADSR1` bit 7 from the previous program silently overrides `GAIN`, so
+every register a voice depends on must be written explicitly.
+
 ## Debugging audio: luna's spc-dump
 
 `luna spc-dump` runs a ROM and exports the complete APU state — 64 KB of

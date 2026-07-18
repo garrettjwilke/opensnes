@@ -154,6 +154,55 @@ apuExecute:
 @wait_exec:
     cmp.w $2140             ; IPL acknowledges, then jumps
     bne @wait_exec
+    stz.w $2140             ; park IO0 at $00 so a residual handshake byte
+                            ; can never read as APU_RESET_MAGIC ($FE)
+
+    plb
+    plp
+    rtl
+
+;------------------------------------------------------------------------------
+; void apuReset(void)
+;------------------------------------------------------------------------------
+; Cooperative APU hot-swap: ask the running APU program to return to the
+; IPL boot ROM, then wait until the IPL is ready again. The APU program
+; must poll CPUIO0 ($F4) for APU_RESET_MAGIC ($FE) and run the
+; APU_CHECK_RESET idiom (templates/memmap_spc700.inc): silence the DSP,
+; zero its output ports 0/1 (the ack we wait on below), re-enable the
+; IPL ROM and jump to $FFC0. On return, upload the next program with
+; apuUpload()/apuExecute() — do NOT call apuWaitBoot() again.
+;
+; No stack args (void). Handshake, in order:
+;   1. write $FE to IO0            (the request)
+;   2. wait for IO0 output == $00  (program acked and is jumping to IPL;
+;                                   pre-reset IO0 holds a non-zero
+;                                   command echo, so $00 is unambiguous)
+;   3. wait for $AA/$BB            (IPL up, same signal as cold boot)
+;------------------------------------------------------------------------------
+apuReset:
+    php
+    phb
+    pea $0000
+    plb
+    plb                     ; DBR = $00 for $21xx access
+    sep #$20
+    .ACCU 8
+
+    lda #$FE
+    sta.w $2140             ; APU_RESET_MAGIC on IO0
+@wait_ack:
+    lda.w $2140             ; program zeroes its output port 0 = ack
+    bne @wait_ack
+
+    lda #$AA
+@wait_aa:
+    cmp.w $2140             ; IPL ready signal on IO0
+    bne @wait_aa
+    sta.w $2140             ; clear a possible stale $CC (as apuWaitBoot)
+    lda #$BB
+@wait_bb:
+    cmp.w $2141             ; second ready byte on IO1
+    bne @wait_bb
 
     plb
     plp

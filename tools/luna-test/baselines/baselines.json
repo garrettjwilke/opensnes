@@ -1,4 +1,10 @@
 {
+  "audio_apu_switch": {
+    "fbhash": "714a220e2daaa1e4",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "310e0b1378b33c883ff344a350c35553a842127947677ade8d7d9fc3cb2b11d0",
+    "steps": 3000000
+  },
   "audio_pitch_mod": {
     "fbhash": "890db704a0837c49",
     "luna_version": "v1.9.0",

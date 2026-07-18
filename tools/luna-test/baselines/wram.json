@@ -1,4 +1,8 @@
 {
+  "audio_apu_switch": {
+    "stream": "b6830710deb81a9253aba213603c6fd57946889ec24d7fa4e28739e4e9ae13a7",
+    "rom_sha256": "310e0b1378b33c883ff344a350c35553a842127947677ade8d7d9fc3cb2b11d0"
+  },
   "audio_pitch_mod": {
     "stream": "d04aa1ba3fb32b1d296cb9f5a827014458b51ee5fb91ee5b959bddf28f55d4b3",
     "rom_sha256": "73334849165348b73cd37cea1aa4d4572db1d3c715d7f1a262da875384248d5e"

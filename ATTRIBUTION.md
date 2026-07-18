@@ -152,5 +152,14 @@ Incompatible (do not use without isolation):
   recording's original source is unknown — revisit before any
   commercial redistribution. The companion 9-byte LFO square wave is
   transcribed in `player.spc700.asm` (technique, not an asset).
+
+## examples/audio/apu_switch
+
+- `res/cello.brr` — same sample and caveat as
+  `examples/audio/pitch_mod` above (byte-identical copy; the example
+  hot-swaps between this repo's own drum and cello APU programs).
+  krom's PlayTwoSong demo, whose *protocol* this example ports, ships
+  songs built from samples ripped from commercial games — none of
+  those assets are used here.
   `audio/play_noise` ships no assets at all (DSP noise generator only,
   technique credited to the same repository).
