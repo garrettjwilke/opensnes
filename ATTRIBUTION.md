@@ -142,3 +142,15 @@ Incompatible (do not use without isolation):
   The HDMA technique it demonstrates is a C port of "SNES Wave HDMA Demo"
   by krom (Peter Lemon), github.com/PeterLemon/SNES — code technique
   credited, no krom assets used.
+
+## examples/audio/pitch_mod
+
+- `res/cello.brr` — the cello BRR sample shipped with krom (Peter
+  Lemon)'s PitchMod demo (github.com/PeterLemon/SNES,
+  `SPC700/PitchMod/BRR/`), used at his exact loop point (4167) and
+  pitch. krom's repository carries no explicit license, and the
+  recording's original source is unknown — revisit before any
+  commercial redistribution. The companion 9-byte LFO square wave is
+  transcribed in `player.spc700.asm` (technique, not an asset).
+  `audio/play_noise` ships no assets at all (DSP noise generator only,
+  technique credited to the same repository).

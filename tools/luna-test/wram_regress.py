@@ -77,6 +77,7 @@ def stale_sources(rom: Path) -> list[Path]:
     stale = []
     for f in rom.parent.rglob("*"):
         if (f.is_file() and f.suffix in SOURCE_SUFFIXES
+                and f.name != "screenshot.png"  # README artifact, not an input
                 and f.stat().st_mtime > rom_m):
             stale.append(f)
     return stale

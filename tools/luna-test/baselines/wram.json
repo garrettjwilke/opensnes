@@ -1,4 +1,12 @@
 {
+  "audio_pitch_mod": {
+    "stream": "d04aa1ba3fb32b1d296cb9f5a827014458b51ee5fb91ee5b959bddf28f55d4b3",
+    "rom_sha256": "73334849165348b73cd37cea1aa4d4572db1d3c715d7f1a262da875384248d5e"
+  },
+  "audio_play_noise": {
+    "stream": "4daf0f630e4176c662da0479a8e14f82a5e00728158ac4c2bde40718bf8cf3bc",
+    "rom_sha256": "5270213b9fce9995748423ab327a1348c723f5c7e83793d501ef43df89017a3c"
+  },
   "audio_snesmod_music": {
     "stream": "0f756f7aff595a15632c7dd8e42de31b6857517a0b7598179eebedc3776881d8",
     "rom_sha256": "f21b982c544a783e415b74f0a88a54f3c5b5ab39748a3586c3454232b79085fe"
