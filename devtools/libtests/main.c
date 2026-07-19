@@ -130,6 +130,11 @@ u16 r_audio_free;   /* audioGetFreeMemory() -> 0xC000-0x0B00-9 = 0xB4F7 */
 u16 r_audio_addr;   /* AudioSample.spcAddress of slot 0 -> 0x0B00       */
 u16 r_audio_voice;  /* audioPlaySampleEx(...) -> voice 0 (round-robin)  */
 
+/* audio v2 phase 3: echo config + live voice-state readback. Echo DSP
+ * registers (ESA/EDL/EFB/EVOL/FIR0/EON) asserted by the spc-dump
+ * probe; here we assert the one DSP->CPU read path. */
+u16 r_audio_active; /* GetVoiceState(0).active while the beep loops -> 1 */
+
 u16 r_done;     /* 0xBEEF once every assignment above has executed */
 
 DECLARE_ANIM_CLIP(clip_a, ANIM_LOOP, 2, 10, 20, 30);
@@ -166,6 +171,20 @@ int main(void) {
         }
     }
     r_audio_voice = audioPlaySampleEx(0, 127, AUDIO_PAN_CENTER, 0x1000);
+
+    /* phase 3: hall on voice 0's beep + live envelope readback. The
+     * echo values are arbitrary-but-distinct probe vectors. */
+    audioSetEcho(3, 40, 20, 20);
+    {
+        static const s8 fir[8] = { 96, 0, 0, 0, 0, 0, 0, 0 };
+        audioSetEchoFilter(fir);
+    }
+    audioEnableEcho(0x01);
+    {
+        AudioVoiceState vs;
+        audioGetVoiceState(0, &vs);
+        r_audio_active = vs.active;
+    }
 
     r_div_a    = div16(100, 7);
     r_mod_a    = mod16(100, 7);

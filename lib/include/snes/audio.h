@@ -2,14 +2,14 @@
  * @file audio.h
  * @brief OpenSNES Audio System
  *
- * @warning **v2 rollout in progress.** The engine was rebuilt in 2026-07
- *          on the raw-APU path (pure C command layer `audio.c` + resident
- *          SPC700 driver built from source — the legacy PVSnesLib-ABI
- *          `audio.asm` is gone). Implemented today: init/ready, master
- *          volume, per-voice volume/pitch/ADSR/gain, stop. Sample
- *          loading/playback (phase 2) and echo (phase 3) are honest
- *          stubs returning errors until they land — see
- *          `.claude/notes/chantiers/audio_v2.md` for the plan.
+ * @note **v2 engine** (2026-07): rebuilt on the raw-APU path — a pure C
+ *       command layer (`audio.c`) driving a resident SPC700 driver built
+ *       from source at lib build time (the legacy PVSnesLib-ABI
+ *       `audio.asm` is gone). The full surface below is implemented:
+ *       init/ready, master volume, per-voice control, dynamic BRR
+ *       loading, playback with pan/pitch, echo with FIR filter, and
+ *       live voice-state readback. Design notes:
+ *       `.claude/notes/chantiers/audio_v2.md`.
  *
  * @warning Main-thread only — do not call audio functions from an NMI
  *          callback. One engine per ROM: do not link `audio` and
@@ -39,7 +39,7 @@
  *     while (1) {
  *         WaitForVBlank();
  *         if (padPressed(0) & KEY_A) {
- *             audioPlaySample(0);        // phase 2 — stub until it lands
+ *             audioPlaySample(0);
  *         }
  *     }
  * }
@@ -382,10 +382,16 @@ void audioSetGain(u8 voice, u8 mode);
 /**
  * @brief Configure echo parameters
  *
- * @param delay Echo delay (1-15, delay_ms = value * 16)
+ * @param delay Echo delay 1-7 (delay_ms = value * 16; values above 7
+ *              are clamped — the ARAM map reserves 14 KB max for the
+ *              echo ring, keeping 46 KB for samples)
  * @param feedback Feedback amount (-128 to 127)
  * @param volumeL Left echo volume (-128 to 127)
  * @param volumeR Right echo volume (-128 to 127)
+ *
+ * Reconfiguration clears the whole echo ring before re-enabling echo
+ * writes (~9 ms per delay unit) — call at scene setup, not per frame.
+ * Call this BEFORE audioEnableEcho().
  */
 void audioSetEcho(u8 delay, s8 feedback, s8 volumeL, s8 volumeR);
 

@@ -115,12 +115,12 @@ cmd_table:
     .dw cmd_vpitch      ; $05
     .dw cmd_vadsr       ; $06
     .dw cmd_vgain       ; $07
-    .dw cmd_unknown     ; $08 (phase 3: ECHO_CFG)
-    .dw cmd_unknown     ; $09 (phase 3: ECHO_FIR)
-    .dw cmd_unknown     ; $0A (phase 3: ECHO_ON)
+    .dw cmd_echo_cfg    ; $08
+    .dw cmd_echo_fir    ; $09
+    .dw cmd_echo_on     ; $0A
     .dw cmd_dir_set     ; $0B
     .dw cmd_load        ; $0C
-    .dw cmd_unknown     ; $0D (phase 3: ENVX)
+    .dw cmd_envx        ; $0D
     .dw cmd_ping        ; $0E
     .dw cmd_load_size   ; $0F
 
@@ -246,6 +246,98 @@ cmd_vgain:
 cmd_ping:
     mov a, #DRIVER_VERSION
     mov $F5, a
+    jmp !ack
+
+;------------------------------------------------------------------------------
+; $08 ECHO_CFG — p0 = EDL (1-7, validated CPU-side), p1 = EVOLL:EVOLR.
+; Full (re)configuration: disable echo writes, point ESA at $C000,
+; set EDL, CLEAR the whole EDL x 2 KB ring (an uncleared ring plays
+; garbage), set the volumes, then re-enable echo writes. The clear
+; takes ~EDL x 9 ms — config-time cost, not runtime.
+;------------------------------------------------------------------------------
+cmd_echo_cfg:
+    WDSP $6C, $20       ; FLG: echo writes OFF during reconfig
+    mov $F2, #$6D       ; ESA: echo ring at $C000
+    mov $F3, #$C0
+    mov $F2, #$7D       ; EDL
+    mov a, ZP_P0
+    mov $F3, a
+
+    ; clear EDL * 2KB = EDL * 8 pages from $C000 (self-indexed via ZP ptr)
+    mov a, ZP_P0
+    asl a
+    asl a
+    asl a               ; pages = EDL * 8
+    mov x, a
+    mov a, #$00
+    mov ZP_DST_L, a
+    mov a, #$C0
+    mov ZP_DST_H, a
+    mov y, #$00
+    mov a, #$00
+echo_clear:
+    mov [ZP_DST_L]+y, a
+    inc y
+    bne echo_clear
+    inc ZP_DST_H        ; next 256-byte page
+    dec x
+    bne echo_clear
+
+    mov $F2, #$2C       ; EVOLL
+    mov a, ZP_P1L
+    mov $F3, a
+    mov $F2, #$3C       ; EVOLR
+    mov a, ZP_P1H
+    mov $F3, a
+    WDSP $6C, $00       ; FLG: echo writes back ON
+    jmp !ack
+
+;------------------------------------------------------------------------------
+; $09 ECHO_FIR — p0 = tap index 0-7 ($0F..$7F step $10), p1lo = coef.
+; Index 8 is an extension: EFB (echo feedback) — same signed-byte shape.
+;------------------------------------------------------------------------------
+cmd_echo_fir:
+    mov a, ZP_P0
+    cmp a, #$08
+    beq @fir_efb
+    xcn a               ; index << 4
+    or a, #$0F          ; FIRx register
+    mov $F2, a
+    mov a, ZP_P1L
+    mov $F3, a
+    jmp !ack
+@fir_efb:
+    mov $F2, #$0D       ; EFB
+    mov a, ZP_P1L
+    mov $F3, a
+    jmp !ack
+
+;------------------------------------------------------------------------------
+; $0A ECHO_ON — p0 = EON voice mask. Mask 0 = full echo off: mute the
+; echo output and stop ring writes too (audioDisableEcho).
+;------------------------------------------------------------------------------
+cmd_echo_on:
+    mov $F2, #$4D       ; EON
+    mov a, ZP_P0
+    mov $F3, a
+    bne @eon_done
+    WDSP $2C, $00       ; EVOLL = 0
+    WDSP $3C, $00       ; EVOLR = 0
+    WDSP $6C, $20       ; FLG: echo writes off
+@eon_done:
+    jmp !ack
+
+;------------------------------------------------------------------------------
+; $0D ENVX — p0 = voice; result0 = the voice's current envelope (7-bit).
+; The only DSP -> CPU read in the protocol (audioGetVoiceState.active).
+;------------------------------------------------------------------------------
+cmd_envx:
+    mov a, ZP_P0
+    xcn a
+    or a, #$08          ; VxENVX
+    mov $F2, a
+    mov a, $F3          ; DSP register read
+    mov $F5, a          ; result0
     jmp !ack
 
 ;------------------------------------------------------------------------------

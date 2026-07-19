@@ -82,6 +82,16 @@ def run() -> tuple[bool, str]:
         (dsp[0x05] == 0x8F and dsp[0x06] == 0xE0,
          f"V0ADSR={dsp[0x05]:02X}/{dsp[0x06]:02X} (want 8F/E0 default)"),
         (dsp[0x08] > 0, f"V0ENVX={dsp[0x08]} (want >0 — beep sounding)"),
+        # phase 3: echo config (audioSetEcho(3,40,20,20) + FIR[0]=96 +
+        # EnableEcho(0x01)) — ESA $C0, ring cleared, writes enabled.
+        (dsp[0x6D] == 0xC0, f"ESA={dsp[0x6D]:02X} (want C0)"),
+        (dsp[0x7D] == 3, f"EDL={dsp[0x7D]} (want 3)"),
+        (dsp[0x0D] == 40, f"EFB={dsp[0x0D]} (want 40)"),
+        (dsp[0x2C] == 20 and dsp[0x3C] == 20,
+         f"EVOL={dsp[0x2C]}/{dsp[0x3C]} (want 20/20)"),
+        (dsp[0x0F] == 96, f"FIR0={dsp[0x0F]} (want 96)"),
+        (dsp[0x4D] == 0x01, f"EON={dsp[0x4D]:02X} (want 01)"),
+        (dsp[0x6C] & 0x20 == 0, f"FLG={dsp[0x6C]:02X} (echo writes enabled)"),
     ]
 
     if DRIVER_BIN.is_file():

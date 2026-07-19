@@ -66,6 +66,9 @@ CASES = [
     ("r_audio_free",  2, 0xB4F7),
     ("r_audio_addr",  2, 0x0B00),
     ("r_audio_voice", 2, 0),
+    # phase 3: the DSP->CPU read path — voice 0's envelope is live
+    # (looping beep, full-sustain default ADSR) so active == 1.
+    ("r_audio_active", 2, 1),
     ("r_done",     2, 0xBEEF),
 ]
 

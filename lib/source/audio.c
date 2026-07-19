@@ -39,8 +39,12 @@
 #define OP_VPITCH    0x05
 #define OP_VADSR     0x06
 #define OP_VGAIN     0x07
+#define OP_ECHO_CFG  0x08
+#define OP_ECHO_FIR  0x09   /* p0 = tap 0-7; 8 = EFB extension */
+#define OP_ECHO_ON   0x0A
 #define OP_DIR_SET   0x0B
 #define OP_LOAD      0x0C
+#define OP_ENVX      0x0D
 #define OP_PING      0x0E
 #define OP_LOAD_SIZE 0x0F
 
@@ -397,7 +401,12 @@ void audioGetVoiceState(u8 voice, AudioVoiceState *state) {
     if (voice >= AUDIO_MAX_VOICES || !state) {
         return;
     }
-    state->active = 0;              /* phase 3: ENVX poll */
+    /* The one DSP->CPU read: the voice's live envelope. Everything
+     * else is answered from the WRAM mirror. */
+    state->active = 0;
+    if (cmd_send(OP_ENVX, voice, 0) == AUDIO_OK && APU_IO1 > 0) {
+        state->active = 1;
+    }
     state->sampleId = voice_mirror[voice].sample_id;
     state->volume = voice_mirror[voice].volume;
     state->pan = voice_mirror[voice].pan;
@@ -405,20 +414,44 @@ void audioGetVoiceState(u8 voice, AudioVoiceState *state) {
 }
 
 /*============================================================================
- * Echo — PHASE 3 (not implemented yet)
+ * Echo
  *============================================================================*/
 
 void audioSetEcho(u8 delay, s8 feedback, s8 volumeL, s8 volumeR) {
-    (void)delay; (void)feedback; (void)volumeL; (void)volumeR;
+    if (delay < AUDIO_ECHO_DELAY_MIN) {
+        delay = AUDIO_ECHO_DELAY_MIN;
+    }
+    if (delay > 7) {
+        /* The ARAM map reserves $C000-$F7FF for the ring (7 x 2 KB max);
+         * EDL 8-15 would collide with the IPL region. Documented v2 cap. */
+        delay = 7;
+    }
+    /* EFB rides the FIR command as tap index 8 (same signed-byte shape),
+     * keeping ECHO_CFG's params free for EDL + both volumes. */
+    if (cmd_send(OP_ECHO_FIR, 8, (u16)(u8)feedback) != AUDIO_OK) {
+        return;
+    }
+    cmd_send(OP_ECHO_CFG, delay,
+             (u16)((u16)(u8)volumeR << 8 | (u8)volumeL));
 }
 
 void audioSetEchoFilter(const s8 fir[8]) {
-    (void)fir;
+    u8 i;
+    if (!fir) {
+        return;
+    }
+    for (i = 0; i < 8; i++) {
+        if (cmd_send(OP_ECHO_FIR, i, (u16)(u8)fir[i]) != AUDIO_OK) {
+            return;
+        }
+    }
 }
 
 void audioEnableEcho(u8 voiceMask) {
-    (void)voiceMask;
+    cmd_send(OP_ECHO_ON, voiceMask, 0);
 }
 
 void audioDisableEcho(void) {
+    /* Mask 0 makes the driver also mute EVOL and stop ring writes. */
+    cmd_send(OP_ECHO_ON, 0, 0);
 }
