@@ -43,6 +43,27 @@ Measurement points per module = its hot paths as named by the
 catalogue + the functions its examples actually call (grep-derived,
 not guessed).
 
+## Baselines — mode7.asm (ASM original, 2026-07-19)
+
+Instrument: `devtools/benchrom` (20 000 iterations/fn, frame-count
+brackets, empty-loop calibration 53.6 cyc/iter subtracted; ~59 561
+CPU cycles/frame NTSC). `python3 devtools/benchrom/bench.py`.
+
+| Function | frames | ~cycles/call |
+|---|---|---|
+| mode7SetAngle | 203 | **551** |
+| mode7SetScale | 47 | 86 |
+| mode7SetCenter | 53 | 104 |
+| mode7SetMatrix | 73 | 164 |
+| mode7Transform | 275 | **765** |
+
+Per-frame budget context: an example calling SetAngle every frame
+spends 551/59 561 ≈ 0.9 % of the frame in it. The +10 % rule
+therefore allows the C port ≈ 606 cyc for SetAngle, ≈ 842 for
+Transform. The cheap register-stuffers (SetScale/Center/Matrix) are
+prime C candidates; the trig paths (SetAngle/Transform) are where
+the LUT indexing quality of the codegen will decide.
+
 ## Acceptance criteria (per module, from the catalogue)
 
 1. A written keep/migrate decision in this note with the benchmark
