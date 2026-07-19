@@ -19,6 +19,7 @@
 
 #include <snes.h>
 #include <snes/mode7.h>
+#include <snes/map.h>
 
 /* Iterations per measured function. Chosen so cheap fns still span
  * >= ~20 frames (quantization < 5 %). volatile so the loop counter
@@ -32,6 +33,15 @@ u16 r_m7_setscale;   /* mode7SetScale(s, s)                        */
 u16 r_m7_setcenter;  /* mode7SetCenter(x, y)                       */
 u16 r_m7_setmatrix;  /* mode7SetMatrix(a, b, c, d)                 */
 u16 r_m7_transform;  /* mode7Transform(deg, scale) — the heavy one */
+
+/* map.asm measurement points (real mapscroll data, loaded once).
+ * mapVblank is called OUTSIDE VBlank on purpose: the PPU ignores the
+ * VRAM writes but the CPU work — the thing we measure — is identical. */
+u16 r_map_getmeta;   /* mapGetMetaTile(1280, 80)                    */
+u16 r_map_getprop;   /* mapGetMetaTilesProp(1280, 80)               */
+u16 r_map_camera;    /* mapUpdateCamera(sweep x, 0)                 */
+u16 r_map_update;    /* mapUpdate() after a camera move             */
+u16 r_map_vblankf;   /* mapVblank() with pending scroll work        */
 u16 r_bench_done;    /* 0xBEEF when every result above is written  */
 
 static volatile u16 vi;   /* opaque loop bound (defeats folding) */
@@ -93,6 +103,43 @@ int main(void) {
         mode7Transform(i & 511, 100);
     }
     r_m7_transform = bench_end();
+
+    /* --- map module (real data) --- */
+    extern u8 mapdata[], tilesetdef[], tilesetatt[];
+    mapLoad(mapdata, tilesetdef, tilesetatt);
+
+    bench_begin();
+    for (i = 0; i < vi; i++) {
+        mapGetMetaTile(1280, 80);
+    }
+    r_map_getmeta = bench_end();
+
+    bench_begin();
+    for (i = 0; i < vi; i++) {
+        mapGetMetaTilesProp(1280, 80);
+    }
+    r_map_getprop = bench_end();
+
+    bench_begin();
+    for (i = 0; i < vi; i++) {
+        mapUpdateCamera(i & 511, 0);   /* pans back and forth: streams */
+    }
+    r_map_camera = bench_end();
+
+    bench_begin();
+    for (i = 0; i < vi; i++) {
+        mapUpdateCamera(i & 511, 0);
+        mapUpdate();
+    }
+    r_map_update = bench_end();
+
+    bench_begin();
+    for (i = 0; i < vi; i++) {
+        mapUpdateCamera(i & 511, 0);
+        mapUpdate();
+        mapVblank();
+    }
+    r_map_vblankf = bench_end();
 
     r_bench_done = 0xBEEF;
 

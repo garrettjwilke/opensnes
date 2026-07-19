@@ -21,7 +21,7 @@ from lib import find_luna  # noqa: E402
 import lib as probelib  # noqa: E402
 
 ROM = HERE / "benchrom.sfc"
-STEPS = 80_000_000          # generous: past every loop (r_bench_done gates)
+STEPS = 200_000_000          # generous: past every loop (r_bench_done gates)
 N_ITER = 20_000             # must match main.c
 CYCLES_PER_FRAME = 59_561.0
 
@@ -31,6 +31,11 @@ RESULTS = [
     ("r_m7_setcenter", "mode7SetCenter"),
     ("r_m7_setmatrix", "mode7SetMatrix"),
     ("r_m7_transform", "mode7Transform"),
+    ("r_map_getmeta",  "mapGetMetaTile"),
+    ("r_map_getprop",  "mapGetMetaTilesProp"),
+    ("r_map_camera",   "mapUpdateCamera"),
+    ("r_map_update",   "camera+mapUpdate"),
+    ("r_map_vblankf",  "camera+update+mapVblank"),
 ]
 
 

@@ -143,6 +143,29 @@ emitter lever could close most of it corpus-wide.
 NOT validated yet: the 3 mode7 examples (visual + WRAM) against the C
 port — required before any merge regardless of the perf verdict.
 
+## Baselines — map.asm (ASM original, 2026-07-19)
+
+Same instrument, real mapscroll data (bank-2 pinned blobs as in
+libtest), 20 000 iterations. mapVblank measured OUTSIDE VBlank (PPU
+ignores the writes; the CPU work measured is identical). The camera
+sweep `i & 511` pans 1 px/call, so column streaming fires on ~1/8 of
+iterations — composite numbers, same composite for the C port.
+
+| Point | ~cycles/call |
+|---|---|
+| mapGetMetaTile | 208 |
+| mapGetMetaTilesProp | 223 |
+| mapUpdateCamera | 217 |
+| camera+mapUpdate | 1114 (mapUpdate alone ≈ 897) |
+| camera+update+mapVblank | 1325 (mapVblank alone ≈ 211) |
+
+Migration obstacle flagged up front: map.asm's bulk state (metatile
+defs, properties, row LUT, tilemap buffers) lives in a BANK $7E
+RAMSECTION above the C-visible WRAM mirror (B2: C RAM must be below
+$2000). A C port would need far-pointer access for every buffer
+touch, or the buffers stay in ASM-owned sections with C accessors —
+the verdict may legitimately differ from mode7's.
+
 ## Acceptance criteria (per module, from the catalogue)
 
 1. A written keep/migrate decision in this note with the benchmark
