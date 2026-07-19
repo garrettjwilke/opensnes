@@ -64,6 +64,85 @@ Transform. The cheap register-stuffers (SetScale/Center/Matrix) are
 prime C candidates; the trig paths (SetAngle/Transform) are where
 the LUT indexing quality of the codegen will decide.
 
+## mode7 — C-port experiment, interim state (wip/c1-mode7, 2026-07-19)
+
+Faithful C port written (`mode7.c`: same LUT bytes, PPU-multiplier
+trick via volatile, math.c non-static-const precedent for the table).
+Three measured iterations:
+
+| Function | ASM | C helpers | C macros (best) | C u8-temps | Δ best vs ASM |
+|---|---|---|---|---|---|
+| mode7SetAngle | 551 | 2639 | **1144** | 1230 | +108 % |
+| mode7SetScale | 86 | 74 | **74** | 74 | **−14 %** ✓ |
+| mode7SetCenter | 104 | 685 | **146** | 211 | +40 % |
+| mode7SetMatrix | 164 | 1310 | **259** | 366 | +58 % |
+| mode7Transform | 765 | 3008 | **1513** | 1599 | +98 % |
+
+Lessons already worth their price:
+1. **Helper functions are poison at this scale**: ~340 cyc/call
+   overhead (post-A6 pointer args + frame) — macros only.
+2. Pure-RAM setters are FASTER in C (SetScale −14 %): frameless leaf
+   codegen beats the ASM's php/plp bracket.
+3. The remaining gap is **sep/rep churn around MMIO byte stores**:
+   the emitter re-enters 16-bit mode after every 8-bit store because
+   the next value load is 16-bit; the ASM stays 8-bit for a whole
+   function. Pre-extracting u8 temps makes it WORSE (stack traffic).
+
+### Final state after the byte-pair store fusion (emitter peephole)
+
+The emitter lever WAS taken (qbe ea2372a: storeb+shr8+storeb fused
+into lda16/sep/sta/xba/sta — fires corpus-wide on every 16-bit-to-
+8-bit-MMIO pair) plus two C-side lessons (cache globals in locals so
+the fusion sees one temp; read MPYM/MPYH as ONE volatile u16 like the
+ASM's lda.l \$2135; LUT as initialized RAM static — as ROM const it
+spilled to bank \$01 on mode7_perspective and the symmap guard caught
+the garbage-read).
+
+| Function | ASM | C final | delta | +10 % rule |
+|---|---|---|---|---|
+| mode7SetScale | 86 | 74 | -14 % | PASS (faster) |
+| mode7SetCenter | 104 | 110 | +6 % | PASS |
+| mode7SetMatrix | 164 | 185 | +13 % | FAIL by 21 cyc |
+| mode7SetAngle | 551 | 765 | +39 % | FAIL (+214 cyc) |
+| mode7Transform | 765 | 1135 | +48 % | FAIL (+370 cyc) |
+
+Semantics: 70/70 fbhash bit-identical, probes 17/17, libtest 31/31 —
+both the fusion (whole corpus) and the C port (3 mode7 examples)
+proven behaviour-preserving. Absolute context: SetAngle is the only
+per-frame path in real examples; +214 cyc = 0.36 % of a frame.
+
+**VERDICT (owner, 2026-07-19): MIGRATED — documented rule exception.**
+The +10 % rule is waived for the trig paths on the absolute-cost
+argument above (0.36 % of frame on the sole per-frame caller), traded
+for deleting 481 lines of ASM and the corpus-wide fusion peephole the
+experiment forced into existence. Precedent for future modules: the
+rule stays, exceptions must be argued in absolute cycles ON the
+real per-frame paths, and every migration must pay its way in emitter
+improvements.
+
+Residual gap on the trig paths: LUT indexing + s8 sign extensions +
+the Transform->Rotate->SetAngle call chain. Closing it needs more
+emitter work (sign-extension patterns, call-frame cost).
+
+Original lever list (for the record):
+- **(a) Emitter improvement**: batch/avoid the rep between an 8-bit
+  store and a following 16-bit load whose only consumer is another
+  8-bit store (or a mode-aware store-pair peephole). Benefits the
+  whole corpus (every MMIO-heavy module), in the tradition of the 28
+  QBE perf patches — the C1 audit fixing the COMPILER instead of
+  keeping ASM is the best possible outcome.
+- (b) Per-function split (C for cold, ASM for SetAngle/Transform) —
+  two sources per module, the C2-duplication smell; last resort.
+- (c) Keep mode7.asm as-is, document invariants — the fallback the
+  rule allows.
+
+Absolute context for (a): SetAngle's +593 cyc ≈ +1 % of a frame for
+the one per-frame caller. The +10 % per-function rule stands, but the
+emitter lever could close most of it corpus-wide.
+
+NOT validated yet: the 3 mode7 examples (visual + WRAM) against the C
+port — required before any merge regardless of the perf verdict.
+
 ## Acceptance criteria (per module, from the catalogue)
 
 1. A written keep/migrate decision in this note with the benchmark

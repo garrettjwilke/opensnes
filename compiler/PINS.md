@@ -30,7 +30,7 @@ reformat without updating the script.
 | path | sha | source |
 |------|-----|--------|
 | compiler/cproc | 03d9e5151d298309fdd65e612ffd72e54bafec25 | github.com/k0b3n4irb/cproc:fix/a1-followup-long-kl |
-| compiler/qbe | fbaa1db43e2032e6ef04bcce9d96c99ccf40167f | github.com/k0b3n4irb/qbe:fix/a6-a7-leaf-opt-kl-frameless |
+| compiler/qbe | ea2372aa70964e3da416ad8e79b44680bc66273d | github.com/k0b3n4irb/qbe:fix/a6-a7-leaf-opt-kl-frameless |
 | compiler/wla-dx | ffe59ca1db32a4e7b40e16674acb844a5a0160ef | github.com/k0b3n4irb/wla-dx:master |
 <!-- END PINS -->
 

@@ -13,7 +13,7 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 70 ROMs · **68 OK, 2 INPUT-DE
 | `audio/snesmod_music_hirom` | OK | live (131f/122nmi) |
 | `audio/snesmod_music_large` | OK | live (128f/119nmi) |
 | `audio/snesmod_sfx` | OK | live (97f/88nmi) |
-| `audio/soundboard` | OK | live (113f/112nmi) |
+| `audio/soundboard` | OK | live (144f/143nmi) |
 | `audio/speech_synth` | OK | live (79f/78nmi) |
 | `basics/aim_target` | OK | live (77f/77nmi) |
 | `basics/collision_demo` | OK | live (82f/81nmi) |
@@ -34,7 +34,7 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 70 ROMs · **68 OK, 2 INPUT-DE
 | `graphics/backgrounds/mode1_lz77` | OK | live (74f/73nmi) |
 | `graphics/backgrounds/mode3` | OK | live (71f/70nmi) |
 | `graphics/backgrounds/mode5` | OK | live (71f/70nmi) |
-| `graphics/backgrounds/mode7` | OK | live (71f/71nmi) |
+| `graphics/backgrounds/mode7` | OK | live (72f/71nmi) |
 | `graphics/backgrounds/mode7_perspective` | OK | live (74f/73nmi) |
 | `graphics/effects/fading` | OK | live (71f/70nmi) |
 | `graphics/effects/gradient_9bit` | OK | live (73f/72nmi) |

@@ -1695,19 +1695,19 @@ tutorial update.
 
 ### Category C — Code organisation & maintenance burden
 
-#### C1. Four 100 % ASM modules in `lib/source/` 🟠
+#### C1. Three 100 % ASM modules in `lib/source/` 🟠
 
-**Symptom**: 4 modules in `lib/source/` are 100 % assembly with no C
+**Symptom**: 3 modules in `lib/source/` are 100 % assembly with no C
 side: `map.asm` 1240 LOC, `sprite_dynamic.asm` 1232, `snesmod.asm`
-1201, `mode7.asm` 481. **Total: 4154 LOC of hand-written 65816
-assembly**. Bus factor concentrates on contributors fluent in 65816
+1201. **Total: 3673 LOC of hand-written 65816 assembly**. Bus factor concentrates on contributors fluent in 65816
 assembly. When something breaks, the path to fix is narrow.
 
-*(2026-07-19: `audio.asm` (1324 LOC, was the worst offender AND
-broken-ABI dead code) was retired by the audio v2 chantier — replaced
-by pure-C `audio.c` + an SPC700 driver built from source. One down,
-the precedent for the others is set: see
-`.claude/notes/chantiers/audio_v2.md`.)*
+*(2026-07-19: `audio.asm` (1324 LOC, broken-ABI dead code) retired by
+the audio v2 chantier; `mode7.asm` (481 LOC) MIGRATED to C the same
+day under the C1 audit — benchmark-backed, bit-identical corpus, and
+the migration forced a corpus-wide emitter win (byte-pair store
+fusion). Two down. See `.claude/notes/chantiers/audio_v2.md` and
+`.claude/notes/chantiers/c1_asm_audit.md`.)*
 
 **Root cause**: historical perf optimisation. These modules contain the
 hot paths (NMI flush, OAM upload queue, BRR playback). Writing them in
@@ -1736,7 +1736,8 @@ question:
    (the 28 patches each closed some gap). Re-measure before deciding.
 
 **Effort estimate**: **4–6 weeks** total, distributed:
-- `mode7.asm` (481 LOC, simplest) — 1 week
+- ~~`mode7.asm`~~ DONE (C1 audit, 2026-07-19 — one session, not a week,
+  thanks to benchrom + the fusion peephole)
 - `sprite_dynamic.asm` (1232 LOC, medium) — 1.5 weeks
 - `map.asm` (1240 LOC, medium) — 1.5 weeks
 - ~~`audio.asm`~~ DONE (audio v2 chantier, 2026-07 — deleted, not
