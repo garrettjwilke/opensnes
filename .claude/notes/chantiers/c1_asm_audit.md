@@ -166,6 +166,24 @@ $2000). A C port would need far-pointer access for every buffer
 touch, or the buffers stay in ASM-owned sections with C accessors —
 the verdict may legitimately differ from mode7's.
 
+**VERDICT (2026-07-19): KEEP AS ASM — probe-backed.** A C model of
+the LIGHTEST far path (mapGetMetaTile: 2 far reads through cached
+4-byte pointers, scalars in C statics — the best a full port could
+architecturally do) measured **277 cyc vs 208 ASM (+33 %)**, already
+past the rule before the buffer loops (dozens of $7E accesses per
+streamed column on the VBlank-adjacent path — far access ~13 cyc vs
+DB-direct 5-6). The ~10 KB bank-$7E state cannot move below $2000
+(RAM band would blow on tight examples). Kept-obligations delivered:
+invariants documented in the module header (DB discipline, the #103
+open-bus class, NMI budget, section split); ABI-lint coverage
+confirmed (no skip-file marker). Future emitter idea recorded, NOT
+scheduled: a "pinned data bank" region concept could close the far
+gap — well beyond this audit.
+
+(Probe caveat: its correctness pin returned a wrong tile value — the
+m16 header offset guess — but the measured access SHAPE is the real
+one; the cycle number stands. The probe lives in benchrom's main.c.)
+
 ## Acceptance criteria (per module, from the catalogue)
 
 1. A written keep/migrate decision in this note with the benchmark

@@ -42,9 +42,28 @@ u16 r_map_getprop;   /* mapGetMetaTilesProp(1280, 80)               */
 u16 r_map_camera;    /* mapUpdateCamera(sweep x, 0)                 */
 u16 r_map_update;    /* mapUpdate() after a camera move             */
 u16 r_map_vblankf;   /* mapVblank() with pending scroll work        */
+
+/* C-port probe for the map migration assessment: a C mapGetMetaTile
+ * modelling the full-port architecture — small scalars in C statics
+ * (bank 0), bulk state (row LUT at $7E, map data in its ROM bank)
+ * through cached far pointers. Correctness pinned against the ASM
+ * (same query must yield tile 21, as in libtest). */
+u16 r_map_getmeta_c; /* the C model's cycles                        */
+u16 r_map_c_val;     /* c_getmetatile(1280,80) -> 21 (correctness)  */
 u16 r_bench_done;    /* 0xBEEF when every result above is written  */
 
 static volatile u16 vi;   /* opaque loop bound (defeats folding) */
+
+/* --- C-port probe: far-access mapGetMetaTile model --- */
+extern u16 mapadrrowlut[];        /* $7E RAMSECTION (map.asm) */
+extern u8 mapdata[], tilesetdef[], tilesetatt[];
+static const u16 *lutp;           /* far pointer, cached once  */
+static const u8 *mapp;
+
+static u16 c_getmetatile(u16 x, u16 y) {
+    u16 off = lutp[((y >> 2) & 0xFFFE) >> 1] + ((x >> 2) & 0xFFFE);
+    return *(const u16 *)(mapp + off) & 0x03FF;
+}
 
 /* Frame bracket helpers */
 static u16 t0;
@@ -105,8 +124,9 @@ int main(void) {
     r_m7_transform = bench_end();
 
     /* --- map module (real data) --- */
-    extern u8 mapdata[], tilesetdef[], tilesetatt[];
     mapLoad(mapdata, tilesetdef, tilesetatt);
+    lutp = mapadrrowlut;          /* far pointers for the C model */
+    mapp = mapdata + 8;           /* +8: past the m16 header, as mapLoad */
 
     bench_begin();
     for (i = 0; i < vi; i++) {
@@ -140,6 +160,13 @@ int main(void) {
         mapVblank();
     }
     r_map_vblankf = bench_end();
+
+    r_map_c_val = c_getmetatile(1280, 80);
+    bench_begin();
+    for (i = 0; i < vi; i++) {
+        c_getmetatile(1280, 80);
+    }
+    r_map_getmeta_c = bench_end();
 
     r_bench_done = 0xBEEF;
 

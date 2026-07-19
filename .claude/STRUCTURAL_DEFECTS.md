@@ -1736,10 +1736,11 @@ question:
    (the 28 patches each closed some gap). Re-measure before deciding.
 
 **Effort estimate**: **4–6 weeks** total, distributed:
-- ~~`mode7.asm`~~ DONE (C1 audit, 2026-07-19 — one session, not a week,
-  thanks to benchrom + the fusion peephole)
+- ~~`mode7.asm`~~ DONE (C1 audit, 2026-07-19 — migrated to C, one
+  session thanks to benchrom + the fusion peephole)
+- ~~`map.asm`~~ DONE (C1 audit, 2026-07-19 — verdict KEEP, probe-backed:
+  +33 % on the lightest far path; invariants documented in the header)
 - `sprite_dynamic.asm` (1232 LOC, medium) — 1.5 weeks
-- `map.asm` (1240 LOC, medium) — 1.5 weeks
 - ~~`audio.asm`~~ DONE (audio v2 chantier, 2026-07 — deleted, not
   migrated: it was dead code); `snesmod.asm` (1201 LOC, complex —
   SPC700 interaction) — 1–1.5 weeks
