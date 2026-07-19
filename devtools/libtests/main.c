@@ -20,6 +20,7 @@
 #include <snes/anim.h>
 #include <snes/math.h>
 #include <snes/text.h>
+#include <snes/audio.h>
 
 /* --- math vectors --- */
 u16 r_div_a;    /* div16(100, 7)    -> 14 */
@@ -112,6 +113,14 @@ u16 r_map_tile;   /* mapGetMetaTile(1280,80)      -> 21     */
 u16 r_map_prop;   /* mapGetMetaTilesProp(1280,80) -> 0xFF00 */
 u16 r_map_prop0;  /* mapGetMetaTilesProp(0,0)     -> 0      */
 
+/* --- audio v2 (phase 1): driver boot + command round-trips.
+ * r_audio_ready proves the whole chain: IPL boot, driver upload,
+ * execute, PING handshake (seq-bit command + echo-ack). The setters
+ * after it are WRAM-silent — their DSP effect is asserted by the
+ * spc-dump probe (probes/audio_v2.py), not here. */
+u16 r_audio_ready;  /* audioIsReady() after audioInit() -> 1   */
+u16 r_audio_vol;    /* audioGetVolume() after SetVolume(100) -> 100 */
+
 u16 r_done;     /* 0xBEEF once every assignment above has executed */
 
 DECLARE_ANIM_CLIP(clip_a, ANIM_LOOP, 2, 10, 20, 30);
@@ -122,6 +131,19 @@ int main(void) {
     u8 i;
     AnimPlayer ap = ANIM_PLAYER_INIT;
     RmwProbe rmw;
+
+    /* audio v2 first: audioInit blocks on the APU boot + driver upload
+     * (the longest single step of the fixture — see STEPS in
+     * test_libtest.py). Known DSP vectors for the spc-dump probe:
+     * ADSR(15,7,7,8) packs to $FF/$E8 (the pitch_mod bow-stroke pair). */
+    audioInit();
+    r_audio_ready = audioIsReady();
+    audioSetVolume(100);
+    r_audio_vol = audioGetVolume();
+    audioSetVoiceVolume(2, 80, 40);
+    audioSetVoicePitch(3, 0x1234);
+    audioSetADSR(1, 15, 7, 7, 8);
+    audioSetGain(4, 0x5A);
 
     r_div_a    = div16(100, 7);
     r_mod_a    = mod16(100, 7);

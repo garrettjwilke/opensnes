@@ -2,35 +2,19 @@
  * @file audio.h
  * @brief OpenSNES Audio System
  *
- * @warning **LEGACY API — NOT cc65816-compatible.** The ASM implementation
- *          in `lib/source/audio.asm` uses PVSnesLib's calling convention
- *          (right-to-left push, 1-byte-per-u8 packed args, 24-bit pointers).
- *          cc65816 emits left-to-right, 2-byte-slot args, post-A6 4-byte
- *          pointers — the opposite of each choice. Multi-arg and
- *          pointer-taking functions called from C read their arguments
- *          from the wrong stack slots and operate on garbage.
+ * @warning **v2 rollout in progress.** The engine was rebuilt in 2026-07
+ *          on the raw-APU path (pure C command layer `audio.c` + resident
+ *          SPC700 driver built from source — the legacy PVSnesLib-ABI
+ *          `audio.asm` is gone). Implemented today: init/ready, master
+ *          volume, per-voice volume/pitch/ADSR/gain, stop. Sample
+ *          loading/playback (phase 2) and echo (phase 3) are honest
+ *          stubs returning errors until they land — see
+ *          `.claude/notes/chantiers/audio_v2.md` for the plan.
  *
- *          **What actually works from C today**: zero-arg functions
- *          (`audioInit`, `audioUpdate`, `audioStopAll`, `audioIsReady`,
- *          `audioGetVolume`, `audioGetFreeMemory`, `audioDisableEcho`)
- *          and single-u8-arg functions (`audioSetVolume`,
- *          `audioStopVoice`, `audioPlaySample`, `audioUnloadSample`,
- *          `audioEnableEcho`, `audioSetGain`). The single-arg case
- *          works by coincidence (cc65816's slot 5..6 aligns with the
- *          legacy 6,s read).
- *
- *          **What is broken from C**: multi-arg functions
- *          (`audioPlaySampleEx`, `audioSetVoiceVolume`,
- *          `audioSetVoicePitch`, `audioSetADSR`, `audioSetEcho`),
- *          pointer-taking functions (`audioLoadSample`,
- *          `audioGetSampleInfo`, `audioGetVoiceState`,
- *          `audioSetEchoFilter`), and any function returning a struct.
- *
- *          **What to use instead**: SNESMOD
- *          (`examples/audio/snesmod_*`, lib `LIB_MODULES += snesmod`).
- *          SNESMOD has been validated end-to-end on cc65816 and is the
- *          supported audio path. The detailed analysis lives in
- *          `.claude/notes/tech/audio_legacy_pvsneslib_abi.md`.
+ * @warning Main-thread only — do not call audio functions from an NMI
+ *          callback. One engine per ROM: do not link `audio` and
+ *          `snesmod` together (both own the APU). `apuReset()` hot-swap
+ *          works over this driver ($FE stays reserved).
  *
  * Comprehensive audio API featuring:
  * - 8 simultaneous voices with independent volume/pan/pitch
@@ -38,27 +22,24 @@
  * - Echo/reverb effects with configurable FIR filter
  * - Per-voice ADSR envelope control
  *
- * ## Quick Start (legacy — read the warning above before using)
+ * ## Quick Start
  *
  * @code
- * // NOTE: audioLoadSample is a multi-arg + pointer function and currently
- * //       does NOT pass its args correctly under cc65816. Treat the snippet
- * //       below as historical PVSnesLib usage, not a working OpenSNES
- * //       pattern. Prefer SNESMOD for new code.
+ * // Makefile: LIB_MODULES := console audio input  (audio pulls in apu)
  * #include <snes.h>
  *
  * extern u8 beep_brr[];
  * extern u8 beep_brr_end[];
  *
  * int main(void) {
- *     audioInit();
- *     audioLoadSample(0, beep_brr, beep_brr_end - beep_brr, 0);
+ *     consoleInit();
+ *     audioInit();                       // uploads + starts the driver
+ *     audioLoadSample(0, beep_brr, (u16)(beep_brr_end - beep_brr), 0);
  *
  *     while (1) {
  *         WaitForVBlank();
- *         audioUpdate();
  *         if (padPressed(0) & KEY_A) {
- *             audioPlaySample(0);
+ *             audioPlaySample(0);        // phase 2 — stub until it lands
  *         }
  *     }
  * }
@@ -191,11 +172,14 @@ typedef struct {
 /**
  * @brief Initialize the audio system
  *
- * Uploads the SPC700 driver and prepares for playback.
- * Call once during game initialization.
+ * Uploads the SPC700 driver (built into the lib as audio_driver_blob)
+ * through the IPL boot-ROM protocol and starts it, then verifies the
+ * command channel with a PING. Call once during game initialization;
+ * check audioIsReady() afterwards.
  *
- * @note Takes several frames to upload driver via IPL protocol.
- *       Interrupts are disabled during upload.
+ * @note Blocks for the duration of the upload (~a frame for the small
+ *       driver). Interrupts stay enabled; the NMI handler does not
+ *       touch the APU ports.
  */
 void audioInit(void);
 

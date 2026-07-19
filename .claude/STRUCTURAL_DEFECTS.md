@@ -1695,13 +1695,19 @@ tutorial update.
 
 ### Category C — Code organisation & maintenance burden
 
-#### C1. Five 100 % ASM modules in `lib/source/` 🟠
+#### C1. Four 100 % ASM modules in `lib/source/` 🟠
 
-**Symptom**: 5 modules in `lib/source/` are 100 % assembly with no C
-side: `audio.asm` 1324 LOC, `map.asm` 1240, `sprite_dynamic.asm` 1232,
-`snesmod.asm` 1201, `mode7.asm` 481. **Total: 5478 LOC of hand-written
-65816 assembly**. Bus factor concentrates on contributors fluent in 65816
+**Symptom**: 4 modules in `lib/source/` are 100 % assembly with no C
+side: `map.asm` 1240 LOC, `sprite_dynamic.asm` 1232, `snesmod.asm`
+1201, `mode7.asm` 481. **Total: 4154 LOC of hand-written 65816
+assembly**. Bus factor concentrates on contributors fluent in 65816
 assembly. When something breaks, the path to fix is narrow.
+
+*(2026-07-19: `audio.asm` (1324 LOC, was the worst offender AND
+broken-ABI dead code) was retired by the audio v2 chantier — replaced
+by pure-C `audio.c` + an SPC700 driver built from source. One down,
+the precedent for the others is set: see
+`.claude/notes/chantiers/audio_v2.md`.)*
 
 **Root cause**: historical perf optimisation. These modules contain the
 hot paths (NMI flush, OAM upload queue, BRR playback). Writing them in
@@ -1733,8 +1739,9 @@ question:
 - `mode7.asm` (481 LOC, simplest) — 1 week
 - `sprite_dynamic.asm` (1232 LOC, medium) — 1.5 weeks
 - `map.asm` (1240 LOC, medium) — 1.5 weeks
-- `audio.asm`, `snesmod.asm` (1324 + 1201 LOC, complex — SPC700
-  interaction) — 2–3 weeks combined
+- ~~`audio.asm`~~ DONE (audio v2 chantier, 2026-07 — deleted, not
+  migrated: it was dead code); `snesmod.asm` (1201 LOC, complex —
+  SPC700 interaction) — 1–1.5 weeks
 
 **Dependencies / interactions**:
 - C2 (sprite/text duplication) is a sub-set: addressing it informs the

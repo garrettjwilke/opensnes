@@ -23,7 +23,9 @@ sys.path.insert(0, str(REPO / "tools" / "luna-test" / "probes"))
 from lib import find_luna, assert_mem  # noqa: E402
 
 ROM = HERE / "libtest.sfc"
-STEPS = 1_000_000
+# audioInit() blocks on the APU IPL boot + driver upload (~1.5M CPU
+# instructions) before the rest of the fixture runs — hence the budget.
+STEPS = 3_000_000
 
 # (global, width-bytes, expected-value)
 CASES = [
@@ -53,6 +55,11 @@ CASES = [
     ("r_map_prop0", 2, 0),
     ("s_map_width", 1, 32),
     ("s_cursor_y",  1, 8),
+    # audio v2 phase 1: full boot chain (IPL, driver upload, PING) +
+    # mirrored master volume. DSP-side effects of the voice setters are
+    # asserted by probes/audio_v2.py via spc-dump.
+    ("r_audio_ready", 2, 1),
+    ("r_audio_vol",   2, 100),
     ("r_done",     2, 0xBEEF),
 ]
 
