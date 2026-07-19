@@ -1,6 +1,8 @@
 # Audio System v2 — replace audio.asm on the apu foundation
 
-Status: Phase 0 (spec) — 2026-07-19. Decision record for the chantier
+Status: COMPLETE — all 4 phases shipped 2026-07-19 (driver+boot,
+sample pipeline, echo+ENVX, soundboard example + audio.asm retirement).
+Decision record for the chantier
 that retires `lib/source/audio.asm` (legacy PVSnesLib ABI, zero
 callers, the ABI lint's only skip-file — see
 `.claude/notes/tech/audio_legacy_pvsneslib_abi.md`, resolution

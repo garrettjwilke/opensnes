@@ -1,6 +1,6 @@
 # OpenSNES Examples
 
-Learn SNES development step by step. 69 examples organized by topic, building
+Learn SNES development step by step. 70 examples organized by topic, building
 from basic concepts to complete games.
 
 ## Categories
@@ -11,7 +11,7 @@ from basic concepts to complete games.
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
 | [graphics/](graphics/) | 35 | Backgrounds, sprites, visual effects, Mode 7 |
 | [input/](input/) | 4 | Joypads, mouse, Super Scope, multi-player |
-| [audio/](audio/) | 8 | Music and sound effects: SNESMOD and raw APU/DSP |
+| [audio/](audio/) | 9 | Music and sound effects: SNESMOD and raw APU/DSP |
 | [maps/](maps/) | 4 | Tile maps, dynamic streaming, slopes |
 | [memory/](memory/) | 5 | HiROM mode, battery-backed saves, SA-1, SuperFX |
 | [games/](games/) | 5 | Complete game projects (Tetris, Breakout, Mario-like, map+objects, 1942-style shmup) |
@@ -83,6 +83,7 @@ deep-dive of a step below.
 | 42d | [audio/play_noise](audio/play_noise/) | Drum kit from the DSP noise generator — zero samples (krom port) |
 | 42e | [audio/pitch_mod](audio/pitch_mod/) | Hardware vibrato: PMON pitch modulation + LFO voice (krom port) |
 | 42f | [audio/apu_switch](audio/apu_switch/) | Hot-swap APU programs at runtime: apuReset() + IPL re-entry |
+| 42g | [audio/soundboard](audio/soundboard/) | The audio v2 engine from pure C: dynamic samples, pan/pitch, echo |
 
 ### Level 5 -- Maps and Complete Projects
 

@@ -27,6 +27,10 @@
     "stream": "8762bd8a5c504e8a4f5722afff875bd6ba6b60866ee7defde7a692379bce162c",
     "rom_sha256": "4e3cb0d7558795dcf8d0c4c2e15156f9a29ffcd8c01273158c972e5376847ddd"
   },
+  "audio_soundboard": {
+    "stream": "342c1a11b208f563c7c1b47dba696c6751900dbba1c2857e51a8588169fffa3a",
+    "rom_sha256": "d4c6abb89a67ec137ccb1166379d478c73ad0d7d6d25c9bdfcae1c0d8068aa1c"
+  },
   "audio_speech_synth": {
     "stream": "8fb3e1046dadca93a941b2b86e1a3fc52658afcdc1206a6d14c190e4222f8831",
     "rom_sha256": "d7e3c6162b803fd2cd941e9451b62687fcc08ce3b94f3fd50a81baced3682310"

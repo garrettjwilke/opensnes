@@ -249,6 +249,23 @@ Total audio RAM: 64KB
 - @ref snesmod.h "SNESMOD API Reference"
 - @ref tutorial_graphics "Back to Graphics"
 
+## The audio module (v2) — samples and effects from pure C
+
+For sound effects and sample playback, `LIB_MODULES += audio` gives
+you the full engine with no SPC700 code of your own: the lib ships a
+resident driver (built from source at lib build time) and `audio.h`'s
+22 functions drive it — `audioInit()`, `audioLoadSample()` (BRR
+streamed into APU RAM at runtime), `audioPlaySampleEx()` (volume/pan/
+pitch, 8-voice round-robin polyphony), per-voice ADSR/GAIN, and a
+configurable echo with FIR filter. Every call is bounded — the API
+returns `AUDIO_ERR_TIMEOUT` rather than hanging. Worked example:
+`audio/soundboard`. Main-thread only; one engine per ROM (don't link
+`audio` and `snesmod` together).
+
+Choosing a path: **snesmod** for tracker music (IT modules),
+**audio** for C-driven samples and DSP effects, **apu** (below) for
+writing your own SPC700 program.
+
 ## The raw APU path (no snesmod)
 
 Since the SPC700 arc, the SDK has a second audio path: the `apu` module

@@ -153,6 +153,16 @@ Incompatible (do not use without isolation):
   commercial redistribution. The companion 9-byte LFO square wave is
   transcribed in `player.spc700.asm` (technique, not an asset).
 
+## examples/audio/soundboard
+
+- `res/cello.brr` — same sample and caveat as
+  `examples/audio/pitch_mod` (byte-identical copy).
+- `res/ss.brr`, `res/pp.brr` — OpenSNES-original formant-synthesized
+  phonemes (byte-identical copies from `examples/audio/speech_synth`,
+  original work, MIT).
+- `res/au.brr` — RMS-boosted regeneration of speech_synth's AU
+  (original work, MIT; generator: `gen_au_boost.py` in the example).
+
 ## examples/audio/apu_switch
 
 - `res/cello.brr` — same sample and caveat as

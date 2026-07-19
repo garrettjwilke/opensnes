@@ -1,6 +1,6 @@
 # Browse Examples by Category {#examples_by_category}
 
-All 69 examples organized by topic. For a progressive learning path, see
+All 70 examples organized by topic. For a progressive learning path, see
 @ref learning_path.
 
 ---
