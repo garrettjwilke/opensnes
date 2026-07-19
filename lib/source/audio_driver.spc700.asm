@@ -35,6 +35,13 @@
 .DEFINE ZP_P0       $02     ; latched param0
 .DEFINE ZP_P1L      $03     ; latched param1 low
 .DEFINE ZP_P1H      $04     ; latched param1 high
+.DEFINE ZP_SIZE_L   $05     ; LOAD_SIZE: bytes remaining (16-bit)
+.DEFINE ZP_SIZE_H   $06
+.DEFINE ZP_DST_L    $07     ; LOAD destination pointer (16-bit, ZP pair
+.DEFINE ZP_DST_H    $08     ;  for [ZP]+Y indirect stores)
+.DEFINE ZP_LOAD_L   $09     ; start address of the LAST completed LOAD
+.DEFINE ZP_LOAD_H   $0A     ;  (DIR_SET builds the directory entry from it)
+.DEFINE ZP_IDX      $0B     ; LOAD: expected stream index (no CMP A,X on SPC700)
 
 .DEFINE DRIVER_VERSION 1
 
@@ -86,8 +93,8 @@ main_loop:
     ; would exceed the +-128 branch range past a few handlers)
     mov a, ZP_CMD
     and a, #$3F
-    cmp a, #$0F
-    bcs cmd_unknown     ; opcode >= $0F: not in the table
+    cmp a, #$10
+    bcs cmd_unknown     ; opcode >= $10: not in the table
     asl a
     mov x, a
     jmp [!cmd_table+x]
@@ -111,10 +118,11 @@ cmd_table:
     .dw cmd_unknown     ; $08 (phase 3: ECHO_CFG)
     .dw cmd_unknown     ; $09 (phase 3: ECHO_FIR)
     .dw cmd_unknown     ; $0A (phase 3: ECHO_ON)
-    .dw cmd_unknown     ; $0B (phase 2: DIR_SET)
-    .dw cmd_unknown     ; $0C (phase 2: LOAD)
+    .dw cmd_dir_set     ; $0B
+    .dw cmd_load        ; $0C
     .dw cmd_unknown     ; $0D (phase 3: ENVX)
     .dw cmd_ping        ; $0E
+    .dw cmd_load_size   ; $0F
 
 ;------------------------------------------------------------------------------
 ; $01 MVOL — p0 = master volume, both channels
@@ -238,6 +246,101 @@ cmd_vgain:
 cmd_ping:
     mov a, #DRIVER_VERSION
     mov $F5, a
+    jmp !ack
+
+;------------------------------------------------------------------------------
+; $0F LOAD_SIZE — p1 = byte count of the NEXT LOAD transfer
+;------------------------------------------------------------------------------
+cmd_load_size:
+    mov a, ZP_P1L
+    mov ZP_SIZE_L, a
+    mov a, ZP_P1H
+    mov ZP_SIZE_H, a
+    jmp !ack
+
+;------------------------------------------------------------------------------
+; $0C LOAD — p1 = ARAM destination. Acks the command FIRST, then enters
+; the sized block-receive loop (IPL-shaped): for each byte i, the CPU
+; puts data on $F5 and the index low byte on $F4; the driver stores and
+; echoes the index. Both sides count ZP_SIZE bytes, so the end needs no
+; in-band marker. Epilogue: the CPU writes 0 to $F4, the driver echoes
+; 0 on $F4 out and resets ZP_LAST_CMD — unambiguous even when the last
+; index byte was already 0. APU_CHECK_RESET is NOT polled inside the
+; transfer (documented: no hot-swap mid-load).
+;------------------------------------------------------------------------------
+cmd_load:
+    mov a, ZP_P1L
+    mov ZP_DST_L, a
+    mov ZP_LOAD_L, a
+    mov a, ZP_P1H
+    mov ZP_DST_H, a
+    mov ZP_LOAD_H, a
+
+    ; ack the LOAD command itself so the CPU starts streaming
+    mov a, ZP_CMD
+    mov $F4, a
+
+    mov a, #$00
+    mov ZP_IDX, a       ; expected stream index (low byte)
+    mov y, #$00         ; store offset relative to the ZP pointer
+load_byte:
+    mov a, ZP_SIZE_L
+    or a, ZP_SIZE_H
+    beq load_done
+-   mov a, $F4          ; wait for the CPU to present the expected index
+    cmp a, ZP_IDX
+    bne -
+    mov a, $F5          ; data byte
+    mov [ZP_DST_L]+y, a
+    mov a, ZP_IDX
+    mov $F4, a          ; echo the index = byte acknowledged
+    inc ZP_IDX
+    inc y
+    bne +
+    inc ZP_DST_H        ; next 256-byte page
++   mov a, ZP_SIZE_L    ; 16-bit decrement of the remaining count
+    bne ++
+    dec ZP_SIZE_H
+++  dec ZP_SIZE_L
+    jmp !load_byte
+
+load_done:
+    ; epilogue handshake: CPU parks the input latch at 0, we mirror it
+-   mov a, $F4
+    bne -
+    mov a, #$00
+    mov ZP_LAST_CMD, a
+    mov $F4, a          ; "back in command mode"
+    jmp !main_loop
+
+;------------------------------------------------------------------------------
+; $0B DIR_SET — p0 = sample id (0-63), p1 = loop OFFSET in bytes.
+; Writes the directory entry at $0A00 + id*4 as {start, start+offset},
+; start being the address of the last completed LOAD.
+;------------------------------------------------------------------------------
+cmd_dir_set:
+    mov a, ZP_P0
+    asl a
+    asl a               ; id * 4
+    mov y, a
+    mov a, #$00
+    mov ZP_DST_L, a     ; reuse the ZP pair as a $0A00 base pointer
+    mov a, #$0A
+    mov ZP_DST_H, a
+    mov a, ZP_LOAD_L
+    mov [ZP_DST_L]+y, a ; entry+0: start low
+    inc y
+    mov a, ZP_LOAD_H
+    mov [ZP_DST_L]+y, a ; entry+1: start high
+    inc y
+    mov a, ZP_LOAD_L
+    clrc
+    adc a, ZP_P1L
+    mov [ZP_DST_L]+y, a ; entry+2: loop low
+    inc y               ; INC leaves the carry untouched on SPC700
+    mov a, ZP_LOAD_H
+    adc a, ZP_P1H
+    mov [ZP_DST_L]+y, a ; entry+3: loop high
     jmp !ack
 
 ;------------------------------------------------------------------------------

@@ -53,6 +53,7 @@ def run() -> tuple[bool, str]:
     aram = spc[0x100:0x10100]
     dsp = spc[0x10100:0x10180]
 
+    beep = bytes.fromhex("c37799779977997799")
     checks = [
         (dsp[0x0C] == 100 and dsp[0x1C] == 100,
          f"MVOL={dsp[0x0C]}/{dsp[0x1C]} (want 100/100)"),
@@ -65,6 +66,22 @@ def run() -> tuple[bool, str]:
         (dsp[0x45] == 0x00 and dsp[0x47] == 0x5A,
          f"V4 ADSR1={dsp[0x45]:02X} GAIN={dsp[0x47]:02X} (want 00/5A)"),
         (dsp[0x5D] == 0x0A, f"DIR={dsp[0x5D]:02X} (want 0A)"),
+        # phase 2: the sample pipeline. audioLoadSample streamed the
+        # 9-byte beep to $0B00 and DIR_SET wrote entry 0 (loop offset 0
+        # -> loop == start); audioPlaySampleEx keyed voice 0 with
+        # pan-center volumes 59/67, default ADSR $8F/$E0, pitch $1000.
+        (aram[0x0B00:0x0B09] == beep,
+         "beep BRR streamed to $0B00"),
+        (aram[0x0A00:0x0A04] == bytes([0x00, 0x0B, 0x00, 0x0B]),
+         f"DIR[0]={aram[0x0A00:0x0A04].hex()} (want 000b000b)"),
+        (dsp[0x04] == 0, f"V0SRCN={dsp[0x04]} (want 0)"),
+        (dsp[0x00] == 59 and dsp[0x01] == 67,
+         f"V0VOL={dsp[0x00]}/{dsp[0x01]} (want 59/67 = pan center)"),
+        (dsp[0x02] == 0x00 and dsp[0x03] == 0x10,
+         f"V0PITCH={dsp[0x03]:02X}{dsp[0x02]:02X} (want 1000)"),
+        (dsp[0x05] == 0x8F and dsp[0x06] == 0xE0,
+         f"V0ADSR={dsp[0x05]:02X}/{dsp[0x06]:02X} (want 8F/E0 default)"),
+        (dsp[0x08] > 0, f"V0ENVX={dsp[0x08]} (want >0 — beep sounding)"),
     ]
 
     if DRIVER_BIN.is_file():

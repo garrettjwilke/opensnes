@@ -121,6 +121,15 @@ u16 r_map_prop0;  /* mapGetMetaTilesProp(0,0)     -> 0      */
 u16 r_audio_ready;  /* audioIsReady() after audioInit() -> 1   */
 u16 r_audio_vol;    /* audioGetVolume() after SetVolume(100) -> 100 */
 
+/* audio v2 phase 2: the sample pipeline end-to-end. The 9-byte beep
+ * (data.asm) is streamed into ARAM via LOAD_SIZE/LOAD/DIR_SET, then
+ * keyed on. ARAM/DSP side asserted by probes/audio_v2.py. */
+extern u8 beep_brr[];
+u16 r_audio_load;   /* audioLoadSample(0, beep, 9, 0) -> AUDIO_OK (0)  */
+u16 r_audio_free;   /* audioGetFreeMemory() -> 0xC000-0x0B00-9 = 0xB4F7 */
+u16 r_audio_addr;   /* AudioSample.spcAddress of slot 0 -> 0x0B00       */
+u16 r_audio_voice;  /* audioPlaySampleEx(...) -> voice 0 (round-robin)  */
+
 u16 r_done;     /* 0xBEEF once every assignment above has executed */
 
 DECLARE_ANIM_CLIP(clip_a, ANIM_LOOP, 2, 10, 20, 30);
@@ -144,6 +153,19 @@ int main(void) {
     audioSetVoicePitch(3, 0x1234);
     audioSetADSR(1, 15, 7, 7, 8);
     audioSetGain(4, 0x5A);
+
+    /* phase 2: stream the beep into ARAM, then key it on voice 0
+     * (round-robin starts there). Probe asserts the ARAM bytes, the
+     * directory entry, and the playing voice's DSP state. */
+    r_audio_load = audioLoadSample(0, beep_brr, 9, 0);
+    r_audio_free = audioGetFreeMemory();
+    {
+        AudioSample s;
+        if (audioGetSampleInfo(0, &s) == AUDIO_OK) {
+            r_audio_addr = s.spcAddress;
+        }
+    }
+    r_audio_voice = audioPlaySampleEx(0, 127, AUDIO_PAN_CENTER, 0x1000);
 
     r_div_a    = div16(100, 7);
     r_mod_a    = mod16(100, 7);
