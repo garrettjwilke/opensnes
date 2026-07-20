@@ -1,6 +1,6 @@
 # OpenSNES Examples
 
-Learn SNES development step by step. 71 examples organized by topic, building
+Learn SNES development step by step. 72 examples organized by topic, building
 from basic concepts to complete games.
 
 ## Categories
@@ -14,7 +14,7 @@ from basic concepts to complete games.
 | [audio/](audio/) | 9 | Music and sound effects: SNESMOD and raw APU/DSP |
 | [maps/](maps/) | 4 | Tile maps, dynamic streaming, slopes |
 | [memory/](memory/) | 5 | HiROM mode, battery-backed saves, SA-1, SuperFX |
-| [games/](games/) | 5 | Complete game projects (Tetris, Breakout, Mario-like, map+objects, 1942-style shmup) |
+| [games/](games/) | 6 | Complete game projects (Tetris, Breakout, Mario-like, map+objects, 1942-style shmup, Mode 7 racing) |
 
 ## Learning Path
 
@@ -96,6 +96,7 @@ deep-dive of a step below.
 | 33 | [games/breakout](games/breakout/) | Complete game: sprites, input, game logic |
 | 34 | [games/likemario](games/likemario/) | Platformer with scrolling and animation |
 | 35 | [games/mapandobjects](games/mapandobjects/) | Maps with interactive objects |
+| 36 | [games/mode7_racing](games/mode7_racing/) | F-Zero-style racing: the Mode 7 camera, fixed-point physics, banked data |
 
 ## Building
 
