@@ -25,7 +25,7 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 73 ROMs · **71 OK, 2 INPUT-DE
 | `games/likemario` | OK | live (109f/100nmi) |
 | `games/mapandobjects` | OK | live (88f/87nmi) |
 | `games/mode7_flying` | OK | live (81f/80nmi) |
-| `games/mode7_racing` | OK | live (79f/78nmi) |
+| `games/mode7_racing` | OK | live (78f/78nmi) |
 | `games/shmup_1942` | OK | live (151f/150nmi) |
 | `games/tetris` | OK | live (89f/80nmi) |
 | `graphics/backgrounds/continuous_scroll` | OK | live (74f/73nmi) |
@@ -53,7 +53,7 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 73 ROMs · **71 OK, 2 INPUT-DE
 | `graphics/effects/mode7_perspective_rotate` | OK | live (77f/76nmi) |
 | `graphics/effects/mosaic` | OK | live (71f/70nmi) |
 | `graphics/effects/parallax_scrolling` | OK | live (143f/142nmi) |
-| `graphics/effects/superfx_3d` | OK | live (291f/147nmi) |
+| `graphics/effects/superfx_3d` | OK | live (289f/146nmi) |
 | `graphics/effects/transparency` | OK | live (141f/140nmi) |
 | `graphics/effects/transparent_window` | OK | live (72f/71nmi) |
 | `graphics/effects/window` | OK | live (72f/71nmi) |

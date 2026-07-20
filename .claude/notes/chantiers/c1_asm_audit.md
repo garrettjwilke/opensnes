@@ -183,9 +183,13 @@ confirmed (no skip-file marker). Future emitter idea recorded, NOT
 scheduled: a "pinned data bank" region concept could close the far
 gap — well beyond this audit.
 
-(Probe caveat: its correctness pin returned a wrong tile value — the
-m16 header offset guess — but the measured access SHAPE is the real
-one; the cycle number stands. The probe lives in benchrom's main.c.)
+(Probe history: the original 277-cyc measurement was actually reading
+bank $00 garbage — pointer derefs were bank-0-hardcoded pre-#121
+(that's also why its correctness pin failed). Post-#121 the far reads
+are REAL and cost 399 cyc (+92 % vs ASM 208) — the KEEP verdict is
+reinforced, not weakened, by the honest number. The sym-direct
+`lda.l sym,x` fusion doesn't apply to the probe's cached-pointer
+model, which matches a full port's architecture.)
 
 ## Acceptance criteria (per module, from the catalogue)
 
