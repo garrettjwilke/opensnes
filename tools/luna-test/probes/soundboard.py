@@ -6,9 +6,12 @@ Asserts on examples/audio/soundboard:
    voice) — proving audioInit + audioLoadSample x4 + audioPlaySampleEx
    all completed from plain C in a real example ROM.
 
-Single-button script only (luna#126: checkpoint replay re-fires; a
-repeated A press converges — extra plays bump play_count but the
-asserts are >= / final-state safe).
+Single-button script, HELD without release on purpose: with a
+release checkpoint the press window can fall inside audioInit's
+boot+load phase and be missed entirely (codegen changes shift init
+timing — bit us after #121's cst far loads). A held mask produces
+exactly one padPressed edge at the first poll, whenever that is.
+(luna#126 re-fire also stays harmless: >= asserts.)
 """
 from __future__ import annotations
 
@@ -27,9 +30,9 @@ def run() -> tuple[bool, str]:
     boot = peek(luna, rom, STEPS, "play_count", 2, None)
     boot_count = boot[0] | (boot[1] << 8)
 
-    after = peek(luna, rom, STEPS, "play_count", 2, f"120:{A:#x},123:0")
+    after = peek(luna, rom, STEPS, "play_count", 2, f"120:{A:#x}")
     after_count = after[0] | (after[1] << 8)
-    voice = peek(luna, rom, STEPS, "last_voice", 1, f"120:{A:#x},123:0")[0]
+    voice = peek(luna, rom, STEPS, "last_voice", 1, f"120:{A:#x}")[0]
 
     checks = [
         (boot_count == 0, f"boot plays={boot_count} (want 0)"),

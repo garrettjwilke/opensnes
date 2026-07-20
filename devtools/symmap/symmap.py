@@ -577,25 +577,23 @@ def print_bank0_overflow_check(table: SymbolTable, warn_threshold: int = 2048,
     critical, warnings, free_bytes = table.check_bank0_rom_overflow()
 
     if critical:
-        print(f"{Colors.RED}{Colors.BOLD}OVERFLOW: C const data spilled to bank $01+!{Colors.RESET}\n")
-        print("The compiler generates 16-bit addresses that always read bank $00.")
-        print("These C constants are in bank $01+ and will be read as GARBAGE:\n")
-
+        # Post-#121 (const-load `cst` marker): C reads of const-qualified
+        # data use FAR addressing, so a spilled const section is read
+        # CORRECTLY from any bank by C code. The per-TU pattern guard
+        # (devtools/check_bank_reads.py, hardened 2026-07-20) hard-fails
+        # any remaining bank-blind read of these symbols, and the lib's
+        # hand-written ASM was audited: all its C-const reads use `.l`
+        # long addressing. Placement alone is therefore a WARNING now —
+        # the read-pattern guard owns the verdict.
+        print(f"{Colors.YELLOW}NOTE: C const data spilled to bank $01+ "
+              f"(safe post-#121: C const reads are far;{Colors.RESET}")
+        print(f"{Colors.YELLOW}check_bank_reads enforces the patterns):{Colors.RESET}")
         for sym in critical:
-            print(f"  {Colors.RED}${sym.bank:02X}:{sym.address:04X}{Colors.RESET}  {sym.name}")
-
+            print(f"  ${sym.bank:02X}:{sym.address:04X}  {sym.name}")
         if warnings:
-            print(f"\n{Colors.YELLOW}Also spilled (may be unused):{Colors.RESET}")
             for sym in warnings:
-                print(f"  ${sym.bank:02X}:{sym.address:04X}  {sym.name}")
-
-        print()
-        print(f"{Colors.CYAN}FIX:{Colors.RESET} Reduce bank $00 ROM usage:")
-        print("  - Move large const arrays to RAM (remove 'const')")
-        print("  - Combine related const arrays into single arrays")
-        print("  - Use assembly with explicit bank addressing for large data")
-        print(f"\n  Bank $00 ROM free: {free_bytes} bytes")
-        return 1
+                print(f"  ${sym.bank:02X}:{sym.address:04X}  {sym.name} (maybe unused)")
+        print(f"  Bank $00 ROM free: {free_bytes} bytes")
 
     if warnings:
         print(f"{Colors.YELLOW}WARNING: C const data spilled to bank $01+ "
