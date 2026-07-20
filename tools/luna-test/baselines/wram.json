@@ -71,6 +71,10 @@
     "stream": "56dd2a96aecf31bda9192729b4be84409d1cc8a82adab85da44e01fbb7ce52b9",
     "rom_sha256": "3246117a4039bba0ce191e54622bfd2438a34496f37a2effdb74f8d75ee8ea9d"
   },
+  "games_mode7_flying": {
+    "stream": "6b33a64fa6621f3614795de85b48db6178a96782197476c8cf81dbfb18a8512f",
+    "rom_sha256": "0f62358434b21ec36815bab67688ab7767ff2af871210df86784df7432ab4708"
+  },
   "games_mode7_racing": {
     "stream": "00e0f113e60a7005182f79c85396bd03ab5ef6895f9f466cdfeafa9eac06fb6b",
     "rom_sha256": "75ee4326e1552e8ab33b1c09c7069fbe6711c940951da363948dfe1b0a5d5780"

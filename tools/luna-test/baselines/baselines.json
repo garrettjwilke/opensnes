@@ -107,6 +107,12 @@
     "rom_sha256": "6dac77f588c10a261e3e48f1108cbdc4527f143df7d2a4a371f7fbdeba580443",
     "steps": 3000000
   },
+  "games_mode7_flying": {
+    "fbhash": "bda7088b796624e2",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "0f62358434b21ec36815bab67688ab7767ff2af871210df86784df7432ab4708",
+    "steps": 3000000
+  },
   "games_mode7_racing": {
     "fbhash": "44c7556d4c0057a9",
     "luna_version": "v1.9.0",
