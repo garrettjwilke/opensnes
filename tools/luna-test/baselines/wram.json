@@ -119,6 +119,10 @@
     "stream": "2101b6b8a7e271150d184515df7aa6f1583f3f181494fdb7552796fb4bd35042",
     "rom_sha256": "bbeedf4407ccaf0352990f03f2b984fc94ef86b6c5fb5d9b6be701c60976f2df"
   },
+  "graphics_effects_direct_color": {
+    "stream": "8f710cba5196e0e416c5ee2e919f9ac8cb1b540c10dc60de8d450600bc2cc6e4",
+    "rom_sha256": "a439b0ae8c66b4203f76d4144d4b63b102f94e855d56856cad482d28528ec600"
+  },
   "graphics_effects_fading": {
     "stream": "b77d3c5550485b5d7ac5f0c02c6c721e26008da92dec2e15da76b7d6623191b0",
     "rom_sha256": "231aa812d370d146de1062974eea0cfc26a68cd2f7f0f1a69440e6eb4886c636"
@@ -156,8 +160,8 @@
     "rom_sha256": "9dbf91af4cf689072d72a91f24ad1a2a175842a5da710af864fe2ce193837c46"
   },
   "graphics_effects_hicolor_hires": {
-    "stream": "820c1cd7abb5867d4c4339aec79bad1c055bbdffe66e14b7622ee013d2287a7f",
-    "rom_sha256": "6a219d4a86d8514ae4ec3708b3a5c256210e77be38e7b477c6abd620b798fdee"
+    "stream": "23718cea11b458a99de471d7eb72a2e18dfba79f9c0ac9407a13e1f1d87413c0",
+    "rom_sha256": "18f865b6c32f643aaeeacc81efcf614a94069f618f36a07bb5196a43ba9df444"
   },
   "graphics_effects_hires_text": {
     "stream": "3435e057ef8aafde8332b9b699be61b24bc192d426aee163d11a9a2cd9533dbb",
