@@ -1,6 +1,9 @@
 # C1 — audit des modules 100 % ASM (migration mesurée vers le C)
 
-Status: Phase 0 (spec + instrument) — 2026-07-19. Owner-validated as
+Status: COMPLETE — all 5 modules decided (2026-07-19/20). Outcomes:
+audio.asm deleted (audio v2), mode7 MIGRATED to C, map KEEP,
+sprite_dynamic KEEP (hot core; cold paths already C), snesmod KEEP
+(provenance). Policy doc: lib/ARCHITECTURE.md. Originally opened Owner-validated as
 a structural priority ("précisément l'esprit de ce projet").
 Catalogue entry: `.claude/STRUCTURAL_DEFECTS.md` C1. Precedent:
 `audio.asm` (was the worst of five) retired by the audio v2 chantier
@@ -207,3 +210,45 @@ one; the cycle number stands. The probe lives in benchrom's main.c.)
 - **Baseline churn**: every migration shifts return addresses → WRAM
   stream rebaselines. Clean-build discipline (clock-skew machine!)
   and per-phase ROM-invariance checks as in audio v2.
+
+
+## Baselines + verdict — sprite_dynamic.asm (2026-07-20)
+
+Instrument extended (16x16 engine inited as the dynamic_sprite
+example; draws MUST pair with EndFrame — the slot allocator resets
+there, unpaired draws hang the engine, discovered the hard way):
+
+| Point | ~cycles |
+|---|---|
+| draw+EndFrame (steady pair) | 968 |
+| refresh+draw+EndFrame+flush (full lifecycle) | 2076 |
+| NmiFlush idle floor (per-frame NMI cost) | 283 |
+| **C model** of steady draw + ASM EndFrame | 1555 → **1486** after a codegen-friendly rewrite |
+
+**VERDICT: KEEP AS ASM.** The isolated C draw is ~+50 % over the ASM
+one even in its best shape: the ASM pins X (OAM offset), Y (oambuffer
+offset) and DB ($7E mirror) across the whole function; compiled C
+re-derives every array index per statement (240-byte frame, heavy
+spill traffic). That is a cross-statement register-allocation gap —
+not reachable by peepholes — on the module where cost multiplies by
+sprite count per frame and partly sits inside the NMI VBlank budget
+(strict rule, no absolute-cost exceptions). The module is already the
+target hybrid (dispatch/helpers/meta in C). Invariants documented in
+the header.
+
+## Verdict — snesmod.asm (2026-07-20)
+
+**KEEP — provenance, not perf (no benchmark needed).** mukunda's
+driver via KungFuFurby's WLA-DX port; its value is parity with the
+upstream SNESMOD ecosystem (the sm_spc.asm SPC700 blob and this 65816
+half are a matched pair; tracker tooling targets their exact
+behaviour). A C rewrite = a fork for zero functional gain. The
+OpenSNES-native C audio path is audio v2. Rationale in the header.
+
+## AUDIT CLOSED — 2026-07-20
+
+Five modules, five decisions, every one either benchmark-backed or
+provenance-argued. Final split + the going-forward policy:
+lib/ARCHITECTURE.md. Emitter gaps recorded for the future: pinned
+data bank (map), cross-statement index register allocation
+(sprite_dynamic). benchrom keeps all baselines for re-runs.

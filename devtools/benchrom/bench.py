@@ -36,6 +36,11 @@ RESULTS = [
     ("r_map_camera",   "mapUpdateCamera"),
     ("r_map_update",   "camera+mapUpdate"),
     ("r_map_vblankf",  "camera+update+mapVblank"),
+    ("r_map_getmeta_c", "C far-model getmetatile"),
+    ("r_sd_draw",      "draw+EndFrame (steady)"),
+    ("r_sd_draw_rf",   "refresh+draw+EndFrame+flush"),
+    ("r_sd_flush_idle", "NmiFlush (idle floor)"),
+    ("r_sd_draw_c",    "C-model draw+EndFrame"),
 ]
 
 

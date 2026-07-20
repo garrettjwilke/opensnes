@@ -19,3 +19,12 @@ tilesetatt:
 tilesetatt_end:
 
 .ends
+
+.section ".rodata_spr" superfree
+
+; 16x16 sprite sheet from the dynamic_sprite example (4bpp .pic)
+spr16_tiles:
+.incbin "../../examples/graphics/sprites/dynamic_sprite/res/sprite16_grid.pic"
+spr16_tiles_end:
+
+.ends

@@ -1695,7 +1695,7 @@ tutorial update.
 
 ### Category C — Code organisation & maintenance burden
 
-#### C1. Three 100 % ASM modules in `lib/source/` 🟠
+#### C1. ~~Five~~ 100 % ASM modules in `lib/source/` ✅ RESOLVED (audit complete, 2026-07-20)
 
 **Symptom**: 3 modules in `lib/source/` are 100 % assembly with no C
 side: `map.asm` 1240 LOC, `sprite_dynamic.asm` 1232, `snesmod.asm`
