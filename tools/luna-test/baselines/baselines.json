@@ -120,9 +120,9 @@
     "steps": 3000000
   },
   "games_rpg": {
-    "fbhash": "b9ca30183c902748",
+    "fbhash": "a61a9e9cb22491df",
     "luna_version": "v1.9.0",
-    "rom_sha256": "0fcdb34aacc0c8fdf1f7b4fe5d2754cb12407775b7b04f887bf720d771282231",
+    "rom_sha256": "bf4654b17949b2ef3c09a7353eafa54dc38aa9bfebc09669b917e3851f24141a",
     "steps": 3000000
   },
   "games_shmup_1942": {

@@ -26,7 +26,7 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 74 ROMs · **72 OK, 2 INPUT-DE
 | `games/mapandobjects` | OK | live (88f/87nmi) |
 | `games/mode7_flying` | OK | live (81f/80nmi) |
 | `games/mode7_racing` | OK | live (78f/78nmi) |
-| `games/rpg` | OK | live (78f/77nmi) |
+| `games/rpg` | OK | live (81f/80nmi) |
 | `games/shmup_1942` | OK | live (151f/150nmi) |
 | `games/tetris` | OK | live (89f/80nmi) |
 | `graphics/backgrounds/continuous_scroll` | OK | live (74f/73nmi) |

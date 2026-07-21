@@ -7,18 +7,23 @@
  * make it a template rather than a demo:
  *
  * 1. **The map is a real Tiled map** (`res/town.tmj`): terrain,
- *    per-tile collision (the `attribute` property) and entity
- *    positions (the `Entities` object layer) all live in the map, not
- *    in the code. Edit it in Tiled, re-run `gen_assets.py`, rebuild.
- *    The map is validated by the SDK's own `tmx2snes` converter.
- * 2. **A real bordered dialog box**: a 9-slice panel on BG2 with the
- *    text on BG3 above it — the classic SNES RPG window.
+ *    per-tile collision (the `attribute` property), entity positions
+ *    AND each villager's dialogue line (a `text` property on the
+ *    object) all live in the map, not in the code. Adding a villager
+ *    is a map edit. Edit it in Tiled, re-run `gen_assets.py`, rebuild.
+ * 2. **A real bordered dialog box and a HUD**, both 9-slice panels on
+ *    BG2 with their text on BG3 above — the classic SNES RPG window.
+ * 3. **Two scenes**: the town, and the inside of the blue-roofed house.
+ *    A scene is a tileset + a palette + a tilemap + a collision map +
+ *    entities; switching one is four DMAs under force blank. The
+ *    interior is its own Tiled map (`res/house.tmj`) with its own
+ *    16-colour palette, so neither scene gives up colours for the other.
  *
  * Layer roles (Mode 1):
  * - BG1: the town (4bpp, 64x64 scrolling)
- * - BG2: the dialog box panel, shown only while talking
+ * - BG2: the HUD (always) and the dialog panel (while talking)
  * - BG3: the dialog text (2bpp, high priority)
- * - OBJ: the hero and the villager (same tiles, two palettes)
+ * - OBJ: the hero and the villagers (same tiles, two palettes)
  *
  * ROM mode: LoROM (project default).
  *
@@ -30,17 +35,30 @@
  *   is what collides — the classic top-down RPG convention
  * - A 9-slice dialog box DMA'd to BG2 on open, with layer priorities
  *   stacking town < box < text
+ * - Forced blank (`setScreenOff`, INIDISP bit 7) around a multi-KB VRAM
+ *   upload — `setBrightness(0)` only blacks the screen, it does NOT open
+ *   the VRAM write window, and the tail of the transfer is dropped
+ * - A fixed 16-colour palette per scene, authored by hand rather than
+ *   quantised: adding one tile to a quantised sheet re-derives the whole
+ *   palette and every existing tile shifts hue
+ * - Off-camera entities MUST be parked at OBJ_HIDE_Y, not just drawn:
+ *   OAM coordinates wrap, so an entity two screens away reappears
+ *   somewhere plausible on screen (a villager standing in the wall)
  * - Collision through the SDK's `collideTile()` over the Tiled map —
  *   its `const` tilemap parameter means the read is bank-honouring
  *   (#121), so a multi-KB map needs neither bank $00 nor RAM
  *
  * @par What to Observe
- * The town fades in. Walk with the D-pad — houses, water, trees and
- * the fence block you exactly where they look. Face the villager and
- * press A, or step onto the chest and press A.
+ * The town fades in, with hearts and a purse in the HUD. Walk with the
+ * D-pad — houses, water, trees and the fence block you exactly where
+ * they look. Face either villager and press A (each has its own line,
+ * from the map), or step onto the chest and press A: the purse goes up
+ * by 10. Walk into the door of the BLUE-roofed house, bottom right of
+ * the crossroads, and you step inside — the host greets you with no
+ * button press. The mat by the door takes you back out.
  *
  * @par Modules Used
- * console, dma, background, sprite, text, input
+ * console, dma, background, sprite, text, input, collision
  *
  * @see gen_assets.py, res/town.tmj — the Tiled content pipeline
  */
@@ -52,7 +70,21 @@
 #include <snes/input.h>
 #include <snes/collision.h>
 
-#include "res/entities.inc"     /* SPAWN/NPC/CHEST tile coords from the .tmj */
+#include "res/entities.inc"     /* SPAWN/CHEST/NPC_TABLE from the .tmj */
+
+/** @brief The villagers, generated from the Entities layer of town.tmj:
+ * where each one stands and what it says. Adding one is a map edit, not
+ * a code edit.
+ *
+ * These are three parallel `const` tables rather than one array of
+ * structs on purpose. A `const` scalar table indexed at runtime compiles
+ * to a folded far read (`lda.l tab,x`) and may live in any bank; an array
+ * of structs currently computes its element address in 16 bits and loses
+ * the bank byte, so it would be read from bank $00 — the build's
+ * bank-blind check refuses it, which is how this was found. */
+static const u8 npc_tx[NPC_COUNT] = NPC_TX_TABLE;
+static const u8 npc_ty[NPC_COUNT] = NPC_TY_TABLE;
+static const char *const npc_line[NPC_COUNT] = NPC_LINE_TABLE;
 
 extern u8 town_tiles[], town_tiles_end[];
 extern u8 town_map[];
@@ -63,9 +95,14 @@ extern u8 hero_pal[];
 extern u8 npc_pal[];
 extern u8 ui_tiles[], ui_tiles_end[];
 extern u8 ui_pal[];
+extern u8 house_tiles[], house_tiles_end[];
+extern u8 house_map[];
+extern u8 house_pal[];
+extern const u8 house_collision[];     /* const -> far reads (#121) */
 
 /* VRAM word layout */
 #define VRAM_TOWN_TILES 0x0000
+#define VRAM_HOUSE_TILES 0x1000
 #define VRAM_TOWN_MAP   0x2000
 #define VRAM_FONT       0x3000
 #define VRAM_TEXT_MAP   0x3800
@@ -74,17 +111,29 @@ extern u8 ui_pal[];
 #define VRAM_HERO       0x6000
 #define OBJ_NAME_BASE   3      /* base 3 x $2000 words = VRAM_HERO */
 
-/* 9-slice box tiles (uibox.png is 3x3 of 8x8, raster order) */
+/* uibox.png is a 4x3 sheet: the 9-slice border in the first three
+ * columns, the HUD icons in the fourth. Raster order, so row n starts
+ * at 4n. */
 #define BOX_TL 0
 #define BOX_T  1
 #define BOX_TR 2
-#define BOX_L  3
-#define BOX_C  4
-#define BOX_R  5
-#define BOX_BL 6
-#define BOX_B  7
-#define BOX_BR 8
+#define ICON_HEART 3
+#define BOX_L  4
+#define BOX_C  5
+#define BOX_R  6
+#define ICON_HEART_EMPTY 7
+#define BOX_BL 8
+#define BOX_B  9
+#define BOX_BR 10
+#define ICON_COIN 11
 #define BOX_PAL 2                 /* BG2 palette 2 -> CGRAM 32-47 */
+
+/* HUD panel (BG2, always on screen) */
+#define HUD_X 0
+#define HUD_Y 0
+#define HUD_W 16
+#define HUD_H 3
+#define HERO_MAX_HP 3
 
 /* Dialog panel geometry (BG2 tilemap, 32x32) */
 #define PANEL_X 2
@@ -105,6 +154,9 @@ extern u8 ui_pal[];
 #define SCREEN_CY 108
 
 enum { ST_FADEIN, ST_EXPLORE, ST_DIALOG };
+enum { SCENE_TOWN, SCENE_HOUSE };
+
+#define MAP_TILES_HOUSE 32
 
 /** @brief Probe oracles / state. hero_x/hero_y are the PIXEL position
  * of the tile the hero occupies (a multiple of 8 when idle). */
@@ -113,6 +165,9 @@ u16 hero_y;
 u8  hero_facing;
 u8  game_state;
 u8  chest_opened;
+u8  scene;                 /**< SCENE_TOWN or SCENE_HOUSE */
+u16 gold;                  /**< HUD: coins, +10 per chest */
+u8  hero_hp;               /**< HUD: static in this template */
 
 static s8 step_dx, step_dy;
 static u8 step_count;
@@ -128,6 +183,13 @@ static u16 panel_map[32 * 32];
  * Its `tilemap` parameter is const, so the read is bank-honouring:
  * our 4 KB map lives outside bank $00. */
 static u8 tile_walkable(u16 tx, u16 ty) {
+    if (scene == SCENE_HOUSE) {
+        if (ty >= MAP_TILES_HOUSE) {
+            return 0;
+        }
+        return (u8)(collideTile((s16)(tx << 3), (s16)(ty << 3),
+                                house_collision, MAP_TILES_HOUSE) == 0);
+    }
     if (ty >= MAP_TILES) {
         return 0;
     }
@@ -152,42 +214,131 @@ static void front_tile(u16 *tx, u16 *ty) {
     *ty = cy;
 }
 
-/* ---- the dialog box ---- */
-static void build_panel(void) {
-    u16 x, y, i;
-    u16 pal = (u16)(BOX_PAL << 10) | 0x2000;   /* +priority: over the town */
-    for (i = 0; i < 32 * 32; i++) {
-        panel_map[i] = 0;
-    }
-    for (y = 0; y < PANEL_H; y++) {
-        for (x = 0; x < PANEL_W; x++) {
-            u16 t;
+/* ---- BG2: the HUD frame and the dialog panel share one tilemap ----
+ * The HUD lives at the top and never moves; the dialog panel at the
+ * bottom is filled on open and blanked on close. One DMA either way. */
+#define BOX_ATTR ((u16)(BOX_PAL << 10) | 0x2000)   /* +priority: over BG1 */
+
+/** @brief Stamp a 9-slice panel of w x h tiles at (px,py) into panel_map. */
+static void stamp_panel(u16 px, u16 py, u16 w, u16 h) {
+    u16 x, y, t;
+    for (y = 0; y < h; y++) {
+        for (x = 0; x < w; x++) {
             if (y == 0) {
-                t = (x == 0) ? BOX_TL : (x == PANEL_W - 1) ? BOX_TR : BOX_T;
-            } else if (y == PANEL_H - 1) {
-                t = (x == 0) ? BOX_BL : (x == PANEL_W - 1) ? BOX_BR : BOX_B;
+                t = (x == 0) ? BOX_TL : (x == w - 1) ? BOX_TR : BOX_T;
+            } else if (y == h - 1) {
+                t = (x == 0) ? BOX_BL : (x == w - 1) ? BOX_BR : BOX_B;
             } else {
-                t = (x == 0) ? BOX_L : (x == PANEL_W - 1) ? BOX_R : BOX_C;
+                t = (x == 0) ? BOX_L : (x == w - 1) ? BOX_R : BOX_C;
             }
-            panel_map[(PANEL_Y + y) * 32 + (PANEL_X + x)] = (u16)(t | pal);
+            panel_map[(py + y) * 32 + (px + x)] = (u16)(t | BOX_ATTR);
         }
     }
 }
 
-static void dialog_open(const char *line) {
-    setBrightness(0);
+/** @brief Blank the dialog rows of the BG2 map (the HUD stays). */
+static void clear_dialog_tiles(void) {
+    u16 x, y;
+    for (y = 0; y < PANEL_H; y++) {
+        for (x = 0; x < PANEL_W; x++) {
+            panel_map[(PANEL_Y + y) * 32 + (PANEL_X + x)] = 0;
+        }
+    }
+}
+
+/**
+ * @brief Draw the HUD icons: hearts for HP, a coin for the purse.
+ *
+ * The icons are tiles on BG2 (they came out of the same 4x3 sheet as
+ * the dialog border), the number is text on BG3. Splitting it that way
+ * costs nothing: both layers are already up for the dialog box.
+ */
+static void hud_icons(void) {
+    u16 i;
+    for (i = 0; i < HERO_MAX_HP; i++) {
+        panel_map[1 * 32 + (1 + i)] =
+            (u16)((i < hero_hp ? ICON_HEART : ICON_HEART_EMPTY) | BOX_ATTR);
+    }
+    panel_map[1 * 32 + 8] = (u16)(ICON_COIN | BOX_ATTR);
+}
+
+/**
+ * @brief Push the whole BG2 tilemap to VRAM.
+ *
+ * setScreenOff() is FORCED BLANK (INIDISP bit 7) — the only state
+ * besides VBlank in which the PPU accepts VRAM writes. setBrightness(0)
+ * merely makes the screen black: the PPU keeps fetching and the write
+ * is silently dropped. Getting that wrong costs nothing on a 2 KB
+ * transfer that happens to land in VBlank, and corrupts the screen on
+ * an 8 KB one that does not.
+ */
+static void flush_panel(void) {
+    setScreenOff();
     dmaCopyVram((u8 *)panel_map, VRAM_UI_MAP, 32 * 32 * 2);
-    setBrightness(15);
+    setScreenOn();
+}
+
+/** @brief The HUD's numeric half, on BG3. Re-drawn after every
+ * textClearRect, since clearing the dialog does not touch these rows. */
+static void hud_text(void) {
+    textPrintAt(10, 1, "     ");   /* erase the previous amount */
+    textSetPos(10, 1);
+    textPrintU16(gold);
+}
+
+static void build_panel(void) {
+    u16 i;
+    for (i = 0; i < 32 * 32; i++) {
+        panel_map[i] = 0;
+    }
+    stamp_panel(HUD_X, HUD_Y, HUD_W, HUD_H);
+    hud_icons();
+}
+
+static void dialog_open(const char *line) {
+    stamp_panel(PANEL_X, PANEL_Y, PANEL_W, PANEL_H);
+    flush_panel();
     textPrintAt(PANEL_X + 2, PANEL_Y + 2, line);
     textPrintAt(PANEL_X + 2, PANEL_Y + 4, "         (A) OK");
-    setMainScreen(TM_BG1 | TM_BG2 | TM_BG3 | LAYER_OBJ);
     game_state = ST_DIALOG;
 }
 
 static void dialog_close(void) {
-    textClear();
-    setMainScreen(TM_BG1 | TM_BG3 | LAYER_OBJ);
+    /* clear only the dialog rows: textClear() would wipe the HUD too */
+    textClearRect(PANEL_X, PANEL_Y, PANEL_W, PANEL_H);
+    clear_dialog_tiles();
+    flush_panel();
     game_state = ST_EXPLORE;
+}
+
+/* ---- scenes: town <-> house interior ----
+ * A scene is a tileset, a palette, a tilemap, a collision map and a set
+ * of entities. Switching one is four DMAs under force blank — there is
+ * no engine here, just the data swapped over. */
+static void scene_load(u8 which, u16 tx, u16 ty, u8 facing) {
+    setScreenOff();                 /* forced blank: 8 KB will not fit VBlank */
+    if (which == SCENE_HOUSE) {
+        dmaCopyVram(house_tiles, VRAM_HOUSE_TILES,
+                    (u16)(house_tiles_end - house_tiles));
+        dmaCopyVram(house_map, VRAM_TOWN_MAP, 32 * 32 * 2);
+        dmaCopyCGram(house_pal, 0, 32);
+        bgSetGfxPtr(0, VRAM_HOUSE_TILES);
+        bgSetMapPtr(0, VRAM_TOWN_MAP, SC_32x32);
+        bgSetScroll(0, 0, 0);
+    } else {
+        dmaCopyVram(town_tiles, VRAM_TOWN_TILES,
+                    (u16)(town_tiles_end - town_tiles));
+        dmaCopyVram(town_map, VRAM_TOWN_MAP, 8192);
+        dmaCopyCGram(town_pal, 0, 32);
+        bgSetGfxPtr(0, VRAM_TOWN_TILES);
+        bgSetMapPtr(0, VRAM_TOWN_MAP, SC_64x64);
+    }
+    scene = which;
+    hero_x = (u16)(tx * 8);
+    hero_y = (u16)(ty * 8);
+    hero_facing = facing;
+    step_count = 0;
+    setScreenOn();
 }
 
 /* ---- movement: one tile per step, slid over 8 frames ---- */
@@ -202,21 +353,36 @@ static void begin_step(s8 dx, s8 dy) {
 }
 
 /**
- * @brief Draw a 16x16 character straddling its 8x8 tile.
+ * @brief Draw a 16x16 character straddling its 8x8 tile, or hide it.
  *
- * THIS is what makes collision feel exact: the character's logical
- * position is one tile; the sprite is drawn 4 px left and 8 px up of
- * it, so its feet stand on that tile and its body overhangs upward —
- * the standard top-down RPG convention. Drawing the sprite at the
- * tile's corner instead (the naive version) puts the visible body
+ * Two things happen here, both of them load-bearing.
+ *
+ * **The straddle** is what makes collision feel exact: the character's
+ * logical position is one tile; the sprite is drawn 4 px left and 8 px
+ * up of it, so its feet stand on that tile and its body overhangs
+ * upward — the standard top-down RPG convention. Drawing the sprite at
+ * the tile's corner instead (the naive version) puts the visible body
  * half a tile away from what collides.
+ *
+ * **The cull** is not an optimisation, it is correctness. OAM X is 9
+ * bits and Y is 8, so an entity standing outside the camera does not
+ * quietly vanish — its coordinates WRAP and it reappears somewhere
+ * plausible-looking on screen. A villager two screens away shows up
+ * standing inside the town wall. Anything off-camera must be parked at
+ * OBJ_HIDE_Y instead of drawn.
  */
 static void draw_char(u8 oam_id, u16 wx, u16 wy, u16 cam_x, u16 cam_y,
                       u8 facing, u8 phase, u8 palette) {
-    u16 sx = (u16)(wx - cam_x - 4);
-    u16 sy = (u16)(wy - cam_y - 8);
-    u8 f = (u8)(facing * 4 + phase * 2);
-    oamSet(oam_id, sx, sy, f, palette, 2, 0);
+    s16 sx = (s16)((s16)wx - (s16)cam_x - 4);
+    s16 sy = (s16)((s16)wy - (s16)cam_y - 8);
+    u8 f;
+
+    if (sx < -16 || sx > 255 || sy < -16 || sy > 223) {
+        oamSetXY(oam_id, 0, OBJ_HIDE_Y);
+        return;
+    }
+    f = (u8)(facing * 4 + phase * 2);
+    oamSet(oam_id, (u16)sx, (u16)sy, f, palette, 2, 0);
     oamSetSize(oam_id, OBJ_LARGE);
 }
 
@@ -259,11 +425,19 @@ int main(void) {
     hero_y = SPAWN_TY * 8;
     hero_facing = FACE_UP;
     chest_opened = 0;
+    scene = SCENE_TOWN;
+    gold = 0;
+    hero_hp = HERO_MAX_HP;
 
     /* town palette LAST (textInit/textLoadFont clear CGRAM 0-15) */
     dmaCopyCGram(town_pal, 0, 32);
 
-    setMainScreen(TM_BG1 | TM_BG3 | LAYER_OBJ);
+    /* BG2 carries the HUD, so it is on screen for good — the dialog
+     * panel just appears in its lower half when someone talks. */
+    hud_icons();
+    dmaCopyVram((u8 *)panel_map, VRAM_UI_MAP, 32 * 32 * 2);
+    hud_text();
+    setMainScreen(TM_BG1 | TM_BG2 | TM_BG3 | LAYER_OBJ);
     setBrightness(0);
     setScreenOn();
     game_state = ST_FADEIN;
@@ -287,6 +461,21 @@ int main(void) {
                 hero_y = (u16)(hero_y + step_dy);
                 step_count--;
                 moving = 1;
+                if (step_count == 0) {
+                    /* the step just landed: did it land on a door? */
+                    if (scene == SCENE_TOWN
+                        && hero_tx() == DOOR_TX && hero_ty() == DOOR_TY) {
+                        scene_load(SCENE_HOUSE, HOUSE_SPAWN_TX,
+                                   HOUSE_SPAWN_TY, FACE_UP);
+                        /* the host greets you — no button to press */
+                        dialog_open(HOUSE_NPC_LINE);
+                    } else if (scene == SCENE_HOUSE
+                               && hero_tx() == HOUSE_EXIT_TX
+                               && hero_ty() == HOUSE_EXIT_TY) {
+                        scene_load(SCENE_TOWN, DOOR_TX, DOOR_TY + 1,
+                                   FACE_DOWN);
+                    }
+                }
             } else {
                 if (keys & KEY_UP) {
                     hero_facing = FACE_UP; begin_step(0, -1); moving = 1;
@@ -298,15 +487,32 @@ int main(void) {
                     hero_facing = FACE_RIGHT; begin_step(1, 0); moving = 1;
                 } else if (padPressed(0) & KEY_A) {
                     u16 ftx, fty;
+                    u8 i, talked = 0;
                     front_tile(&ftx, &fty);
-                    if (ftx == NPC_TX && fty == NPC_TY) {
-                        dialog_open("WELCOME, TRAVELER!");
+                    if (scene == SCENE_HOUSE) {
+                        if (ftx == HOUSE_NPC_TX && fty == HOUSE_NPC_TY) {
+                            dialog_open(HOUSE_NPC_LINE);
+                            talked = 1;
+                        }
+                    } else {
+                        for (i = 0; i < NPC_COUNT; i++) {
+                            if (ftx == npc_tx[i] && fty == npc_ty[i]) {
+                                dialog_open(npc_line[i]);
+                                talked = 1;
+                                break;
+                            }
+                        }
+                    }
+                    if (talked || scene == SCENE_HOUSE) {
+                        /* done */
                     } else if ((hero_tx() == CHEST_TX && hero_ty() == CHEST_TY)
                                || (ftx == CHEST_TX && fty == CHEST_TY)) {
                         if (chest_opened) {
                             dialog_open("THE CHEST IS EMPTY.");
                         } else {
                             chest_opened = 1;
+                            gold = (u16)(gold + 10);
+                            hud_text();
                             dialog_open("YOU FOUND 10 GOLD!");
                         }
                     }
@@ -325,16 +531,37 @@ int main(void) {
             walk_phase = 0;
         }
 
-        /* camera centred on the hero tile, clamped to the world */
-        cam_x = (hero_x > SCREEN_CX) ? (u16)(hero_x - SCREEN_CX) : 0;
-        cam_y = (hero_y > SCREEN_CY) ? (u16)(hero_y - SCREEN_CY) : 0;
-        if (cam_x > WORLD_W - 256) { cam_x = WORLD_W - 256; }
-        if (cam_y > WORLD_H - 224) { cam_y = WORLD_H - 224; }
-        bgSetScroll(0, cam_x, cam_y);
+        /* The interior is exactly one screen, so it does not scroll.
+         * The town scrolls with the hero, clamped to the world. */
+        if (scene == SCENE_HOUSE) {
+            cam_x = 0;
+            cam_y = 0;
+        } else {
+            cam_x = (hero_x > SCREEN_CX) ? (u16)(hero_x - SCREEN_CX) : 0;
+            cam_y = (hero_y > SCREEN_CY) ? (u16)(hero_y - SCREEN_CY) : 0;
+            if (cam_x > WORLD_W - 256) { cam_x = WORLD_W - 256; }
+            if (cam_y > WORLD_H - 224) { cam_y = WORLD_H - 224; }
+            bgSetScroll(0, cam_x, cam_y);
+        }
 
         draw_char(0, hero_x, hero_y, cam_x, cam_y, hero_facing, walk_phase, 0);
-        /* the villager: same tiles, palette 1, facing the crossroads */
-        draw_char(1, NPC_TX * 8, NPC_TY * 8, cam_x, cam_y, FACE_DOWN, 0, 1);
+        {
+            u8 n;
+            if (scene == SCENE_HOUSE) {
+                draw_char(1, HOUSE_NPC_TX * 8, HOUSE_NPC_TY * 8,
+                          cam_x, cam_y, FACE_DOWN, 0, 1);
+                for (n = 1; n < NPC_COUNT; n++) {
+                    oamSetXY((u8)(n + 1), 0, OBJ_HIDE_Y);
+                }
+            } else {
+                /* the villagers: same tiles as the hero, palette 1 */
+                for (n = 0; n < NPC_COUNT; n++) {
+                    draw_char((u8)(n + 1), (u16)(npc_tx[n] * 8),
+                              (u16)(npc_ty[n] * 8), cam_x, cam_y,
+                              FACE_DOWN, 0, 1);
+                }
+            }
+        }
     }
 
     return 0;

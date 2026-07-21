@@ -13,14 +13,26 @@ town_tiles:  .incbin "res/tileset.pic"
 town_tiles_end:
 .ends
 
-.section ".rodata_townmap" superfree
+.section ".rodata_townmap" free bank 2
 town_map:    .incbin "res/town_map.bin"
 town_map_end:
 .ends
 
-.section ".rodata_coll" superfree
+.section ".rodata_coll" free bank 3
 town_collision: .incbin "res/town_collision.bin"
 town_collision_end:
+.ends
+
+.section ".rodata_interior" free bank 4
+house_tiles: .incbin "res/interior.pic"
+house_tiles_end:
+house_map:   .incbin "res/house_map.bin"
+house_map_end:
+.ends
+
+.section ".rodata_hcoll" free bank 5
+house_collision: .incbin "res/house_collision.bin"
+house_collision_end:
 .ends
 
 .section ".rodata_hero" superfree
@@ -43,4 +55,6 @@ npc_pal:   .incbin "res/npc.pal"
 npc_pal_end:
 ui_pal:    .incbin "res/uibox.pal"
 ui_pal_end:
+house_pal: .incbin "res/interior.pal"
+house_pal_end:
 .ends
