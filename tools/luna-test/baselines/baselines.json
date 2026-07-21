@@ -126,9 +126,9 @@
     "steps": 3000000
   },
   "games_shmup_1942": {
-    "fbhash": "0f983c7daa78557c",
+    "fbhash": "be06a2bc52a63efa",
     "luna_version": "v1.9.0",
-    "rom_sha256": "eb76815b06be6ad888b138b6b172d966b0db6a5ad07247ca30638d6a0baa08f6",
+    "rom_sha256": "d4314500642c67ee8b3a1b3cb29bbfe5a0ce13c55459616d9f1175f8ebb25ce2",
     "steps": 3000000
   },
   "games_tetris": {
@@ -150,9 +150,9 @@
     "steps": 3000000
   },
   "graphics_backgrounds_mode0": {
-    "fbhash": "94f1ea78dc21251c",
+    "fbhash": "dc11b5c652ccda67",
     "luna_version": "v1.9.0",
-    "rom_sha256": "4ee04fc8b98a970a87092e9c55c24501bbb7d2600389b671a7bd62de42cc9581",
+    "rom_sha256": "7aecc22d75f8f479d26755069563129368d219c446ca7574b1ba8fd1b5402b4a",
     "steps": 3000000
   },
   "graphics_backgrounds_mode1": {

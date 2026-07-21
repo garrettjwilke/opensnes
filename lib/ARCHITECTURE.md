@@ -62,6 +62,39 @@ verdict:
 | snesmod | ASM (verdict KEEP) | profile 3 — upstream parity (mukunda's driver) |
 | everything else | C | the default |
 
+## `const` on pointer parameters — where it belongs, and where it costs
+
+Since #121, a dereference through a `const`-qualified pointer compiles
+to a **bank-honouring far read**; a non-const one compiles to
+`lda.l $0000,x` — bank $00, always. So `const` in a public signature is
+not decoration, it is the switch between "works in any bank" and
+"silently reads garbage outside bank $00". It is also not free.
+
+**Const-qualify** a pointer parameter when it points at **caller-owned
+read-only data that may live in ROM**: tile sheets, palettes, tilemaps,
+collision maps, sample banks. Two things follow, both wanted:
+
+- callers can keep their own arrays `const`, so *their* C indexing of
+  that data is bank-safe too. Without it the SDK forces `const` off the
+  user's data — `dmaCopyVram(tiles, …)` on a `static const u8 tiles[]`
+  was a hard `assignment to pointer discards qualifiers` error before
+  the 2026-07-21 audit;
+- if the lib itself dereferences the pointer, the read becomes correct
+  for far data (this is what `collideTile` needed).
+
+**Do not const-qualify** a pointer to a **RAM struct the caller owns**
+(`Rect *`, `AnimPlayer *`, `AudioVoiceState *`). C RAM is confined to
+`$00:0000-$1FFF` by construction (defect B2), so the bank is *always*
+$00 and the far path buys nothing while costing a lot: const-qualifying
+the five `Rect *` parameters in `collision.h` grew the module's total
+frame usage from 826 to 1294 bytes (+57 %) and turned each 4-instruction
+field read into ~10, with `lda.w #0` literally supplying the bank. That
+experiment was run and reverted on 2026-07-21; don't re-run it.
+
+Rule of thumb: **const follows the data's storage, not its
+mutability.** Read-only *and* possibly in ROM → `const`. Read-only but
+necessarily in RAM → leave it alone.
+
 ## Future emitter work that could move these lines
 
 Recorded, not scheduled: a "pinned data bank" region concept would

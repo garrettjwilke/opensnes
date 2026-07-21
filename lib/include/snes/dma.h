@@ -68,7 +68,7 @@
  * @note Source data must be in bank $00 (LoROM $00:8000-$FFFF). For data
  * in other banks, use dmaCopyVramBank().
  */
-void dmaCopyVram(u8 *source, u16 vramAddr, u16 size);
+void dmaCopyVram(const u8 *source, u16 vramAddr, u16 size);
 
 /**
  * @brief Copy data to VRAM with explicit source bank byte.
@@ -83,7 +83,7 @@ void dmaCopyVram(u8 *source, u16 vramAddr, u16 size);
  *
  * @warning Must be called during VBlank or force blank!
  */
-void dmaCopyVramBank(u8 *source, u8 bank, u16 vramAddr, u16 size);
+void dmaCopyVramBank(const u8 *source, u8 bank, u16 vramAddr, u16 size);
 
 /**
  * @brief Load Mode 7 interleaved data to VRAM.
@@ -102,7 +102,7 @@ void dmaCopyVramBank(u8 *source, u8 bank, u16 vramAddr, u16 size);
  *
  * @warning Must be called during forced blank (INIDISP=$80) or VBlank.
  */
-void dmaCopyVramMode7(u8 *tilemap, u16 tilemapSize, u8 *tiles, u16 tilesSize);
+void dmaCopyVramMode7(const u8 *tilemap, u16 tilemapSize, const u8 *tiles, u16 tilesSize);
 
 /**
  * @brief Set VRAM to a value
@@ -153,7 +153,7 @@ void dmaClearVRAM(void);
  * @note Source data must be in bank $00. For data in other banks,
  * use dmaCopyCGramBank() with an explicit bank parameter.
  */
-void dmaCopyCGram(u8 *source, u16 startColor, u16 size);
+void dmaCopyCGram(const u8 *source, u16 startColor, u16 size);
 
 /**
  * @brief Copy palette data to CGRAM with explicit source bank byte.
@@ -168,7 +168,7 @@ void dmaCopyCGram(u8 *source, u16 startColor, u16 size);
  *
  * @warning Must be called during VBlank or force blank!
  */
-void dmaCopyCGramBank(u8 *source, u8 bank, u16 startColor, u16 size);
+void dmaCopyCGramBank(const u8 *source, u8 bank, u16 startColor, u16 size);
 
 /*============================================================================
  * OAM Transfers
@@ -184,7 +184,7 @@ void dmaCopyCGramBank(u8 *source, u8 bank, u16 startColor, u16 size);
  * dmaCopyOam(oamBuffer, 544);
  * @endcode
  */
-void dmaCopyOam(u8 *source, u16 size);
+void dmaCopyOam(const u8 *source, u16 size);
 
 /*============================================================================
  * Generic DMA

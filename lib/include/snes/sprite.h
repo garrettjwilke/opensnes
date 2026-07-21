@@ -302,7 +302,7 @@ void oamInit(u16 size, u16 tile_base);
  *               sprite_pal, 32, 0, 0x6000, OBJ_SIZE16_L32);
  * @endcode
  */
-void oamInitGfxSet(u8 *tileSource, u16 tileSize, u8 *tilePalette,
+void oamInitGfxSet(const u8 *tileSource, u16 tileSize, const u8 *tilePalette,
                    u16 paletteSize, u8 paletteEntry, u16 vramAddr, u8 oamSize);
 
 /*============================================================================
@@ -686,7 +686,7 @@ void oamDynamicDrainQueue(void);
  * @endcode
  */
 void oamMetaDrawDyn(u16 id, s16 x, s16 y,
-                    const MetaspriteItem *meta, u8 *gfxptr, u8 size_class);
+                    const MetaspriteItem *meta, const u8 *gfxptr, u8 size_class);
 
 /*============================================================================
  * Fast Macro Sprite API
