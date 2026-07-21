@@ -171,8 +171,24 @@ int main(int argc, const char **argv)
 		map_save (gfx4snes_args.filebase, map_snes,gfx4snes_args.mapscreenmode, map_blksx, blksy, gfx4snes_args.tileoffset,gfx4snes_args.maphighpriority, gfx4snes_args.quietmode);
 	}
 	// no map, only tiles (for sprites or meta sprites certainly)
-	else 
+	else
 	{
+		// A sprite sheet is cut into -s sized blocks. If the image is not an
+		// exact multiple of that size the last block is built from pixels
+		// that are not there, and the sprite it feeds is garbage — silently,
+		// because rounding up above already made room for it. Say so.
+		if (!gfx4snes_args.quietmode)
+		{
+			if ((snesimage.header.width % gfx4snes_args.tilewidth) ||
+			    (snesimage.header.height % gfx4snes_args.tileheight))
+			{
+				warning("image is %dx%d px, not a multiple of the %dx%d block size (-s).",
+				        snesimage.header.width, snesimage.header.height,
+				        gfx4snes_args.tilewidth, gfx4snes_args.tileheight);
+				note("The last row/column of blocks is padded with pixels that are");
+				note("not in the image; the sprites they feed will be garbage.");
+			}
+		}
 		if (gfx4snes_args.metasprite) // specific case to have the correct map implementation for metasprites
 		{
 			// convert tiles to a snes format (8x8)
