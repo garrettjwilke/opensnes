@@ -119,6 +119,12 @@
     "rom_sha256": "5f2c9cabe9b40e2c5269877ad39636022bfaf4cd9bc10ae57dcea3b9504e4b0c",
     "steps": 3000000
   },
+  "games_rpg": {
+    "fbhash": "b9ca30183c902748",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "0fcdb34aacc0c8fdf1f7b4fe5d2754cb12407775b7b04f887bf720d771282231",
+    "steps": 3000000
+  },
   "games_shmup_1942": {
     "fbhash": "0f983c7daa78557c",
     "luna_version": "v1.9.0",
