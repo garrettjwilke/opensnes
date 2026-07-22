@@ -59,6 +59,7 @@ static cmdp_command_st gfx4snes_command = {
 			{'F', "tile-flip", "deduplicate flipped tiles", CMDP_TYPE_BOOL, &gfx4snes_args.tileflip},
 			{'M', "map-mode", "convert the whole picture for mode 1,5,6 or 7 format {[1],5,6,7}", CMDP_TYPE_INT4, &gfx4snes_args.mapscreenmode},
             {0, 0, "Palettes options:\n", CMDP_TYPE_NONE, NULL,NULL},
+			{'c', "pal-fixed", "impose this palette (raw .pal); fail if the image uses a color not in it", CMDP_TYPE_STRING_PTR, &gfx4snes_args.fixpalette},
 			{'a', "pal-rearrange", "rearrange palette and preserve palette numbers in tilemap", CMDP_TYPE_BOOL, &gfx4snes_args.paletterearrange},
 			{'d', "pal-rounded", "palette rounding (to a maximum value of 63)", CMDP_TYPE_BOOL, &gfx4snes_args.paletteround},
 			{'e', "pal-entry", "palette entry to add to map tiles {0..7}", CMDP_TYPE_INT4, &gfx4snes_args.paletteentry},
@@ -136,6 +137,19 @@ int main(int argc, const char **argv)
 	
 	// convert palette to a snes format
 	palette_convert_snes((t_RGB_color *) &snesimage.palette,(int *) &palette_snes, gfx4snes_args.paletteround, gfx4snes_args.quietmode);
+
+	// -c: impose a palette instead of accepting the image's own. Without
+	// this, the palette is a function of the WHOLE image, so adding one
+	// tile re-derives all of it and every existing tile shifts hue — a
+	// change nothing reports and nobody notices until they diff two
+	// screenshots. With it, the indices are stable across edits and a
+	// colour that does not belong is a build error.
+	if (gfx4snes_args.fixpalette != NULL)
+	{
+		palette_impose(gfx4snes_args.fixpalette, &snesimage,
+		               (int *) &palette_snes, gfx4snes_args.palettecolors,
+		               gfx4snes_args.quietmode);
+	}
 
 	// processes image file
 	blksx = nbtilesx = snesimage.header.width / gfx4snes_args.tilewidth;

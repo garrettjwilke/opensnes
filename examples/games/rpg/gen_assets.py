@@ -182,6 +182,22 @@ INTERIOR_ART = {
 }
 
 
+def write_pal(palette, out):
+    """Emit the palette as a raw SNES .pal (BGR555, little-endian).
+
+    Committed and passed to gfx4snes with -c, so the converter must use
+    THIS palette: any colour that creeps into the art without being
+    declared here fails the build instead of silently re-deriving all 16
+    slots and shifting every existing tile's hue.
+    """
+    data = bytearray()
+    for (r, g, b) in palette:
+        v = ((b >> 3) << 10) | ((g >> 3) << 5) | (r >> 3)
+        data += bytes((v & 0xFF, v >> 8))
+    (RES / out).write_bytes(bytes(data))
+    print(f"{out} ({len(palette)} colours, imposed on the converter)")
+
+
 def gen_tileset(tiles=None, art=None, palette=None, out="tileset.png"):
     """One unique 8x8 tile per terrain type, in a 16-wide grid.
 
@@ -368,9 +384,10 @@ def gen_tmj(grid):
             "tiles": tiles_props,
         }],
     }
-    # cute_tiled (tmx2snes' parser) needs COMPACT json with sorted keys
-    (RES / "town.tmj").write_text(
-        json.dumps(tmj, sort_keys=True, separators=(",", ":")))
+    # Indented on purpose: this file is meant to be opened and edited in
+    # Tiled, and read in a diff. tmx2snes minifies before parsing since
+    # issue #125 (its parser used to choke on any whitespace).
+    (RES / "town.tmj").write_text(json.dumps(tmj, indent=1))
     print("town.tmj (editable in Tiled: terrain + collision + entities)")
 
 
@@ -429,8 +446,7 @@ def gen_house_tmj(grid):
             "tiles": tiles_props,
         }],
     }
-    (RES / "house.tmj").write_text(
-        json.dumps(tmj, sort_keys=True, separators=(",", ":")))
+    (RES / "house.tmj").write_text(json.dumps(tmj, indent=1))
     print("house.tmj (the interior, editable in Tiled)")
 
 
@@ -692,8 +708,10 @@ def gen_uibox():
 if __name__ == "__main__":
     keep = "--keep-map" in sys.argv
     gen_tileset()
+    write_pal(TOWN_PAL, "town_fixed.pal")
     gen_tileset(INTERIOR_TILES, INTERIOR_ART, INTERIOR_PAL,
                 "interior.png")
+    write_pal(INTERIOR_PAL, "interior_fixed.pal")
     if not keep or not (RES / "town.tmj").exists():
         gen_tmj(build_terrain())
     else:

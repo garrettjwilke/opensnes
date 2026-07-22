@@ -491,12 +491,57 @@ int main(int argc, char **argv)
     // load the map in memory
     if (quietmode == 0)
         printf("tmx2snes: Loading map: [%s]\n", filebase);
-    map = cute_tiled_load_map_from_file(filebase, 0);
-    if (map == NULL)
+
+    // cute_tiled's parser does not skip insignificant whitespace, so a
+    // pretty-printed .tmj — anything written with an indent, which is
+    // what a generator script produces by default — fails to parse.
+    // Tiled's own export happens to be compact, so the trap only springs
+    // on generated maps, which is exactly what a content pipeline makes.
+    // Minify the buffer ourselves rather than make every generator author
+    // discover this.
     {
-        printf("tmx2snes: error 'Cannot load map'\n");
-        fclose(fpi);
-        return 1;
+        char *json = (char *)malloc((size_t)filesize + 1);
+        if (json == NULL)
+        {
+            printf("tmx2snes: error 'Out of memory reading [%s]'\n", filebase);
+            fclose(fpi);
+            return 1;
+        }
+        size_t got = fread(json, 1, (size_t)filesize, fpi);
+        json[got] = '\0';
+
+        // strip whitespace outside string literals, in place
+        size_t w = 0;
+        int in_string = 0, escaped = 0;
+        for (size_t r = 0; r < got; r++)
+        {
+            char c = json[r];
+            if (in_string)
+            {
+                json[w++] = c;
+                if (escaped)          escaped = 0;
+                else if (c == '\\')   escaped = 1;
+                else if (c == '"')    in_string = 0;
+                continue;
+            }
+            if (c == '"') { in_string = 1; json[w++] = c; continue; }
+            if (c == ' ' || c == '\t' || c == '\n' || c == '\r') continue;
+            json[w++] = c;
+        }
+
+        map = cute_tiled_load_map_from_memory(json, (int)w, 0);
+        if (map == NULL)
+        {
+            printf("tmx2snes: error 'Cannot load map [%s]'\n", filebase);
+            if (cute_tiled_error_reason != NULL)
+                printf("tmx2snes:        %s (json line %d)\n",
+                       cute_tiled_error_reason, cute_tiled_error_line);
+            printf("tmx2snes:        Is it a Tiled JSON map (.tmj / .json)?\n");
+            free(json);
+            fclose(fpi);
+            return 1;
+        }
+        free(json);
     }
 
     // close the input file

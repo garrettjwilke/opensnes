@@ -100,10 +100,6 @@ This example doesn't *use* that output: it scrolls a 64×64 map with the
 (see `examples/maps/tiled`). `gen_assets.py` therefore does its own
 conversion from the same `.tmj`.
 
-> Generating the `.tmj` from a script has one trap: `cute_tiled` (the
-> parser inside `tmx2snes`) rejects pretty-printed JSON with a bare
-> `Invalid integer`. Write it compact and key-sorted —
-> `json.dumps(tmj, sort_keys=True, separators=(",", ":"))`.
 
 ## How to Build
 
