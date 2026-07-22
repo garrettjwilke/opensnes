@@ -415,9 +415,32 @@ void oamSetTile(u8 id, u16 tile);
  * valid Y to show. */
 
 /**
- * @brief Hide sprite
+ * @brief Park a sprite off screen.
+ *
+ * Use this for **anything outside the camera**. OAM X is 9 bits and Y is
+ * 8: a sprite drawn at a position beyond the screen does not disappear,
+ * its coordinates WRAP and it reappears somewhere plausible. In a
+ * scrolling world that reads as an entity standing where no entity is —
+ * a villager inside a wall — which you find by looking at the screen,
+ * not by reading the code.
+ *
+ * @code
+ * s16 sx = (s16)world_x - (s16)cam_x;
+ * s16 sy = (s16)world_y - (s16)cam_y;
+ * if (sx < -16 || sx > 255 || sy < -16 || sy > 223) {
+ *     oamHide(id);
+ * } else {
+ *     oamSet(id, (u16)sx, (u16)sy, tile, pal, prio, 0);
+ * }
+ * @endcode
+ *
+ * Sets Y to OBJ_HIDE_Y **and** X's high bit, because Y=240 alone still
+ * wraps for sprites taller than 16 px. That is why this is a function
+ * and not a `oamSetXY(id, 0, 240)` you write yourself.
  *
  * @param id Sprite ID (0-127)
+ *
+ * @see examples/games/rpg — culls its villagers this way
  */
 void oamHide(u8 id);
 

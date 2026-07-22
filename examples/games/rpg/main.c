@@ -368,8 +368,9 @@ static void begin_step(s8 dx, s8 dy) {
  * bits and Y is 8, so an entity standing outside the camera does not
  * quietly vanish — its coordinates WRAP and it reappears somewhere
  * plausible-looking on screen. A villager two screens away shows up
- * standing inside the town wall. Anything off-camera must be parked at
- * OBJ_HIDE_Y instead of drawn.
+ * standing inside the town wall. Anything off-camera goes to oamHide(),
+ * which parks it properly (Y AND the X high bit — Y alone still wraps
+ * for sprites over 16 px tall).
  */
 static void draw_char(u8 oam_id, u16 wx, u16 wy, u16 cam_x, u16 cam_y,
                       u8 facing, u8 phase, u8 palette) {
@@ -378,7 +379,7 @@ static void draw_char(u8 oam_id, u16 wx, u16 wy, u16 cam_x, u16 cam_y,
     u8 f;
 
     if (sx < -16 || sx > 255 || sy < -16 || sy > 223) {
-        oamSetXY(oam_id, 0, OBJ_HIDE_Y);
+        oamHide(oam_id);
         return;
     }
     f = (u8)(facing * 4 + phase * 2);
@@ -550,7 +551,7 @@ int main(void) {
                 draw_char(1, HOUSE_NPC_TX * 8, HOUSE_NPC_TY * 8,
                           cam_x, cam_y, FACE_DOWN, 0, 1);
                 for (n = 1; n < NPC_COUNT; n++) {
-                    oamSetXY((u8)(n + 1), 0, OBJ_HIDE_Y);
+                    oamHide((u8)(n + 1));
                 }
             } else {
                 /* the villagers: same tiles as the hero, palette 1 */

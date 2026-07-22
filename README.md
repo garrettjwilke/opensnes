@@ -54,7 +54,9 @@ a lane here whether you're curious, comfortable, or hardcore:
   [`examples/text/hello_world`](examples/text/hello_world/) and follow the
   [learning path](docs/LEARNING_PATH.md). You'll have a ROM running in minutes
   and meet the hardware one example at a time — no assembly required to get
-  moving.
+  moving. Once you have a project of your own,
+  [`docs/API_INDEX.md`](docs/API_INDEX.md) indexes the SDK by *what you are
+  trying to do* — scan it before writing a helper, several already exist.
 - **Comfortable with retro hardware?** The library covers sprites, backgrounds,
   DMA, HDMA, input, audio and Mode 7 through a clean C API, so your time goes
   into the game, not the boilerplate.
