@@ -64,8 +64,12 @@ ROM mode: LoROM (project default).
   quantised from RGB. With a quantiser, adding one tile re-derives the
   whole palette and every existing tile shifts hue — the town's paths
   turned pink the first time the blue roof was added.
-- **A 9-slice dialog box** DMA'd to BG2 on open, with `text_config.priority`
-  and BGMODE bit 3 putting the text in front of the opaque town.
+- **Two 9-slice panels on one layer** via the `panel` module: the HUD at
+  the top and the dialog box at the bottom share BG2's tilemap, so one
+  upload covers both and opening a dialog never disturbs the HUD. The
+  module does that upload under forced blank, which is the part that is
+  easy to get wrong. `text_config.priority` plus BGMODE bit 3 put the
+  text in front of the opaque town.
 - **Collision through the SDK's `collideTile()`** over the Tiled map. Its
   `tilemap` parameter is `const`, so the lookup is a bank-honouring far
   read (#121) — the 4 KB map needs neither bank $00 nor a byte of RAM.
@@ -109,4 +113,4 @@ make
 
 ## Modules Used
 
-console, dma, background, sprite, text, input, collision
+console, dma, background, sprite, text, input, collision, panel

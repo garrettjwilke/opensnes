@@ -58,7 +58,7 @@
  * button press. The mat by the door takes you back out.
  *
  * @par Modules Used
- * console, dma, background, sprite, text, input, collision
+ * console, dma, background, sprite, text, input, collision, panel
  *
  * @see gen_assets.py, res/town.tmj — the Tiled content pipeline
  */
@@ -69,6 +69,7 @@
 #include <snes/text.h>
 #include <snes/input.h>
 #include <snes/collision.h>
+#include <snes/panel.h>
 
 #include "res/entities.inc"     /* SPAWN/CHEST/NPC_TABLE from the .tmj */
 
@@ -210,37 +211,20 @@ static void front_tile(u16 *tx, u16 *ty) {
     *ty = cy;
 }
 
-/* ---- BG2: the HUD frame and the dialog panel share one tilemap ----
- * The HUD lives at the top and never moves; the dialog panel at the
- * bottom is filled on open and blanked on close. One DMA either way. */
-#define BOX_ATTR ((u16)(BOX_PAL << 10) | 0x2000)   /* +priority: over BG1 */
-
-/** @brief Stamp a 9-slice panel of w x h tiles at (px,py) into panel_map. */
-static void stamp_panel(u16 px, u16 py, u16 w, u16 h) {
-    u16 x, y, t;
-    for (y = 0; y < h; y++) {
-        for (x = 0; x < w; x++) {
-            if (y == 0) {
-                t = (x == 0) ? BOX_TL : (x == w - 1) ? BOX_TR : BOX_T;
-            } else if (y == h - 1) {
-                t = (x == 0) ? BOX_BL : (x == w - 1) ? BOX_BR : BOX_B;
-            } else {
-                t = (x == 0) ? BOX_L : (x == w - 1) ? BOX_R : BOX_C;
-            }
-            panel_map[(py + y) * 32 + (px + x)] = (u16)(t | BOX_ATTR);
-        }
-    }
-}
-
-/** @brief Blank the dialog rows of the BG2 map (the HUD stays). */
-static void clear_dialog_tiles(void) {
-    u16 x, y;
-    for (y = 0; y < PANEL_H; y++) {
-        for (x = 0; x < PANEL_W; x++) {
-            panel_map[(PANEL_Y + y) * 32 + (PANEL_X + x)] = 0;
-        }
-    }
-}
+/* ---- BG2: the HUD and the dialog box, both on one tilemap ----
+ * Two 9-slice panels in the same map: the HUD at the top, permanent,
+ * and the dialog box at the bottom, stamped on open and blanked on
+ * close. One upload covers both, so opening a dialog never disturbs
+ * the HUD. The `panel` module owns the stamping and does the upload
+ * under forced blank; the buffer stays ours so its 2 KB is visible. */
+static const Panel ui = {
+    panel_map,          /* map        */
+    VRAM_UI_MAP,        /* vram_addr  */
+    0,                  /* base_tile — the sheet starts at tile 0 */
+    4,                  /* stride — 4 wide: col 4 holds the HUD icons */
+    BOX_PAL,            /* palette    */
+    1,                  /* priority — in front of the opaque town */
+};
 
 /**
  * @brief Draw the HUD icons: hearts for HP, a coin for the purse.
@@ -252,26 +236,10 @@ static void clear_dialog_tiles(void) {
 static void hud_icons(void) {
     u16 i;
     for (i = 0; i < HERO_MAX_HP; i++) {
-        panel_map[1 * 32 + (1 + i)] =
-            (u16)((i < hero_hp ? ICON_HEART : ICON_HEART_EMPTY) | BOX_ATTR);
+        panelPut(&ui, (u8)(1 + i), 1,
+                 (i < hero_hp) ? ICON_HEART : ICON_HEART_EMPTY);
     }
-    panel_map[1 * 32 + 8] = (u16)(ICON_COIN | BOX_ATTR);
-}
-
-/**
- * @brief Push the whole BG2 tilemap to VRAM.
- *
- * setScreenOff() is FORCED BLANK (INIDISP bit 7) — the only state
- * besides VBlank in which the PPU accepts VRAM writes. setBrightness(0)
- * merely makes the screen black: the PPU keeps fetching and the write
- * is silently dropped. Getting that wrong costs nothing on a 2 KB
- * transfer that happens to land in VBlank, and corrupts the screen on
- * an 8 KB one that does not.
- */
-static void flush_panel(void) {
-    setScreenOff();
-    dmaCopyVram((u8 *)panel_map, VRAM_UI_MAP, 32 * 32 * 2);
-    setScreenOn();
+    panelPut(&ui, 8, 1, ICON_COIN);
 }
 
 /** @brief The HUD's numeric half, on BG3. Re-drawn after every
@@ -283,17 +251,14 @@ static void hud_text(void) {
 }
 
 static void build_panel(void) {
-    u16 i;
-    for (i = 0; i < 32 * 32; i++) {
-        panel_map[i] = 0;
-    }
-    stamp_panel(HUD_X, HUD_Y, HUD_W, HUD_H);
+    panelInit(&ui);
+    panelDraw(&ui, HUD_X, HUD_Y, HUD_W, HUD_H);
     hud_icons();
 }
 
 static void dialog_open(const char *line) {
-    stamp_panel(PANEL_X, PANEL_Y, PANEL_W, PANEL_H);
-    flush_panel();
+    panelDraw(&ui, PANEL_X, PANEL_Y, PANEL_W, PANEL_H);
+    panelFlush(&ui);
     textPrintAt(PANEL_X + 2, PANEL_Y + 2, line);
     textPrintAt(PANEL_X + 2, PANEL_Y + 4, "         (A) OK");
     game_state = ST_DIALOG;
@@ -302,8 +267,8 @@ static void dialog_open(const char *line) {
 static void dialog_close(void) {
     /* clear only the dialog rows: textClear() would wipe the HUD too */
     textClearRect(PANEL_X, PANEL_Y, PANEL_W, PANEL_H);
-    clear_dialog_tiles();
-    flush_panel();
+    panelClear(&ui, PANEL_X, PANEL_Y, PANEL_W, PANEL_H);
+    panelFlush(&ui);
     game_state = ST_EXPLORE;
 }
 
@@ -432,7 +397,7 @@ int main(void) {
     /* BG2 carries the HUD, so it is on screen for good — the dialog
      * panel just appears in its lower half when someone talks. */
     hud_icons();
-    dmaCopyVram((u8 *)panel_map, VRAM_UI_MAP, 32 * 32 * 2);
+    panelFlush(&ui);
     hud_text();
     setMainScreen(TM_BG1 | TM_BG2 | TM_BG3 | LAYER_OBJ);
     setBrightness(0);

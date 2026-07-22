@@ -3,7 +3,7 @@ OPENSNES := $(shell cd ../../.. && pwd)
 TARGET   := rpg.sfc
 ROM_NAME := RPG TEMPLATE
 USE_LIB  := 1
-LIB_MODULES := console dma background sprite text input collision
+LIB_MODULES := console dma background sprite text input collision panel
 
 CSRC   := main.c
 ASMSRC := data.asm

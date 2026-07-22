@@ -172,6 +172,7 @@ _DEP_hdma            := dma math_sqrt
 # on math_sqrt — the resolver flattens this transitively.
 _DEP_math            := math_sqrt
 _DEP_asset           := dma background
+_DEP_panel           := dma console
 # audio v2: C layer needs the apu upload primitives + the embedded
 # SPC700 driver image (audio_blob.asm -> audio_blob-asm.o)
 _DEP_audio           := apu audio_blob

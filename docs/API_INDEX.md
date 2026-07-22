@@ -53,6 +53,7 @@ nothing you do not list is linked.
 | a main loop you do not write | `gameLoopRun` | `gameloop` | [basics/timer](../examples/basics/timer/) |
 | title → play → pause, without a state enum | `Scene`, `scenePush`, `scenePop` | `scene` | [basics/scene_stack](../examples/basics/scene_stack/) |
 | save the player's progress | `sramSave`, `sramLoad` | `sram` | [memory/save_game](../examples/memory/save_game/) |
+| a dialog box or a status bar | `panelDraw`, `panelPut`, `panelFlush` | `panel` | [games/rpg](../examples/games/rpg/) |
 
 ## Sound
 
