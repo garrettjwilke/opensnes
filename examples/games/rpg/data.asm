@@ -1,11 +1,16 @@
 ;----------------------------------------------------------------------
-; rpg — assets generated from the Tiled map (res/town.tmj) by
-; gen_assets.py. The map is the single source of truth: terrain,
-; per-tile collision and entity positions all come from it.
+; rpg — assets generated from the Tiled maps (res/town.tmj and
+; res/house.tmj) by gen_assets.py. The maps are the single source of
+; truth: terrain, per-tile collision and entity positions come from them.
 ;
-; town_collision is read from C by plain array indexing: post-#121
-; const-qualified reads use far addressing, so the 4 KB map lives
-; outside bank $00 with no ASM accessor — the SDK's dogfood of #121.
+; EVERY asset here is pinned OUT of bank $00. Nothing needs to be there:
+; tiles, maps and palettes are handed to lib DMA functions, which take
+; far pointers and honour the bank byte; the collision maps are read
+; from C through `const` pointers, which post-#121 compile to far reads.
+; Left as SUPERFREE the linker packs them into bank $00 — it is the
+; first bank that fits — and this example was down to 12 free bytes
+; there, with 12 KB of map data sitting in the code bank for no reason.
+; See issue #127.
 ;----------------------------------------------------------------------
 
 .section ".rodata_tiles" superfree
@@ -18,19 +23,19 @@ town_map:    .incbin "res/town_map.bin"
 town_map_end:
 .ends
 
-.section ".rodata_coll" free bank 3
+.section ".rodata_coll" free bank 2
 town_collision: .incbin "res/town_collision.bin"
 town_collision_end:
 .ends
 
-.section ".rodata_interior" free bank 4
+.section ".rodata_interior" free bank 3
 house_tiles: .incbin "res/interior.pic"
 house_tiles_end:
 house_map:   .incbin "res/house_map.bin"
 house_map_end:
 .ends
 
-.section ".rodata_hcoll" free bank 5
+.section ".rodata_hcoll" free bank 3
 house_collision: .incbin "res/house_collision.bin"
 house_collision_end:
 .ends
@@ -45,8 +50,7 @@ ui_tiles:    .incbin "res/uibox.pic"
 ui_tiles_end:
 .ends
 
-; Palettes forced to bank $00 (dmaCopyCGram reads bank $00 only).
-.section ".rpgpal" semifree bank 0
+.section ".rpgpal" free bank 3
 town_pal:  .incbin "res/tileset.pal"
 town_pal_end:
 hero_pal:  .incbin "res/hero.pal"

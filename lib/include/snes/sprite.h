@@ -272,14 +272,39 @@ extern t_sprites oambuffer[128];
  *
  * @param size       Sprite size mode (OBJ_SIZE_*; use OAM_DEFAULT_SIZE for
  *                   the standard 8×8/16×16 layout)
- * @param tile_base  VRAM tile-base index 0-7 in OBSEL name-base units —
- *                   each step is $2000 WORD addresses (16 KB), so tiles
- *                   DMA'd to word $4000 need index 2 (addr >> 13). The
- *                   doc previously claimed $1000-word steps, which made
- *                   fix32_orbit's sprite read blank VRAM (#115). Use
+ * @param name_base  OBJ name base, a PAGE NUMBER 0-7 — **not** a VRAM
+ *                   address. Each page is $2000 WORD addresses (16 KB),
+ *                   so tiles DMA'd to word $4000 need base 2. Prefer
+ *                   OBJ_NAME_BASE(addr) over computing it by hand; use
  *                   OAM_DEFAULT_TILE_BASE for tiles at VRAM $0000.
+ *
+ * @warning The value is masked to 3 bits. Passing a VRAM address — the
+ *          natural mistake, since every other VRAM parameter in the SDK
+ *          takes one — silently yields a wrong base: `0x6000 & 7` is 0,
+ *          and the sprites render whatever tiles sit at word 0. There is
+ *          no diagnostic; the symptom is a sprite drawn as background
+ *          garbage. The doc also once claimed $1000-word steps, which
+ *          made fix32_orbit's sprite read blank VRAM (#115).
  */
-void oamInit(u16 size, u16 tile_base);
+void oamInit(u16 size, u16 name_base);
+
+/**
+ * @brief Convert a VRAM **word** address into an OBJ name base (0-7).
+ *
+ * OBJSEL stores the sprite tile area as a 3-bit *page number*, not an
+ * address: page N means word address `N << 13`. Passing a VRAM address
+ * to oamInit() directly is therefore wrong — it is masked to 3 bits, so
+ * `0x6000` becomes base 0 and the sprites render whatever tiles happen
+ * to live at word 0 (usually the background's). Nothing reports it.
+ *
+ * Use this macro and the intent survives the call:
+ * @code
+ * oamInit(OBJ_SIZE8_L16, OBJ_NAME_BASE(0x6000));   // base 3
+ * @endcode
+ *
+ * @param vram_word_addr VRAM word address, a multiple of $2000
+ */
+#define OBJ_NAME_BASE(vram_word_addr) (((vram_word_addr) >> 13) & 0x07)
 
 /**
  * @brief Initialize sprite graphics and palette (PVSnesLib compatible)

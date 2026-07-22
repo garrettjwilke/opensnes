@@ -109,7 +109,6 @@ extern const u8 house_collision[];     /* const -> far reads (#121) */
 #define VRAM_UI_TILES   0x4000
 #define VRAM_UI_MAP     0x4400
 #define VRAM_HERO       0x6000
-#define OBJ_NAME_BASE   3      /* base 3 x $2000 words = VRAM_HERO */
 
 /* uibox.png is a 4x3 sheet: the 9-slice border in the first three
  * columns, the HUD icons in the fourth. Raster order, so row n starts
@@ -332,6 +331,7 @@ static void scene_load(u8 which, u16 tx, u16 ty, u8 facing) {
         dmaCopyCGram(town_pal, 0, 32);
         bgSetGfxPtr(0, VRAM_TOWN_TILES);
         bgSetMapPtr(0, VRAM_TOWN_MAP, SC_64x64);
+    dmaCopyCGram(town_pal, 0, 32);
     }
     scene = which;
     hero_x = (u16)(tx * 8);
@@ -398,6 +398,7 @@ int main(void) {
     dmaCopyVram(town_map, VRAM_TOWN_MAP, 8192);
     bgSetGfxPtr(0, VRAM_TOWN_TILES);
     bgSetMapPtr(0, VRAM_TOWN_MAP, SC_64x64);
+    dmaCopyCGram(town_pal, 0, 32);
 
     /* BG3 text overlay */
     textInit(VRAM_TEXT_MAP, 0, 4);
@@ -418,7 +419,7 @@ int main(void) {
     dmaCopyVram(hero_tiles, VRAM_HERO, (u16)(hero_tiles_end - hero_tiles));
     dmaCopyCGram(hero_pal, 128, 32);       /* OBJ palette 0 */
     dmaCopyCGram(npc_pal, 144, 32);        /* OBJ palette 1 */
-    oamInit(OBJ_SIZE8_L16, OBJ_NAME_BASE);
+    oamInit(OBJ_SIZE8_L16, OBJ_NAME_BASE(VRAM_HERO));
 
     /* spawn from the Tiled Entities layer */
     hero_x = SPAWN_TX * 8;
@@ -429,8 +430,6 @@ int main(void) {
     gold = 0;
     hero_hp = HERO_MAX_HP;
 
-    /* town palette LAST (textInit/textLoadFont clear CGRAM 0-15) */
-    dmaCopyCGram(town_pal, 0, 32);
 
     /* BG2 carries the HUD, so it is on screen for good — the dialog
      * panel just appears in its lower half when someone talks. */
