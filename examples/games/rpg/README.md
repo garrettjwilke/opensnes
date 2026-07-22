@@ -95,14 +95,15 @@ whole map from the script's layout.
 too — a useful check that the file is well-formed:
 
 ```bash
-../../../bin/tmx2snes res/town.tmj res/tileset.map   # writes .m16/.b16/.o16/.t16
+../../../bin/tmx2snes -e -Q res/town.tmj res/tileset.map
 ```
 
-This example doesn't *use* that output: it scrolls a 64×64 map with the
-`background` module, which wants a quadrant-ordered tilemap, whereas
-`tmx2snes` emits the `.m16` streaming format the `map` module consumes
-(see `examples/maps/tiled`). `gen_assets.py` therefore does its own
-conversion from the same `.tmj`.
+`-Q` writes the quadrant-ordered 64×64 tilemap this example scrolls with
+the `background` module, and `-e` writes the entities as C defines —
+byte-identical to what `gen_assets.py` produces. The generator still runs
+the conversion itself because it also builds the per-cell collision grid
+and marks the villagers' tiles blocked, which is game logic rather than
+map data; moving the rest onto the tool is a Makefile change.
 
 
 ## How to Build
