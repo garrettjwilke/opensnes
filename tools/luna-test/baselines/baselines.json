@@ -56,7 +56,7 @@
   "basics_aim_target": {
     "fbhash": "6d80c5a68234dfee",
     "luna_version": "v1.9.0",
-    "rom_sha256": "f18cdc4bff6cf331c9b75bc856640106518e88481eae299731a1c9566f3033f8",
+    "rom_sha256": "dccb067c71e279f9e099e86e7fba3891167b0cce2d7d53d8433b9fb73cf3b463",
     "steps": 3000000
   },
   "basics_collision_demo": {
@@ -66,15 +66,15 @@
     "steps": 3000000
   },
   "basics_fix32_orbit": {
-    "fbhash": "21dca78f1b245f05",
+    "fbhash": "180d681ca837a6f0",
     "luna_version": "v1.9.0",
-    "rom_sha256": "7d881cc51e01e42db4d76135afe6666a0ca7505f64ad6ac2bd34ad1aa41fa074",
+    "rom_sha256": "7cd4569ddead9b50fab8e1e5b967e5d9f2826de752cbdcfaaa91c868eb1f59aa",
     "steps": 3000000
   },
   "basics_random": {
     "fbhash": "0b149072248a5905",
     "luna_version": "v1.9.0",
-    "rom_sha256": "984c575d620e6a0a274134f57e596f1bab0b07cda54d00ddc1f2841cac02a0a6",
+    "rom_sha256": "ad02ed23c46a607c9d268decc8a720c403c1ee42466fd53cabf287a9d3198daa",
     "steps": 4000000
   },
   "basics_scene_stack": {
@@ -84,9 +84,9 @@
     "steps": 3000000
   },
   "basics_timer": {
-    "fbhash": "f9a23bbfec287738",
+    "fbhash": "e686d73bad5f91a7",
     "luna_version": "v1.9.0",
-    "rom_sha256": "0f0e76a9f3e2b0d95641a7446efc39e2e1fc845a8c964bdeafe8c2a4c5026d78",
+    "rom_sha256": "7a5653282dfb236605b103a28c5f8ea277afc36e393abf26634e07a2e93f37bd",
     "steps": 3000000
   },
   "games_breakout": {
@@ -110,13 +110,13 @@
   "games_mode7_flying": {
     "fbhash": "bda7088b796624e2",
     "luna_version": "v1.9.0",
-    "rom_sha256": "bb5f95f0f17dc57c836db95f83a2ea28ac76b4214d3a6b6477e11ad6660630d8",
+    "rom_sha256": "c1799f9b4b918fbb17788ddead767e1b46ff281c684e84c6275b3c0858232e42",
     "steps": 3000000
   },
   "games_mode7_racing": {
     "fbhash": "44c7556d4c0057a9",
     "luna_version": "v1.9.0",
-    "rom_sha256": "5f2c9cabe9b40e2c5269877ad39636022bfaf4cd9bc10ae57dcea3b9504e4b0c",
+    "rom_sha256": "dd718bafdd7f8cafa2cf69ac09a1efbb2839aeefff3bbbd62d389c7930560589",
     "steps": 3000000
   },
   "games_rpg": {
@@ -126,9 +126,9 @@
     "steps": 3000000
   },
   "games_shmup_1942": {
-    "fbhash": "be06a2bc52a63efa",
+    "fbhash": "2c7643bc9feb01ac",
     "luna_version": "v1.9.0",
-    "rom_sha256": "d4314500642c67ee8b3a1b3cb29bbfe5a0ce13c55459616d9f1175f8ebb25ce2",
+    "rom_sha256": "56180609f30a20f61cdbed5562c9e44a59af88f4e7bc88689f12dc8c94b48641",
     "steps": 3000000
   },
   "games_tetris": {
@@ -150,9 +150,9 @@
     "steps": 3000000
   },
   "graphics_backgrounds_mode0": {
-    "fbhash": "dc11b5c652ccda67",
+    "fbhash": "b12f6212e4bb0333",
     "luna_version": "v1.9.0",
-    "rom_sha256": "7aecc22d75f8f479d26755069563129368d219c446ca7574b1ba8fd1b5402b4a",
+    "rom_sha256": "2f1ae2c70fdd2de376f321a076647cf73a749800f96e58b7acaf4f12b3ce45da",
     "steps": 3000000
   },
   "graphics_backgrounds_mode1": {
@@ -245,7 +245,7 @@
       "3d7ce47db75492b3"
     ],
     "luna_version": "v1.9.0",
-    "rom_sha256": "3a9669e530e8e0775547419560944bb8ed1b3575e125b908ca08ddbac54c7ee9",
+    "rom_sha256": "a16cedb77bbba8d22f7e8e63a27f8c2cd217a465e6dc2091dd0b842861704b4c",
     "steps": [
       3000000,
       6000000
@@ -302,16 +302,16 @@
   "graphics_effects_superfx_3d": {
     "fbhash": "e5966ae3f17ea7f3",
     "luna_version": "v1.9.0",
-    "rom_sha256": "ffc44ee9db5824e4f4f62fd46174e52e9c03a67d4a5c7cecf46899170f912ff3",
+    "rom_sha256": "4da130160709c9339c920965345d160fb248542a596d68434694d1e6c5136ed1",
     "steps": 3000000
   },
   "graphics_effects_transparency": {
     "fbhash": [
-      "7a125d8bd7cc5a70",
-      "8f1116d5e43b970f"
+      "abbc90bbe12ef4cb",
+      "37d3b67ae55060a9"
     ],
     "luna_version": "v1.9.0",
-    "rom_sha256": "3fd8b88e29039c11f8bc6026c1e6108ac9d5a61196a863197db2833e69b2f9cd",
+    "rom_sha256": "425d00d5968e55b5823dced59a71d99e2a541dd92ce290eb3634c12ea109f8ee",
     "steps": [
       3000000,
       6000000
@@ -438,9 +438,9 @@
     "steps": 3000000
   },
   "memory_sa1_starfield": {
-    "fbhash": "a4f6799500eb7375",
+    "fbhash": "6ebb5979daeb5e75",
     "luna_version": "v1.9.0",
-    "rom_sha256": "a12d887d3ad308b92df5adc5faef39f2259bd9937db8638f4ebc6a4f71b415e6",
+    "rom_sha256": "53dbfff27ef2b3800e4674f6dc007a4ee0166e2851bf15581898e26864347dbe",
     "steps": 3000000
   },
   "memory_save_game": {
