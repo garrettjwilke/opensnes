@@ -296,7 +296,7 @@ endif
 MEMMAP_DEP := $(TEMPLATES)/$(MEMMAP_INC)
 
 define wrap_asm
-	@{ echo '.include "$(MEMMAP_INC)"'; echo ''; cat $(1); } > $(basename $(2)).wrap.asm
+	@{ echo '.include "$(MEMMAP_INC)"'; echo '.include "assets.inc"'; echo ''; cat $(1); } > $(basename $(2)).wrap.asm
 	@$(AS) $(ASFLAGS) -I $(TEMPLATES) -o $(2) $(basename $(2)).wrap.asm
 endef
 
