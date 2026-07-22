@@ -187,6 +187,7 @@ test-compiler:
 # tool output against committed goldens — needs `make tools` first.
 test-tools:
 	@python3 tools/gfx4snes/tests/run_golden.py
+	@python3 tools/tmx2snes/tests/run_golden.py
 	@python3 tools/smconv/tests/run_golden.py
 
 # WRAM-state regression ("did my change alter invisible runtime state?").
