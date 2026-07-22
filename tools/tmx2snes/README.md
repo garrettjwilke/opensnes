@@ -44,28 +44,32 @@ objects by their Tiled **type**:
 
 ```c
 #define NPC_COUNT 2
-#define NPC_TX_TABLE { 28, 34 }
-#define NPC_TY_TABLE { 33, 31 }
-#define NPC_TEXT_TABLE { "HEY! HOW ARE YOU?", "WELCOME, TRAVELER!" }
+#define NPC_FIELDS \
+    u8 tx; u8 ty; const char *text;
+#define NPC_TABLE { \
+    { 28, 33, "HEY! HOW ARE YOU?" }, \
+    { 34, 31, "WELCOME, TRAVELER!" } \
+}
 
 #define SPAWN_COUNT 1
-#define SPAWN_TX_TABLE { 31 }
-#define SPAWN_TY_TABLE { 34 }
 #define SPAWN_TX 31          /* scalars too, when there is only one */
 #define SPAWN_TY 34
 ```
 
-Custom properties become parallel tables (`<TYPE>_<PROP>_TABLE`), string
-properties as string literals, ints and bools as numbers. A type with a
-single object also gets the scalar forms, which is what you want for a
-spawn point or an exit.
+which you use as:
+
+```c
+typedef struct { NPC_FIELDS } Npc;
+static const Npc npcs[NPC_COUNT] = NPC_TABLE;
+```
+
+Custom properties become struct members — string properties as
+`const char *`, ints and bools as `u16`. A type with a single object
+also gets the scalar forms, which is what you want for a spawn point or
+an exit.
 
 Adding a villager is then a map edit: drop an object of type `npc` in
 Tiled, give it a `text` property, rebuild.
-
-> Parallel tables rather than an array of structs on purpose — a `const`
-> array of structs indexed at runtime currently loses its bank byte
-> (issue #132), while a `const` scalar table takes the folded far path.
 
 ## Output Files
 

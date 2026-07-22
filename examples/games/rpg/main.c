@@ -72,19 +72,16 @@
 
 #include "res/entities.inc"     /* SPAWN/CHEST/NPC_TABLE from the .tmj */
 
-/** @brief The villagers, generated from the Entities layer of town.tmj:
- * where each one stands and what it says. Adding one is a map edit, not
- * a code edit.
- *
- * These are three parallel `const` tables rather than one array of
- * structs on purpose. A `const` scalar table indexed at runtime compiles
- * to a folded far read (`lda.l tab,x`) and may live in any bank; an array
- * of structs currently computes its element address in 16 bits and loses
- * the bank byte, so it would be read from bank $00 — the build's
- * bank-blind check refuses it, which is how this was found. */
-static const u8 npc_tx[NPC_COUNT] = NPC_TX_TABLE;
-static const u8 npc_ty[NPC_COUNT] = NPC_TY_TABLE;
-static const char *const npc_line[NPC_COUNT] = NPC_LINE_TABLE;
+/** @brief A villager: where it stands and what it says. The struct
+ * shape and the rows both come from the Entities layer of town.tmj, so
+ * adding one is a map edit. */
+typedef struct { NPC_FIELDS } Npc;
+
+/** @brief The villagers. `const`, so the table lives in ROM and is read
+ * with bank-honouring far addressing — `npcs[i].tx` compiles to
+ * `lda.l npcs,x` (this needed issue #132 fixed; before that a const
+ * array of structs was read from bank $00). */
+static const Npc npcs[NPC_COUNT] = NPC_TABLE;
 
 extern u8 town_tiles[], town_tiles_end[];
 extern u8 town_map[];
@@ -496,8 +493,8 @@ int main(void) {
                         }
                     } else {
                         for (i = 0; i < NPC_COUNT; i++) {
-                            if (ftx == npc_tx[i] && fty == npc_ty[i]) {
-                                dialog_open(npc_line[i]);
+                            if (ftx == npcs[i].tx && fty == npcs[i].ty) {
+                                dialog_open(npcs[i].text);
                                 talked = 1;
                                 break;
                             }
@@ -556,8 +553,8 @@ int main(void) {
             } else {
                 /* the villagers: same tiles as the hero, palette 1 */
                 for (n = 0; n < NPC_COUNT; n++) {
-                    draw_char((u8)(n + 1), (u16)(npc_tx[n] * 8),
-                              (u16)(npc_ty[n] * 8), cam_x, cam_y,
+                    draw_char((u8)(n + 1), (u16)(npcs[n].tx * 8),
+                              (u16)(npcs[n].ty * 8), cam_x, cam_y,
                               FACE_DOWN, 0, 1);
                 }
             }

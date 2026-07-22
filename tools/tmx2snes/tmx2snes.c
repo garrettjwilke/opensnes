@@ -244,11 +244,17 @@ void WriteQuadrantMap(void)
 //
 // Objects are grouped by their Tiled TYPE. For each type:
 //     <TYPE>_COUNT           how many there are
-//     <TYPE>_TX_TABLE        { x, … } in tiles
-//     <TYPE>_TY_TABLE        { y, … } in tiles
-//     <TYPE>_<PROP>_TABLE    one per custom property
+//     <TYPE>_FIELDS          a struct-member list: tx, ty, then one
+//                            member per custom property
+//     <TYPE>_TABLE           a brace-enclosed initialiser, one row each
 // and, when there is exactly one, the scalar forms <TYPE>_TX, <TYPE>_TY,
 // <TYPE>_<PROP> as well.
+//
+// The table is an array of structs, which is what a game wants to write.
+// It briefly was not: until 2026-07-22 a `const` array of structs indexed
+// at runtime lost its bank byte, so this emitted parallel scalar tables
+// and the README called it a design choice. It was a compiler bug
+// (issue #132) and it is fixed; the workaround is gone with it.
 static void upcase_ident(const char *in, char *out, int outsz)
 {
     int i;
@@ -314,60 +320,65 @@ void WriteEntityHeader(void)
 
         fprintf(fph, "\n#define %s_COUNT %d\n", type, count);
 
-        fprintf(fph, "#define %s_TX_TABLE {", type);
-        first = 1;
-        for (p = layer->objects; p != NULL; p = p->next)
-            if (strcmp(p->type.ptr, o->type.ptr) == 0)
-            {
-                fprintf(fph, "%s %d", first ? "" : ",", (int)(p->x) / tw);
-                first = 0;
-            }
-        fprintf(fph, " }\n");
-
-        fprintf(fph, "#define %s_TY_TABLE {", type);
-        first = 1;
-        for (p = layer->objects; p != NULL; p = p->next)
-            if (strcmp(p->type.ptr, o->type.ptr) == 0)
-            {
-                fprintf(fph, "%s %d", first ? "" : ",", (int)(p->y) / th);
-                first = 0;
-            }
-        fprintf(fph, " }\n");
-
-        // one table per custom property found on the first object of the type
+        // the struct shape: tx, ty, then one member per custom property
+        fprintf(fph, "#define %s_FIELDS \\\n    u8 tx; u8 ty;", type);
         for (i = 0; i < o->property_count; i++)
         {
             cute_tiled_property_t *pr = o->properties + i;
-            upcase_ident(pr->name.ptr, prop, sizeof(prop));
-            fprintf(fph, "#define %s_%s_TABLE {", type, prop);
-            first = 1;
-            for (p = layer->objects; p != NULL; p = p->next)
+            char lower[64];
+            int k;
+            for (k = 0; pr->name.ptr[k] != '\0' && k < 63; k++)
             {
-                int j;
-                if (strcmp(p->type.ptr, o->type.ptr) != 0)
-                    continue;
-                fprintf(fph, "%s ", first ? "" : ",");
-                first = 0;
+                char ch = pr->name.ptr[k];
+                if (ch >= 'A' && ch <= 'Z')
+                    ch = (char)(ch - 'A' + 'a');
+                else if (!((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')))
+                    ch = '_';
+                lower[k] = ch;
+            }
+            lower[k] = '\0';
+            if (pr->type == CUTE_TILED_PROPERTY_STRING)
+                fprintf(fph, " const char *%s;", lower);
+            else
+                fprintf(fph, " u16 %s;", lower);
+        }
+        fprintf(fph, "\n");
+
+        // the rows
+        fprintf(fph, "#define %s_TABLE {", type);
+        first = 1;
+        for (p = layer->objects; p != NULL; p = p->next)
+        {
+            int j;
+            if (strcmp(p->type.ptr, o->type.ptr) != 0)
+                continue;
+            fprintf(fph, "%s \\\n    { %d, %d", first ? "" : ",",
+                    (int)(p->x) / tw, (int)(p->y) / th);
+            first = 0;
+            for (i = 0; i < o->property_count; i++)
+            {
+                cute_tiled_property_t *pr = o->properties + i;
                 for (j = 0; j < p->property_count; j++)
                 {
                     cute_tiled_property_t *q = p->properties + j;
                     if (strcmp(q->name.ptr, pr->name.ptr) != 0)
                         continue;
                     if (q->type == CUTE_TILED_PROPERTY_STRING)
-                        fprintf(fph, "\"%s\"", q->data.string.ptr);
+                        fprintf(fph, ", \"%s\"", q->data.string.ptr);
                     else if (q->type == CUTE_TILED_PROPERTY_INT)
-                        fprintf(fph, "%d", q->data.integer);
+                        fprintf(fph, ", %d", q->data.integer);
                     else if (q->type == CUTE_TILED_PROPERTY_BOOL)
-                        fprintf(fph, "%d", q->data.boolean ? 1 : 0);
+                        fprintf(fph, ", %d", q->data.boolean ? 1 : 0);
                     else
-                        fprintf(fph, "0");
+                        fprintf(fph, ", 0");
                     break;
                 }
                 if (j >= p->property_count)
-                    fprintf(fph, "0");
+                    fprintf(fph, ", 0");
             }
-            fprintf(fph, " }\n");
+            fprintf(fph, " }");
         }
+        fprintf(fph, " \\\n}\n");
 
         // scalars for a lone object of its type — the common case for a
         // spawn point, a door, an exit

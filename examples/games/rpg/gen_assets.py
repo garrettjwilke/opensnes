@@ -549,16 +549,12 @@ def convert_tmj():
         inc.append(f"#define {macro}_TY {ty}")
     inc.append("")
     inc.append(f"#define NPC_COUNT {len(npcs)}")
-    # Parallel scalar tables rather than an array of structs: a struct
-    # array indexed at runtime currently loses its bank byte (the address
-    # is computed 16-bit), while `const u8 tab[i]` takes the #121 folded
-    # far path. See the SDK issue linked from README.md.
-    inc.append("#define NPC_TX_TABLE { " +
-               ", ".join(str(p[0]) for p, _ in npcs) + " }")
-    inc.append("#define NPC_TY_TABLE { " +
-               ", ".join(str(p[1]) for p, _ in npcs) + " }")
-    inc.append("#define NPC_LINE_TABLE { " +
-               ", ".join('"%s"' % line for _, line in npcs) + " }")
+    # Same macro shape `tmx2snes -e` emits, so moving this example onto
+    # the tool is a Makefile change rather than a code change.
+    inc.append("#define NPC_FIELDS \\\n    u8 tx; u8 ty; const char *text;")
+    rows = ", \\\n    ".join(
+        '{ %d, %d, "%s" }' % (pos[0], pos[1], line) for pos, line in npcs)
+    inc.append("#define NPC_TABLE { \\\n    " + rows + " \\\n}")
     # the interior scene's own entities, from house.tmj
     hents, hnpc = convert_house_tmj()
     hx, hy = hents.get("spawn", (16, 24))

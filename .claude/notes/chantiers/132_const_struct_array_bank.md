@@ -156,10 +156,15 @@ The A6 far-pointer matrix went from 7/8 green with 4 XPASS to **8/8 with
 5 XPASS** — bank-2 byte, word and parameter derefs all close. Those were
 recorded as an "A6 far gap", not as consequences of this bug.
 
-## Still owed
+## Debt paid in the same series
 
-- `tmx2snes -e` emits parallel scalar tables **because of this bug**, and
-  its README presents that as a design choice. It is not one. Both should
-  now be undone: emit an array of structs.
-- `examples/games/rpg` can drop `npc_tx` / `npc_ty` / `npc_line` for a
-  single `Npc[]`.
+`tmx2snes -e` emitted parallel scalar tables **because of this bug**, and
+its README called it a design choice. It was not one. The tool now emits
+`<TYPE>_FIELDS` + `<TYPE>_TABLE` — an array of structs, which is what a
+game wants to write — and `examples/games/rpg` consumes it that way.
+
+That is the point worth remembering from this chantier: the workaround
+had already been written into a **public tool output format**, which is
+a contract, not a local hack. Encoding a compiler bug there is far worse
+than working around it in one example, because the example is deleted in
+a commit and the format is not.
