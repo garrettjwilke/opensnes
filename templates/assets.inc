@@ -27,13 +27,12 @@
 ;
 ; ## Use
 ;
-;     ASSET_SECTION "townmap", 2
+;     ASSET_SECTION "townmap"
 ;     town_map:    .incbin "res/town_map.bin"
 ;     .ENDS
 ;
-; Pick banks upward from 2 (bank 1 is often taken — audio projects pack
-; it with sample data). Group related assets in one bank rather than
-; scattering them: a bank is 32 KB and you have plenty.
+; The linker packs them itself, highest bank first, falling back down
+; toward 1. Bank $00 is not in the list, which is the whole point.
 ;
 ; If you get it wrong, the post-link check tells you: every build prints
 ; how much asset data ended up in bank $00, and the existing ratchet
@@ -47,9 +46,21 @@
 ; case, so if you are unsure: move it out, and let the build tell you.
 ;----------------------------------------------------------------------
 
+; SEMISUPERFREE with an explicit bank order: the linker tries 7 first and
+; walks down, so payload packs away from the code bank and bank $00 is
+; never a candidate. You do not pick a bank — an earlier version of this
+; macro made you, which just moved the guesswork to the caller.
+;
+; The list is literal because it has to be: a `.DEFINE` is not expanded
+; inside a BANKS clause (wlalink reports "malformed BANKS list"), and a
+; bank outside the memory map is a hard link error ("out of range").
+; 1-7 exist in every ROM memory map this SDK ships (LoROM, HiROM and
+; SA-1 all declare 8 banks); if you write your own with fewer, narrow
+; this list to match.
+;
 ; The section name is prefixed with "asset." so the post-link report can
 ; identify declared payload exactly, instead of guessing from names (an
 ; earlier heuristic flagged `.text.bgSetMapPtr` because it contains "map").
-.MACRO ASSET_SECTION ARGS name, bnk
-.SECTION "asset.\1" FREE BANK bnk
+.MACRO ASSET_SECTION ARGS name
+.SECTION "asset.\1" SEMISUPERFREE BANKS 7-1
 .ENDM
