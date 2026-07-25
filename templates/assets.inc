@@ -62,5 +62,5 @@
 ; identify declared payload exactly, instead of guessing from names (an
 ; earlier heuristic flagged `.text.bgSetMapPtr` because it contains "map").
 .MACRO ASSET_SECTION ARGS name
-.SECTION "asset.\1" SEMISUPERFREE BANKS 7-1
+.SECTION "asset.\1" SEMISUPERFREE BANKS ASSET_BANKS
 .ENDM
