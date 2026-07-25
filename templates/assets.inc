@@ -44,6 +44,18 @@
 ; in bank $00 — the compiler emits `lda.l $0000,x` for it and will read
 ; garbage from anywhere else. The build's bank-blind check catches that
 ; case, so if you are unsure: move it out, and let the build tell you.
+;
+; ## HiROM caveat (untested, latent — see the chantier note)
+;
+; This macro is verified on LoROM and SA-1. On HiROM the placement below
+; puts payload at offset $0000 in a low-numbered bank, and a HiROM
+; experiment (2026-07-25) showed generic far access — `dmaCopyVram`, a
+; `:sym` far pointer — to that location reading garbage, while a FORCE
+; section at offset $8000 (how snesmod places SOUNDBANK) reads fine. No
+; shipped example uses ASSET_SECTION on HiROM, so this is latent, not a
+; live bug. If you are the first: do NOT trust it on HiROM until
+; `.claude/notes/chantiers/127_rodata_default_placement.md` is resolved —
+; verify the DMA'd bytes with luna, or keep the data in bank $00.
 ;----------------------------------------------------------------------
 
 ; SEMISUPERFREE with an explicit bank order: the linker tries 7 first and
