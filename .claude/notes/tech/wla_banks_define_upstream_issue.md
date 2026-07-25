@@ -74,7 +74,9 @@ visible.
 
 An attempted bisect returned a documentation-only commit as "first bad",
 which cannot be right — the test script marked a build that failed for
-any *other* reason as good. **That result is discarded, not reported.**
-Characterising this properly is its own task, and it is a far better
-upstream report than the one above: a linker internal error with a
-reproducible corpus.
+any *other* reason as good. That result was discarded.
+
+**Now root-caused** by a sound bisection (2026-07-25): first bad commit
+`4c3c042e` "Added SPAN to .SECTIONs …". The full method and finding are
+in `wla_span_regression.md`. Unlike the retracted claim at the top of
+*this* file, that one is real and bisected — keep them separate.
