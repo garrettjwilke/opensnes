@@ -65,16 +65,43 @@ cd compiler/wla-dx && git checkout 4c3c042e   # or any commit >= it
 `games/mode7_racing` then fails to link with `MEM_INSERT`. Reverting to
 `4c3c042e~1` (`a369bec5`) links cleanly.
 
-## Not done
+## Minimal reproducer (found)
 
-- **A minimal standalone repro.** Synthetic multi-`SUPERFREE` layouts
-  (several sized `.incbin` sections across 2-3 banks) did *not* trigger
-  it, so the condition is more specific than "many superfree sections" —
-  likely the interaction of large sections that force a bank spill with
-  the new SPAN free-space accounting. Delta-minimizing from
-  mode7_racing's real object set is the way to get a tiny case, and a
-  tiny case is what makes this a strong upstream report. That is the
-  remaining work before filing.
+The trigger is exact: **a `SUPERFREE` section whose size makes it end
+precisely on a bank boundary.** Not too small, not spilling over —
+*exactly* filling a bank, so its end label sits at the first address of
+the next bank. That is literally what the SPAN commit set out to handle
+("place a .SECTION at the border of two ROM banks"), and it mis-maps the
+end label there.
+
+`wla_span_minimal_repro.asm` — one 32 KB section in a 2-bank ROM:
+
+```
+.ROMBANKMAP
+BANKSTOTAL 2
+BANKSIZE $8000
+BANKS 2
+.ENDRO
+.SECTION "big" SUPERFREE
+big: .incbin "fill32k.bin"   ; exactly 32768 bytes
+big_end:
+.ENDS
+```
+
+`wlalink` on `a369bec5` builds it; on `4c3c042e` it aborts:
+`FIX_LABEL_ADDRESSES: Internal error: cannot map label "big_end"`.
+
+Controls pin the boundary as the trigger (same ROM, only the blob size
+changes):
+
+| section size | a369bec5 (good) | 4c3c042e (bad) |
+|---|---|---|
+| 32768 − 16 (doesn't fill the bank) | OK | OK |
+| **32768 (ends exactly on the boundary)** | **OK** | **FAIL** |
+| 32768 + 1 (genuinely spans into bank 1) | OK | OK |
+
+So it is neither "too small" nor "over capacity" — the minimal ROM has a
+whole empty bank. It is the exact-boundary end label alone.
 - **Filing.** Not done — the maintainer decides. When filed, it is a
   genuinely good report (exact first-bad commit, clear symptom,
   reproducible), unlike the retracted `BANKS`/`.DEFINE` one.
