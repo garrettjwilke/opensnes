@@ -33,9 +33,13 @@ Write game logic in C, produce .sfc ROMs that run on emulators or real hardware.
 
 @subpage tutorial_collision -- Collision Detection
 
+@subpage tutorial_map -- Scrolling Maps & the Tiled Pipeline
+
 @subpage tutorial_audio -- Audio & Music
 
 @subpage tutorial_game_states -- Game States & Transitions
+
+@subpage tutorial_panel -- 9-Slice Panels (dialog boxes, HUDs)
 
 @subpage tutorial_dma -- DMA (direct memory access)
 
