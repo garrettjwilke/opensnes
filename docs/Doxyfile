@@ -10,7 +10,7 @@
 #---------------------------------------------------------------------------
 
 PROJECT_NAME           = "OpenSNES"
-PROJECT_NUMBER         = "0.11.0"
+PROJECT_NUMBER         = "0.32.0"
 PROJECT_BRIEF          = "Modern Open-Source SNES Development SDK"
 PROJECT_LOGO           = ../assets/logo_64x64.png
 
