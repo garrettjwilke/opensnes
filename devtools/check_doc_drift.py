@@ -492,6 +492,42 @@ def check_asm_bank_comments() -> list[str]:
 
 
 # --------------------------------------------------------------------------
+# Check: example screenshot basenames must be unique across READMEs
+#
+# Doxygen flattens every markdown-referenced image into the single html/
+# output dir keyed by BASENAME. Two example READMEs referencing the same
+# basename (the historical `screenshot.png`) collide there — one image ends
+# up served on every page (the Mario-on-audio-pages bug). Enforce that each
+# example's screenshot has a unique basename so the collision cannot return.
+# --------------------------------------------------------------------------
+
+_README_IMG_RE = re.compile(r"!\[[^\]]*\]\(([^)]+?\.png)\)")
+
+
+def check_screenshot_basenames() -> list[str]:
+    ex_root = repo_path("examples")
+    if not ex_root.is_dir():
+        return []
+    seen: dict[str, str] = {}
+    drifts: list[str] = []
+    for readme in sorted(ex_root.rglob("README.md")):
+        text = readme.read_text(encoding="utf-8", errors="replace")
+        rel = readme.relative_to(repo_path("."))
+        for m in _README_IMG_RE.finditer(text):
+            base = m.group(1).rsplit("/", 1)[-1]
+            if base in seen:
+                drifts.append(
+                    f"{rel}: screenshot basename '{base}' also used by "
+                    f"{seen[base]} — Doxygen flattens images by basename, so "
+                    f"identical names collide site-wide. Name it after the "
+                    f"example's folder (e.g. <example>.png)."
+                )
+            else:
+                seen[base] = str(rel)
+    return drifts
+
+
+# --------------------------------------------------------------------------
 # Check 4: ABI.md C prototypes vs canonical headers
 # --------------------------------------------------------------------------
 
@@ -669,6 +705,7 @@ def run_checks(quiet: bool) -> int:
     all_drifts.extend(check_category_sums(canonical_n))
     all_drifts.extend(check_roadmap_footer_date(canonical_date))
     all_drifts.extend(check_asm_bank_comments())
+    all_drifts.extend(check_screenshot_basenames())
 
     if all_drifts:
         print("DRIFT DETECTED:", file=sys.stderr)

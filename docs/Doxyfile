@@ -60,12 +60,12 @@ USE_MDFILE_AS_MAINPAGE = mainpage.md
 FILTER_PATTERNS        = *.md="python3 doxygen_md_filter.py"
 
 # Image path for example screenshots
-IMAGE_PATH             = ../examples/audio/snesmod_music \
-                         ../examples/audio/snesmod_sfx \
-                         ../examples/basics/collision_demo \
-                         ../examples/games/breakout \
-                         ../examples/games/likemario \
-                         ../examples/games/mapandobjects
+# IMAGE_PATH only feeds the \image command, which no README uses — they
+# reference screenshots via markdown ![...](name.png), resolved relative
+# to each README's own directory. Left empty on purpose: a non-empty list
+# here was legacy and, combined with the old shared basename screenshot.png,
+# fed the flat-output collision that showed one image on every page.
+IMAGE_PATH             =
 
 #---------------------------------------------------------------------------
 # Build Configuration
