@@ -4,6 +4,13 @@ description: Debug emulator project status, remaining test failures, and next st
 type: project
 ---
 
+> **📁 ARCHIVED 2026-07-26 — OBSOLETE.** `tools/opensnes-emu/` (the
+> snes9x-WASM debug emulator + its MCP server) was **removed** in the luna
+> migration (v0.21.0). Every remaining-test-failure list and "next step"
+> below references a subsystem that no longer exists. The live test infra is
+> `make tests` (luna), `tools/luna-test/`, `devtools/compiler-tests/`. Kept
+> as an investigation log only.
+
 ## opensnes-emu — Project Status (2026-03-15)
 
 **Location**: `tools/opensnes-emu/` (separate git repo, excluded from opensnes via .gitignore)

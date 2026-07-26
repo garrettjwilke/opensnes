@@ -4,6 +4,13 @@ description: Two examples (mouse, superscope) using direct OAM writes have Y-1 f
 type: project
 originSessionId: b92ad4fc-ea9c-4479-b229-46e53ee464ae
 ---
+
+> **📁 ARCHIVED 2026-07-26 — VALIDATED.** luna (v1.1.0+) models the SNES
+> Mouse and Super Scope, so both examples are now exercised by functional
+> probes (`tools/luna-test/probes/{mouse,superscope}.py`) that assert cursor
+> / shot positions — both PASS. The "couldn't validate without peripheral
+> setup / Mesen2" premise is moot; no Y-1 doubling observed.
+
 The SDK-wide Y-1 compensation for the SNES PPU sprite +1 scanline quirk
 (commit landing 2026-04-27) updated `examples/input/mouse/main.c` and
 `examples/input/superscope/main.c` to write `(u8)(y - 1)` for the cursor /
