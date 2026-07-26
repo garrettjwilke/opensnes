@@ -1,7 +1,8 @@
 # wla-dx upstream regression — SPAN commit breaks SUPERFREE placement
 
-Status: **root-caused by sound bisection.** Not filed upstream (awaiting
-the maintainer's decision). Our pin stays at the last-good commit.
+Status: **root-caused, filed upstream** as
+https://github.com/vhelin/wla-dx/issues/729 (2026-07-26). Our pin is the
+v10.7 release (clean); do not advance past `a369bec5` until this is fixed.
 
 ## The finding
 

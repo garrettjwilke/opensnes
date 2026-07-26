@@ -1,7 +1,12 @@
-# DRAFT upstream issue for vhelin/wla-dx — for review, not yet filed
+# Upstream issue for vhelin/wla-dx — FILED
 
-Prepared 2026-07-25. Do not submit without the maintainer's go-ahead.
-Everything below the `---` is the proposed issue text.
+**Filed 2026-07-26: https://github.com/vhelin/wla-dx/issues/729**
+
+The text below the first `---` (down to the second `---`) is what was
+posted. The title was flattened to plain text (backticks render literally
+in GitHub titles):
+"wlalink: FIX_LABEL_ADDRESSES internal error when a SUPERFREE section
+exactly fills a ROM bank (SPAN regression)".
 
 ---
 
