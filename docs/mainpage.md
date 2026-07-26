@@ -57,6 +57,8 @@ Write game logic in C, produce .sfc ROMs that run on emulators or real hardware.
 
 @subpage tutorial_superfx -- SuperFX (GSU) RISC Coprocessor
 
+@subpage tutorial_debugging -- Debugging with luna
+
 ## Hardware Reference
 
 @subpage hardware_overview -- CPU, PPU, APU architecture

@@ -122,6 +122,8 @@ This stretch focused on closing process gaps surfaced by an internal audit
 | `input` | Joypad, mouse, Super Scope, MultiPlayer5 | core |
 | `text`, `text4bpp` | Text rendering (2bpp and 4bpp) | core |
 | `snesmod` | Tracker music and SFX (.it format, multi-bank) | core |
+| `audio`, `apu` | Audio v2 engine: pure-C driver over the raw APU (SPC700) path | core |
+| `anim` | Declarative data-driven frame animation player | core |
 | `mode7` | Mode 7 rotation/scaling | core |
 | `window` | Window masking | core |
 | `colormath` | Transparency, color blending | core |
@@ -131,6 +133,10 @@ This stretch focused on closing process gaps surfaced by an internal audit
 | `mosaic` | Mosaic pixelation | core |
 | `lzss` | LZ77 decompression to VRAM | core |
 | `map` | Tile-based map engine with streaming | core |
+| `fixed32` | 16.16 signed fixed-point math for world-space coordinates | core |
+| `gameloop` | Opt-in game-loop framework (VBlank-synced update/render) | core |
+| `scene` | Opt-in scene/state stack (push/pop game scenes) | core |
+| `panel` | Opt-in 9-slice bordered panels on a background layer | core |
 | `debug` | Nocash messages, Mesen breakpoints | core |
 | `video` | Video mode and display control | core |
 | `sa1` | SA-1 enhancement-chip helpers | experimental |
