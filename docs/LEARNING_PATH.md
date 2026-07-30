@@ -53,9 +53,9 @@ then branch out to the SNES's exotic controllers.
 stream a world larger than VRAM, drive it from a Tiled map, and stand on the
 ground with tile collision.
 
-@subpage examples_graphics_backgrounds_mixed_scroll
+@subpage examples_scrolling_mixed_scroll
 
-@subpage examples_graphics_backgrounds_continuous_scroll
+@subpage examples_scrolling_continuous_scroll
 
 @subpage examples_maps_mapscroll
 

@@ -4,7 +4,7 @@
 # Port of PVSnesLib Mode1MixedScroll example
 #==============================================================================
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := mixed_scroll.sfc
 ROM_NAME   := MODE1 MIXED SCROLL

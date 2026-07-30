@@ -115,5 +115,5 @@ colors.
   health values to BG3's tilemap each frame.
 
 - **Explore related examples**:
-  - `backgrounds/continuous_scroll` -- Parallax scrolling with multiple BG layers
+  - `scrolling/continuous_scroll` -- Parallax scrolling with multiple BG layers
   - `effects/hdma_wave` -- Per-scanline effects on backgrounds

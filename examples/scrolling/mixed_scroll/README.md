@@ -135,7 +135,7 @@ mixed_scroll/
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/backgrounds/mixed_scroll
+make -C examples/scrolling/mixed_scroll
 ```
 
 Then open `mixed_scroll.sfc` in your emulator (Mesen2 recommended). You should

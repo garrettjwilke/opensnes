@@ -34,8 +34,6 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 75 ROMs · **73 OK, 2 INPUT-DE
 | `games/rpg` | OK | live (84f/83nmi) |
 | `games/shmup_1942` | OK | live (148f/147nmi) |
 | `games/tetris` | OK | live (90f/81nmi) |
-| `graphics/backgrounds/continuous_scroll` | OK | live (73f/73nmi) |
-| `graphics/backgrounds/mixed_scroll` | OK | live (71f/70nmi) |
 | `graphics/backgrounds/mode0` | OK | live (71f/70nmi) |
 | `graphics/backgrounds/mode1` | OK | live (70f/70nmi) |
 | `graphics/backgrounds/mode1_bg3_priority` | OK | live (71f/70nmi) |
@@ -55,7 +53,6 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 75 ROMs · **73 OK, 2 INPUT-DE
 | `graphics/effects/hicolor_hires` | OK | live (165f/164nmi) |
 | `graphics/effects/hires_text` | OK | live (71f/70nmi) |
 | `graphics/effects/mosaic` | OK | live (71f/70nmi) |
-| `graphics/effects/parallax_scrolling` | OK | live (143f/142nmi) |
 | `graphics/effects/transparency` | OK | live (141f/140nmi) |
 | `graphics/effects/transparent_window` | OK | live (72f/71nmi) |
 | `graphics/effects/window` | OK | live (72f/71nmi) |
@@ -73,6 +70,9 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 75 ROMs · **73 OK, 2 INPUT-DE
 | `mode7/mode7` | OK | live (72f/71nmi) |
 | `mode7/mode7_perspective` | OK | live (74f/73nmi) |
 | `mode7/mode7_perspective_rotate` | OK | live (77f/76nmi) |
+| `scrolling/continuous_scroll` | OK | live (73f/73nmi) |
+| `scrolling/mixed_scroll` | OK | live (71f/70nmi) |
+| `scrolling/parallax_scrolling` | OK | live (143f/142nmi) |
 | `sprites/animated_sprite` | OK | live (73f/72nmi) |
 | `sprites/dynamic_metasprite` | OK | live (94f/93nmi) |
 | `sprites/dynamic_sprite` | OK | live (76f/75nmi) |

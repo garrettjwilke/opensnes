@@ -192,7 +192,7 @@ table pointer by 3 bytes per frame to scroll the wave continuously. The
 alternating solid/empty tile pattern in the background makes the
 distortion clearly visible.
 
-### Parallax scrolling — `examples/graphics/effects/parallax_scrolling`
+### Parallax scrolling — `examples/scrolling/parallax_scrolling`
 
 A static BG3 with a moving BG1 on top, where BG1 scrolls at one rate at
 the top of the screen and a *different* rate at the bottom — classic
@@ -374,7 +374,7 @@ inner game-logic loops.
 - `lib/source/hdma.asm` and `lib/source/hdma.c` — implementation.
 - [`examples/graphics/effects/hdma_wave`](../../examples/graphics/effects/hdma_wave/README.md) — sine-wave per-scanline scroll.
 - [`examples/graphics/effects/hdma_helpers`](../../examples/graphics/effects/hdma_helpers/README.md) — API surface walkthrough.
-- [`examples/graphics/effects/parallax_scrolling`](../../examples/graphics/effects/parallax_scrolling/README.md) — RAM table, two-speed parallax.
+- [`examples/scrolling/parallax_scrolling`](../../examples/scrolling/parallax_scrolling/README.md) — RAM table, two-speed parallax.
 - [`examples/graphics/effects/gradient_colors`](../../examples/graphics/effects/gradient_colors/README.md) — static ROM gradient table.
 - [`examples/graphics/effects/window`](../../examples/graphics/effects/window/README.md) — stationary window via HDMA.
 - [`examples/graphics/effects/transparent_window`](../../examples/graphics/effects/transparent_window/README.md) — animated window + colour math.

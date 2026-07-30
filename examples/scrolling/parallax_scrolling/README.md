@@ -22,7 +22,7 @@ bands at different speeds.
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/effects/parallax_scrolling
+make -C examples/scrolling/parallax_scrolling
 ```
 
 Then open `parallax_scrolling.sfc` in your emulator (Mesen2 recommended).
@@ -121,5 +121,5 @@ the zones -- each zone is a strict horizontal band.
   The HDMA table just needs more `[count][lo][hi]` entries before the terminator.
 
 - **Explore related examples**:
-  - `backgrounds/continuous_scroll` -- True multi-layer parallax with player control
+  - `scrolling/continuous_scroll` -- True multi-layer parallax with player control
   - `effects/hdma_wave` -- Another HDMA technique (per-scanline wave distortion)

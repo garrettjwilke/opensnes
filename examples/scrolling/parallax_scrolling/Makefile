@@ -1,6 +1,6 @@
 # Parallax Scrolling - HDMA-based multi-speed horizontal scroll (from PVSnesLib)
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET   := parallax_scrolling.sfc
 ROM_NAME := OPENSNES PARALLAX

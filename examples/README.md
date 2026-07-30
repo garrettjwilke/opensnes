@@ -11,7 +11,8 @@ from basic concepts to complete games.
 | [fundamentals/](fundamentals/) | 1 | Under-the-hood: raw tiles, direct VRAM writes |
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
 | [sprites/](sprites/) | 6 | Sprite display, animation, OAM, metasprites, VRAM streaming |
-| [graphics/](graphics/) | 26 | Backgrounds, visual effects |
+| [graphics/](graphics/) | 23 | Backgrounds, visual effects |
+| [scrolling/](scrolling/) | 3 | Layer scrolling: parallax, streaming, per-scanline HDMA |
 | [mode7/](mode7/) | 3 | Mode 7: rotation, scaling, per-scanline perspective |
 | [input/](input/) | 4 | Joypads, mouse, Super Scope, multi-player |
 | [audio/](audio/) | 9 | Music and sound effects: SNESMOD and raw APU/DSP |
@@ -52,8 +53,8 @@ deep-dive of a step below.
 
 | # | Example | What You Will Learn |
 |---|---------|---------------------|
-| 13 | [graphics/backgrounds/continuous_scroll](graphics/backgrounds/continuous_scroll/) | Streaming background scroll with dynamic tile loading |
-| 14 | [graphics/backgrounds/mixed_scroll](graphics/backgrounds/mixed_scroll/) | Multiple BG layers scrolling at different rates |
+| 13 | [scrolling/continuous_scroll](scrolling/continuous_scroll/) | Streaming background scroll with dynamic tile loading |
+| 14 | [scrolling/mixed_scroll](scrolling/mixed_scroll/) | Multiple BG layers scrolling at different rates |
 | 15 | [graphics/effects/hdma_wave](graphics/effects/hdma_wave/) | HDMA scanline wave distortion |
 | 15b | [graphics/effects/hdma_wave_table](graphics/effects/hdma_wave_table/) | Raw HDMA table built in C, krom-style repoint animation |
 | 15c | [graphics/effects/hdma_indirect_gradient](graphics/effects/hdma_indirect_gradient/) | Indirect HDMA: pointer table drives a backdrop gradient (krom port) |
@@ -66,7 +67,7 @@ deep-dive of a step below.
 | 15j | [graphics/effects/hicolor_blend](graphics/effects/hicolor_blend/) | RGB channel-split color-math blend: 3840 colors (krom port) |
 | 15k | [graphics/effects/direct_color](graphics/effects/direct_color/) | Direct color: 8bpp pixel bytes read as BBGGGRRR, CGRAM bypassed |
 | 16 | [graphics/effects/gradient_colors](graphics/effects/gradient_colors/) | HDMA + CGRAM color gradients |
-| 17 | [graphics/effects/parallax_scrolling](graphics/effects/parallax_scrolling/) | HDMA parallax scrolling |
+| 17 | [scrolling/parallax_scrolling](scrolling/parallax_scrolling/) | HDMA parallax scrolling |
 | 18 | [graphics/effects/transparency](graphics/effects/transparency/) | Color math (add/subtract blending) |
 | 19 | [graphics/effects/window](graphics/effects/window/) | Hardware window masking |
 | 20 | [graphics/effects/transparent_window](graphics/effects/transparent_window/) | Color math + HDMA windowed transparency |

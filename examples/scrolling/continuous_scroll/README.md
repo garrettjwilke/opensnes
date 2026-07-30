@@ -15,7 +15,7 @@
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/backgrounds/continuous_scroll
+make -C examples/scrolling/continuous_scroll
 ```
 
 Then open `continuous_scroll.sfc` in your emulator (Mesen2 recommended).

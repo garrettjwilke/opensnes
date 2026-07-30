@@ -38,7 +38,7 @@ steps = 4_000_000   # cycles through values; later frame is more representative
 # same frame at every un-scripted capture point (verified 1M→6M: identical
 # fbhash) — a second point there is cost without coverage. Covering their
 # animations needs scripted input, which is the functional probes' domain.
-[examples."graphics/effects/parallax_scrolling"]
+[examples."scrolling/parallax_scrolling"]
 steps = [3_000_000, 6_000_000]
 
 [examples."graphics/effects/transparency"]

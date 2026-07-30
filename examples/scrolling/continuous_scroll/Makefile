@@ -1,7 +1,7 @@
 # Continuous Scroll Example
 # Multi-layer parallax with sprite
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := continuous_scroll.sfc
 ROM_NAME   := CONTINUOUS SCROLL

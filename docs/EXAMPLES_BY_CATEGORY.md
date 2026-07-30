@@ -36,8 +36,8 @@ Background layers, scrolling, and video modes.
 | @subpage examples_graphics_backgrounds_mode1 | Mode 1 multi-layer backgrounds (4bpp + 2bpp) |
 | @subpage examples_graphics_backgrounds_mode1_bg3_priority | BG3 priority bit for overlay effects |
 | @subpage examples_graphics_backgrounds_mode1_lz77 | LZ77-compressed background data |
-| @subpage examples_graphics_backgrounds_continuous_scroll | Streaming scroll with dynamic tile loading |
-| @subpage examples_graphics_backgrounds_mixed_scroll | Multiple BG layers at different scroll rates |
+| @subpage examples_scrolling_continuous_scroll | Streaming scroll with dynamic tile loading |
+| @subpage examples_scrolling_mixed_scroll | Multiple BG layers at different scroll rates |
 | @subpage examples_graphics_backgrounds_mode3 | Mode 3: 256-color (8bpp) single layer |
 | @subpage examples_graphics_backgrounds_mode5 | Mode 5: hi-res 512×256 (16-color) |
 | @subpage examples_mode7_mode7 | Mode 7 rotation and scaling |
@@ -73,7 +73,7 @@ Visual effects using HDMA, color math, and hardware windows.
 | @subpage examples_graphics_effects_hdma_indirect_gradient | Indirect HDMA pointer-table gradient (krom port) |
 | @subpage examples_graphics_effects_hdma_helpers | High-level HDMA effect library (wave, ripple, iris) |
 | @subpage examples_graphics_effects_gradient_colors | HDMA + CGRAM color gradients |
-| @subpage examples_graphics_effects_parallax_scrolling | HDMA parallax scrolling |
+| @subpage examples_scrolling_parallax_scrolling | HDMA parallax scrolling |
 | @subpage examples_graphics_effects_transparency | Color math (add/subtract blending) |
 | @subpage examples_graphics_effects_window | Hardware window masking |
 | @subpage examples_graphics_effects_window_multi_hdma | Both hardware windows animated per scanline (krom port) |

@@ -167,18 +167,6 @@
     "rom_sha256": "5380572153673fd7e7b5b437b63ca27dba2ee90a8a0c8d41cc385622c67b1862",
     "steps": 3000000
   },
-  "graphics_backgrounds_continuous_scroll": {
-    "fbhash": "ec8648bf0ea88290",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "6a74419c84aab81205ec3719b7483f997049facb40d4c0589d85e21fbad17b13",
-    "steps": 3000000
-  },
-  "graphics_backgrounds_mixed_scroll": {
-    "fbhash": "55e3a1eab8d85167",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "9e3364b4b9cb5858fc37f80bf45870cc62439368bbb80e79a62e16b7c516addf",
-    "steps": 3000000
-  },
   "graphics_backgrounds_mode0": {
     "fbhash": "b12f6212e4bb0333",
     "luna_version": "v1.9.0",
@@ -299,18 +287,6 @@
     "rom_sha256": "c68387545d6736de59da9c19cbe6f302411d4411aa035e1d31dca9e66c3e7bee",
     "steps": 3000000
   },
-  "graphics_effects_parallax_scrolling": {
-    "fbhash": [
-      "b2dd074a48e12899",
-      "5c59a6207f13c14d"
-    ],
-    "luna_version": "v1.9.0",
-    "rom_sha256": "a4deb2644132d3cc86e6526a27caf1b52df1a56b45269f2f67d312bf9d498f5f",
-    "steps": [
-      3000000,
-      6000000
-    ]
-  },
   "graphics_effects_transparency": {
     "fbhash": [
       "abbc90bbe12ef4cb",
@@ -418,6 +394,30 @@
     "luna_version": "v1.9.0",
     "rom_sha256": "b769538bf3d0a9a2913cdaf0d9218b1a3bd3607661c61941576c35d4beb24de2",
     "steps": 3000000
+  },
+  "scrolling_continuous_scroll": {
+    "fbhash": "ec8648bf0ea88290",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "6a74419c84aab81205ec3719b7483f997049facb40d4c0589d85e21fbad17b13",
+    "steps": 3000000
+  },
+  "scrolling_mixed_scroll": {
+    "fbhash": "55e3a1eab8d85167",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "9e3364b4b9cb5858fc37f80bf45870cc62439368bbb80e79a62e16b7c516addf",
+    "steps": 3000000
+  },
+  "scrolling_parallax_scrolling": {
+    "fbhash": [
+      "b2dd074a48e12899",
+      "5c59a6207f13c14d"
+    ],
+    "luna_version": "v1.9.0",
+    "rom_sha256": "a4deb2644132d3cc86e6526a27caf1b52df1a56b45269f2f67d312bf9d498f5f",
+    "steps": [
+      3000000,
+      6000000
+    ]
   },
   "sprites_animated_sprite": {
     "fbhash": "ac184d00a42b6a37",
