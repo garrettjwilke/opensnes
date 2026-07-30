@@ -10,7 +10,8 @@ from basic concepts to complete games.
 | [text/](text/) | 2 | Text display, fonts, tilemaps |
 | [fundamentals/](fundamentals/) | 1 | Under-the-hood: raw tiles, direct VRAM writes |
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
-| [graphics/](graphics/) | 36 | Backgrounds, sprites, visual effects, Mode 7 |
+| [sprites/](sprites/) | 6 | Sprite display, animation, OAM, metasprites, VRAM streaming |
+| [graphics/](graphics/) | 30 | Backgrounds, visual effects, Mode 7 |
 | [input/](input/) | 4 | Joypads, mouse, Super Scope, multi-player |
 | [audio/](audio/) | 9 | Music and sound effects: SNESMOD and raw APU/DSP |
 | [maps/](maps/) | 4 | Tile maps, dynamic streaming, slopes |
@@ -29,7 +30,7 @@ deep-dive of a step below.
 |---|---------|---------------------|
 | 1 | [text/print_string](text/print_string/) | Your first ROM: text on a background, the VBlank rhythm |
 | 2 | [text/scroll_message](text/scroll_message/) | Move text -- bgSetScroll on the text layer |
-| 3 | [graphics/sprites/simple_sprite](graphics/sprites/simple_sprite/) | OAM, sprite display, CGRAM split |
+| 3 | [sprites/simple_sprite](sprites/simple_sprite/) | OAM, sprite display, CGRAM split |
 | 4 | [input/two_players](input/two_players/) | Joypad reading, multiplayer input |
 
 ### Level 2 -- Graphics Fundamentals
@@ -39,9 +40,9 @@ deep-dive of a step below.
 | 5 | [graphics/backgrounds/mode1](graphics/backgrounds/mode1/) | Mode 1 multi-layer backgrounds |
 | 6 | [graphics/backgrounds/mode1_bg3_priority](graphics/backgrounds/mode1_bg3_priority/) | BG3 priority bit in Mode 1 |
 | 7 | [graphics/backgrounds/mode1_lz77](graphics/backgrounds/mode1_lz77/) | LZ77-compressed background data |
-| 8 | [graphics/sprites/animated_sprite](graphics/sprites/animated_sprite/) | Frame animation, sprite sheets, H-flip |
-| 9 | [graphics/sprites/dynamic_sprite](graphics/sprites/dynamic_sprite/) | VRAM streaming, dynamic tile uploads |
-| 10 | [graphics/sprites/object_size](graphics/sprites/object_size/) | OBJSEL sprite size configurations |
+| 8 | [sprites/animated_sprite](sprites/animated_sprite/) | Frame animation, sprite sheets, H-flip |
+| 9 | [sprites/dynamic_sprite](sprites/dynamic_sprite/) | VRAM streaming, dynamic tile uploads |
+| 10 | [sprites/object_size](sprites/object_size/) | OBJSEL sprite size configurations |
 | 11 | [graphics/effects/fading](graphics/effects/fading/) | Brightness control, screen transitions |
 | 12 | [graphics/effects/mosaic](graphics/effects/mosaic/) | Mosaic pixelation effect |
 
@@ -74,7 +75,7 @@ deep-dive of a step below.
 |---|---------|---------------------|
 | 21 | [graphics/backgrounds/mode7](graphics/backgrounds/mode7/) | Mode 7 rotation and scaling |
 | 22 | [graphics/backgrounds/mode7_perspective](graphics/backgrounds/mode7_perspective/) | Pseudo-3D perspective (F-Zero style) |
-| 23 | [graphics/sprites/metasprite](graphics/sprites/metasprite/) | Multi-tile composite sprites |
+| 23 | [sprites/metasprite](sprites/metasprite/) | Multi-tile composite sprites |
 | 24 | [input/mouse](input/mouse/) | Mouse detection, cursor, sensitivity |
 | 25 | [input/superscope](input/superscope/) | Light gun detection, PPU H/V counters |
 | 26 | [memory/hirom_demo](memory/hirom_demo/) | HiROM vs LoROM memory mapping |

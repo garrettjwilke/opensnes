@@ -44,8 +44,8 @@ EXAMPLES = [
     "maps/tiled/tiled.sfc",
     "maps/dynamic_map/dynamic_map.sfc",
     "graphics/effects/hdma_helpers/hdma_helpers.sfc",
-    "graphics/sprites/animated_sprite/animated_sprite.sfc",
-    "graphics/sprites/dynamic_metasprite/dynamic_metasprite.sfc",
+    "sprites/animated_sprite/animated_sprite.sfc",
+    "sprites/dynamic_metasprite/dynamic_metasprite.sfc",
 ]
 
 

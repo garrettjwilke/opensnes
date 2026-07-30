@@ -8,7 +8,7 @@
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/sprites/dynamic_metasprite
+make -C examples/sprites/dynamic_metasprite
 ```
 
 Then open `dynamic_metasprite.sfc` in your emulator (Mesen2 recommended).

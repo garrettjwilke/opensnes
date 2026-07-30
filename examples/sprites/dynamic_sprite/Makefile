@@ -1,6 +1,6 @@
 # Dynamic Sprite Engine Example Makefile
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 TARGET   := dynamic_sprite.sfc
 ROM_NAME := DYNAMIC_SPRITE_DEMO
 

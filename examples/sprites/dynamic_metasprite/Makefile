@@ -1,6 +1,6 @@
 # Dynamic Metasprite Engine Example Makefile
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 TARGET   := dynamic_metasprite.sfc
 ROM_NAME := DYN_METASPRITE_DEMO
 

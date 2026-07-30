@@ -60,12 +60,6 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 75 ROMs · **73 OK, 2 INPUT-DE
 | `graphics/effects/transparent_window` | OK | live (72f/71nmi) |
 | `graphics/effects/window` | OK | live (72f/71nmi) |
 | `graphics/effects/window_multi_hdma` | OK | live (73f/72nmi) |
-| `graphics/sprites/animated_sprite` | OK | live (73f/72nmi) |
-| `graphics/sprites/dynamic_metasprite` | OK | live (94f/93nmi) |
-| `graphics/sprites/dynamic_sprite` | OK | live (76f/75nmi) |
-| `graphics/sprites/metasprite` | OK | live (197f/196nmi) |
-| `graphics/sprites/object_size` | OK | live (75f/74nmi) |
-| `graphics/sprites/simple_sprite` | OK | live (71f/70nmi) |
 | `input/controller` | OK | live (103f/102nmi) |
 | `input/mouse` | INPUT-DEP | live (72f/72nmi) |
 | `input/superscope` | INPUT-DEP | live (73f/72nmi) |
@@ -79,5 +73,11 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 75 ROMs · **73 OK, 2 INPUT-DE
 | `memory/sa1_starfield` | OK | live (133f/132nmi) |
 | `memory/save_game` | OK | live (73f/72nmi) |
 | `memory/superfx_hello` | OK | live (74f/73nmi) |
+| `sprites/animated_sprite` | OK | live (73f/72nmi) |
+| `sprites/dynamic_metasprite` | OK | live (94f/93nmi) |
+| `sprites/dynamic_sprite` | OK | live (76f/75nmi) |
+| `sprites/metasprite` | OK | live (197f/196nmi) |
+| `sprites/object_size` | OK | live (75f/74nmi) |
+| `sprites/simple_sprite` | OK | live (71f/70nmi) |
 | `text/print_string` | OK | live (71f/70nmi) |
 | `text/scroll_message` | OK | live (72f/71nmi) |

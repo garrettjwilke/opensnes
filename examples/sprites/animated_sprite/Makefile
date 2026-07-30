@@ -1,5 +1,5 @@
 # Animated Sprite — Direction-based sprite animation with flip
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := animated_sprite.sfc
 ROM_NAME   := ANIMATED SPRITE

@@ -111,12 +111,12 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/graphics/effects/transparent_window \
                          ../examples/graphics/effects/window \
                          ../examples/graphics/effects/window_multi_hdma \
-                         ../examples/graphics/sprites/animated_sprite \
-                         ../examples/graphics/sprites/dynamic_metasprite \
-                         ../examples/graphics/sprites/dynamic_sprite \
-                         ../examples/graphics/sprites/metasprite \
-                         ../examples/graphics/sprites/object_size \
-                         ../examples/graphics/sprites/simple_sprite \
+                         ../examples/sprites/animated_sprite \
+                         ../examples/sprites/dynamic_metasprite \
+                         ../examples/sprites/dynamic_sprite \
+                         ../examples/sprites/metasprite \
+                         ../examples/sprites/object_size \
+                         ../examples/sprites/simple_sprite \
                          ../examples/input/controller \
                          ../examples/input/mouse \
                          ../examples/input/superscope \

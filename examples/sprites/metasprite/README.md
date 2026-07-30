@@ -119,7 +119,7 @@ metasprite/
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/sprites/metasprite
+make -C examples/sprites/metasprite
 ```
 
 Then open `metasprite.sfc` in your emulator (Mesen2 recommended).

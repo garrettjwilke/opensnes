@@ -25,7 +25,7 @@ Read `sprites/simple_sprite` first (OAM basics, tile loading).
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/sprites/animated_sprite
+make -C examples/sprites/animated_sprite
 ```
 
 Then open `animated_sprite.sfc` in your emulator (Mesen2 recommended).

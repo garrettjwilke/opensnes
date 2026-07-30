@@ -27,9 +27,9 @@ underpins everything visual on the SNES.
 
 @subpage examples_graphics_backgrounds_mode1
 
-@subpage examples_graphics_sprites_simple_sprite
+@subpage examples_sprites_simple_sprite
 
-@subpage examples_graphics_sprites_animated_sprite
+@subpage examples_sprites_animated_sprite
 
 > Under the hood — how a glyph becomes pixels with no module at all:
 > @subpage examples_fundamentals_text_glyphs

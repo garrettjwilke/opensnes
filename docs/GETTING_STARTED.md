@@ -316,7 +316,7 @@ Explore by complexity:
 | Level | Examples | What You'll Learn |
 |-------|----------|-------------------|
 | **Beginner** | `text/print_string`, `text/scroll_message` | Console output, text formatting |
-| **Intermediate** | `graphics/sprites/simple_sprite`, `input/two_players` | Sprites, controller input |
+| **Intermediate** | `sprites/simple_sprite`, `input/two_players` | Sprites, controller input |
 | **Advanced** | `graphics/backgrounds/mode7`, `audio/snesmod_music` | Mode 7, tracker music |
 | **Expert** | `games/breakout`, `games/likemario` | Complete game structure |
 | **SA-1 Coprocessor** | `memory/sa1_hello`, `memory/sa1_starfield` | 10.74 MHz second CPU ([tutorial](tutorials/sa1.md)) |

@@ -20,7 +20,7 @@ No interactive controls. A static sprite is displayed at the center of the scree
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/sprites/simple_sprite
+make -C examples/sprites/simple_sprite
 ```
 
 Then open `simple_sprite.sfc` in your emulator (Mesen2 recommended).

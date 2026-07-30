@@ -1,7 +1,7 @@
 # Object Size Example
 # Interactive demo of all 6 SNES sprite size modes
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := object_size.sfc
 ROM_NAME   := OBJECT SIZE

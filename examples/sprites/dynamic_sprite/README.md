@@ -23,7 +23,7 @@ No interactive controls. Four sprites animate automatically.
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/sprites/dynamic_sprite
+make -C examples/sprites/dynamic_sprite
 ```
 
 Then open `dynamic_sprite.sfc` in your emulator (Mesen2 recommended).

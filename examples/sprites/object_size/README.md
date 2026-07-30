@@ -18,7 +18,7 @@ The SNES OBJSEL register defines two sizes (small and large) that apply to all
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/sprites/object_size
+make -C examples/sprites/object_size
 ```
 
 Then open `object_size.sfc` in your emulator (Mesen2 recommended).

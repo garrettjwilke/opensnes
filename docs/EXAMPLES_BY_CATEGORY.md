@@ -51,12 +51,12 @@ Sprite display, animation, and OAM management.
 
 | Example | Description |
 |---------|-------------|
-| @subpage examples_graphics_sprites_simple_sprite | Basic OAM setup, sprite display |
-| @subpage examples_graphics_sprites_animated_sprite | Frame animation, sprite sheets, H-flip |
-| @subpage examples_graphics_sprites_dynamic_sprite | VRAM streaming, dynamic tile uploads |
-| @subpage examples_graphics_sprites_dynamic_metasprite | Dynamic metasprite engine with batched OAM updates |
-| @subpage examples_graphics_sprites_object_size | OBJSEL size configurations (8x8 to 64x64) |
-| @subpage examples_graphics_sprites_metasprite | Multi-tile composite sprites |
+| @subpage examples_sprites_simple_sprite | Basic OAM setup, sprite display |
+| @subpage examples_sprites_animated_sprite | Frame animation, sprite sheets, H-flip |
+| @subpage examples_sprites_dynamic_sprite | VRAM streaming, dynamic tile uploads |
+| @subpage examples_sprites_dynamic_metasprite | Dynamic metasprite engine with batched OAM updates |
+| @subpage examples_sprites_object_size | OBJSEL size configurations (8x8 to 64x64) |
+| @subpage examples_sprites_metasprite | Multi-tile composite sprites |
 
 ---
 

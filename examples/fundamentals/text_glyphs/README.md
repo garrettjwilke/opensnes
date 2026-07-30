@@ -212,7 +212,7 @@ and cause timing issues.
 - **Two lines of text:** Write a second message at a different tilemap row. Row N starts
   at base address + N×32.
 
-- **Next example:** [Simple Sprite](../../graphics/sprites/simple_sprite/) -- display a
+- **Next example:** [Simple Sprite](../../sprites/simple_sprite/) -- display a
   32x32 sprite on screen using OAM.
 
 ---

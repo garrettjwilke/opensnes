@@ -21,10 +21,10 @@ nothing you do not list is linked.
 | print text | `textInit`, `textPrintAt`, `textFlush` | `text` | [text/print_string](../examples/text/print_string/) |
 | show a background from a PNG | `bgInitTileSet`, `bgSetGfxPtr`, `bgSetMapPtr` | `background` | [graphics/backgrounds/mode1](../examples/graphics/backgrounds/mode1/) |
 | bundle a tileset + its palette as one thing | `BgAsset`, `DECLARE_BG_ASSET`, `bgLoad` | `asset` | [graphics/backgrounds/mode1](../examples/graphics/backgrounds/mode1/) |
-| draw a sprite | `oamInit`, `oamSet`, `oamUpdate` | `sprite` | [graphics/sprites/simple_sprite](../examples/graphics/sprites/simple_sprite/) |
+| draw a sprite | `oamInit`, `oamSet`, `oamUpdate` | `sprite` | [sprites/simple_sprite](../examples/sprites/simple_sprite/) |
 | hide a sprite that left the screen | `oamHide` | `sprite` | [games/rpg](../examples/games/rpg/) |
-| animate a sprite | `AnimClip`, `animPlay`, `animTickOam` | `anim` | [graphics/sprites/animated_sprite](../examples/graphics/sprites/animated_sprite/) |
-| draw one character out of many tiles | `oamDrawMeta`, `MetaspriteItem` | `sprite` | [graphics/sprites/metasprite](../examples/graphics/sprites/metasprite/) |
+| animate a sprite | `AnimClip`, `animPlay`, `animTickOam` | `anim` | [sprites/animated_sprite](../examples/sprites/animated_sprite/) |
+| draw one character out of many tiles | `oamDrawMeta`, `MetaspriteItem` | `sprite` | [sprites/metasprite](../examples/sprites/metasprite/) |
 
 ## Moving around a world
 
