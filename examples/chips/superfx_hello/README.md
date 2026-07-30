@@ -17,10 +17,10 @@
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/memory/superfx_hello
+make -C examples/chips/superfx_hello
 ```
 
-Then open `superfx_hello.sfc` in Mesen2 (recommended) or bsnes.
+Then open `superfx_hello.sfc` in luna (or any SNES emulator).
 
 ## What You'll Learn
 

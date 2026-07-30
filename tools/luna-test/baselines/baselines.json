@@ -89,6 +89,30 @@
     "rom_sha256": "7a5653282dfb236605b103a28c5f8ea277afc36e393abf26634e07a2e93f37bd",
     "steps": 3000000
   },
+  "chips_sa1_hello": {
+    "fbhash": "b45c2d524fa1f13d",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "4988cbc5e79a357f63f38fa2b231bfd05726cb03102d3e59d6b6e05d4dfd3cbe",
+    "steps": 3000000
+  },
+  "chips_sa1_starfield": {
+    "fbhash": "6ebb5979daeb5e75",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "53dbfff27ef2b3800e4674f6dc007a4ee0166e2851bf15581898e26864347dbe",
+    "steps": 3000000
+  },
+  "chips_superfx_3d": {
+    "fbhash": "e5966ae3f17ea7f3",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "4da130160709c9339c920965345d160fb248542a596d68434694d1e6c5136ed1",
+    "steps": 3000000
+  },
+  "chips_superfx_hello": {
+    "fbhash": "86b09c46869f8fd9",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "5d372cf0fe4dd149d836b37c6b0ef2638ca45f55b69df98246cbdeba84311431",
+    "steps": 3000000
+  },
   "fundamentals_text_glyphs": {
     "fbhash": "c45d576dc2ba4804",
     "luna_version": "v1.9.0",
@@ -305,12 +329,6 @@
       6000000
     ]
   },
-  "graphics_effects_superfx_3d": {
-    "fbhash": "e5966ae3f17ea7f3",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "4da130160709c9339c920965345d160fb248542a596d68434694d1e6c5136ed1",
-    "steps": 3000000
-  },
   "graphics_effects_transparency": {
     "fbhash": [
       "abbc90bbe12ef4cb",
@@ -395,28 +413,10 @@
     "rom_sha256": "05fbee7340025ebba57fbee700a1aca9dcda700e22e8d8e56a44925ac1792f37",
     "steps": 3000000
   },
-  "memory_sa1_hello": {
-    "fbhash": "b45c2d524fa1f13d",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "4988cbc5e79a357f63f38fa2b231bfd05726cb03102d3e59d6b6e05d4dfd3cbe",
-    "steps": 3000000
-  },
-  "memory_sa1_starfield": {
-    "fbhash": "6ebb5979daeb5e75",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "53dbfff27ef2b3800e4674f6dc007a4ee0166e2851bf15581898e26864347dbe",
-    "steps": 3000000
-  },
   "memory_save_game": {
     "fbhash": "b0d2ce8b918f18ae",
     "luna_version": "v1.9.0",
     "rom_sha256": "356ed64ab0e66768a7a9bcf76249303e689a65bfd60e5c20b8256bb9a0ad1fa6",
-    "steps": 3000000
-  },
-  "memory_superfx_hello": {
-    "fbhash": "86b09c46869f8fd9",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "5d372cf0fe4dd149d836b37c6b0ef2638ca45f55b69df98246cbdeba84311431",
     "steps": 3000000
   },
   "sprites_animated_sprite": {

@@ -138,10 +138,10 @@ everything above.
 When the base hardware isn't enough. SA-1 is the same 65816 ISA at 10.74 MHz;
 SuperFX / GSU is a custom RISC processor for bitmaps and 3D.
 
-@subpage examples_memory_sa1_hello
+@subpage examples_chips_sa1_hello
 
-@subpage examples_memory_sa1_starfield
+@subpage examples_chips_sa1_starfield
 
-@subpage examples_memory_superfx_hello
+@subpage examples_chips_superfx_hello
 
-@subpage examples_graphics_effects_superfx_3d
+@subpage examples_chips_superfx_3d

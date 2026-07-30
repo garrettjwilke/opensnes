@@ -17,10 +17,10 @@
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/effects/superfx_3d
+make -C examples/chips/superfx_3d
 ```
 
-Then open `superfx_3d.sfc` in Mesen2 (recommended) or bsnes.
+Then open `superfx_3d.sfc` in luna (or any SNES emulator).
 
 ## What You'll Learn
 

@@ -319,8 +319,8 @@ Explore by complexity:
 | **Intermediate** | `sprites/simple_sprite`, `input/two_players` | Sprites, controller input |
 | **Advanced** | `graphics/backgrounds/mode7`, `audio/snesmod_music` | Mode 7, tracker music |
 | **Expert** | `games/breakout`, `games/likemario` | Complete game structure |
-| **SA-1 Coprocessor** | `memory/sa1_hello`, `memory/sa1_starfield` | 10.74 MHz second CPU ([tutorial](tutorials/sa1.md)) |
-| **SuperFX (GSU)** | `memory/superfx_hello`, `graphics/effects/superfx_3d` | RISC coprocessor, 3D rendering ([tutorial](tutorials/superfx.md)) |
+| **SA-1 Coprocessor** | `chips/sa1_hello`, `chips/sa1_starfield` | 10.74 MHz second CPU ([tutorial](tutorials/sa1.md)) |
+| **SuperFX (GSU)** | `chips/superfx_hello`, `chips/superfx_3d` | RISC coprocessor, 3D rendering ([tutorial](tutorials/superfx.md)) |
 
 Browse all examples:
 ```bash

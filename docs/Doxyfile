@@ -106,7 +106,7 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/graphics/effects/mode7_perspective_rotate \
                          ../examples/graphics/effects/mosaic \
                          ../examples/graphics/effects/parallax_scrolling \
-                         ../examples/graphics/effects/superfx_3d \
+                         ../examples/chips/superfx_3d \
                          ../examples/graphics/effects/transparency \
                          ../examples/graphics/effects/transparent_window \
                          ../examples/graphics/effects/window \
@@ -126,10 +126,10 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/maps/slopemario \
                          ../examples/maps/tiled \
                          ../examples/memory/hirom_demo \
-                         ../examples/memory/sa1_hello \
-                         ../examples/memory/sa1_starfield \
+                         ../examples/chips/sa1_hello \
+                         ../examples/chips/sa1_starfield \
                          ../examples/memory/save_game \
-                         ../examples/memory/superfx_hello \
+                         ../examples/chips/superfx_hello \
                          ../examples/fundamentals/text_glyphs \
                          ../examples/text/print_string \
                          ../examples/text/scroll_message

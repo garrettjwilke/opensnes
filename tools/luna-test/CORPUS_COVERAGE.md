@@ -21,6 +21,10 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 75 ROMs · **73 OK, 2 INPUT-DE
 | `basics/random` | OK | live (244f/243nmi) |
 | `basics/scene_stack` | OK | live (72f/71nmi) |
 | `basics/timer` | OK | live (156f/155nmi) |
+| `chips/sa1_hello` | OK | live (72f/71nmi) |
+| `chips/sa1_starfield` | OK | live (133f/132nmi) |
+| `chips/superfx_3d` | OK | live (290f/147nmi) |
+| `chips/superfx_hello` | OK | live (74f/73nmi) |
 | `fundamentals/text_glyphs` | OK | live (71f/70nmi) |
 | `games/breakout` | OK | live (88f/87nmi) |
 | `games/likemario` | OK | live (111f/102nmi) |
@@ -55,7 +59,6 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 75 ROMs · **73 OK, 2 INPUT-DE
 | `graphics/effects/mode7_perspective_rotate` | OK | live (77f/76nmi) |
 | `graphics/effects/mosaic` | OK | live (71f/70nmi) |
 | `graphics/effects/parallax_scrolling` | OK | live (143f/142nmi) |
-| `graphics/effects/superfx_3d` | OK | live (290f/147nmi) |
 | `graphics/effects/transparency` | OK | live (141f/140nmi) |
 | `graphics/effects/transparent_window` | OK | live (72f/71nmi) |
 | `graphics/effects/window` | OK | live (72f/71nmi) |
@@ -69,10 +72,7 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 75 ROMs · **73 OK, 2 INPUT-DE
 | `maps/slopemario` | OK | live (86f/85nmi) |
 | `maps/tiled` | OK | live (73f/72nmi) |
 | `memory/hirom_demo` | OK | live (71f/70nmi) |
-| `memory/sa1_hello` | OK | live (72f/71nmi) |
-| `memory/sa1_starfield` | OK | live (133f/132nmi) |
 | `memory/save_game` | OK | live (73f/72nmi) |
-| `memory/superfx_hello` | OK | live (74f/73nmi) |
 | `sprites/animated_sprite` | OK | live (73f/72nmi) |
 | `sprites/dynamic_metasprite` | OK | live (94f/93nmi) |
 | `sprites/dynamic_sprite` | OK | live (76f/75nmi) |

@@ -1,4 +1,4 @@
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET      := superfx_3d.sfc
 ROM_NAME    := SUPERFX 3D CUBE      

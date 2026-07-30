@@ -8,10 +8,10 @@
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/memory/sa1_starfield
+make -C examples/chips/sa1_starfield
 ```
 
-Then open `sa1_starfield.sfc` in your emulator (Mesen2 recommended).
+Then open `sa1_starfield.sfc` in luna (or any SNES emulator).
 
 ## What You'll Learn
 

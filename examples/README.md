@@ -11,11 +11,12 @@ from basic concepts to complete games.
 | [fundamentals/](fundamentals/) | 1 | Under-the-hood: raw tiles, direct VRAM writes |
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
 | [sprites/](sprites/) | 6 | Sprite display, animation, OAM, metasprites, VRAM streaming |
-| [graphics/](graphics/) | 30 | Backgrounds, visual effects, Mode 7 |
+| [graphics/](graphics/) | 29 | Backgrounds, visual effects, Mode 7 |
 | [input/](input/) | 4 | Joypads, mouse, Super Scope, multi-player |
 | [audio/](audio/) | 9 | Music and sound effects: SNESMOD and raw APU/DSP |
 | [maps/](maps/) | 4 | Tile maps, dynamic streaming, slopes |
-| [memory/](memory/) | 5 | HiROM mode, battery-backed saves, SA-1, SuperFX |
+| [memory/](memory/) | 2 | HiROM mode, battery-backed saves |
+| [chips/](chips/) | 4 | Enhancement chips: SA-1 and SuperFX/GSU coprocessors |
 | [games/](games/) | 8 | Complete game projects (Tetris, Breakout, Mario-like, map+objects, 1942-style shmup, Mode 7 racing + flying, Tiled-driven RPG) |
 
 ## Learning Path

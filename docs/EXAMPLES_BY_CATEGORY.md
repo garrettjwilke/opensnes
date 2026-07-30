@@ -186,8 +186,8 @@ sharing I-RAM with the main CPU for inter-processor communication.
 
 | Example | Description |
 |---------|-------------|
-| @subpage examples_memory_sa1_hello | Boot diagnostic: SA-1 init, I-RAM handshake, register verification |
-| @subpage examples_memory_sa1_starfield | 128-dot Lissajous murmuration driven by SA-1 math |
+| @subpage examples_chips_sa1_hello | Boot diagnostic: SA-1 init, I-RAM handshake, register verification |
+| @subpage examples_chips_sa1_starfield | 128-dot Lissajous murmuration driven by SA-1 math |
 
 ### SuperFX (GSU)
 
@@ -196,5 +196,5 @@ hardware multiply, and direct framebuffer access for 3D and bitmap effects.
 
 | Example | Description |
 |---------|-------------|
-| @subpage examples_memory_superfx_hello | Boot + SRAM + FMULT hardware tests |
-| @subpage examples_graphics_effects_superfx_3d | Rotating wireframe cube (Star Fox style 3D) |
+| @subpage examples_chips_superfx_hello | Boot + SRAM + FMULT hardware tests |
+| @subpage examples_chips_superfx_3d | Rotating wireframe cube (Star Fox style 3D) |
