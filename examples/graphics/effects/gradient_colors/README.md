@@ -112,4 +112,4 @@ writes every scanline.
 
 - **Explore related examples**:
   - `effects/transparency` -- Color math blending (another way to modify colors)
-  - `backgrounds/mode7_perspective` -- HDMA for per-scanline Mode 7 transforms
+  - `mode7/mode7_perspective` -- HDMA for per-scanline Mode 7 transforms

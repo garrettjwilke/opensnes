@@ -11,7 +11,8 @@ from basic concepts to complete games.
 | [fundamentals/](fundamentals/) | 1 | Under-the-hood: raw tiles, direct VRAM writes |
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
 | [sprites/](sprites/) | 6 | Sprite display, animation, OAM, metasprites, VRAM streaming |
-| [graphics/](graphics/) | 29 | Backgrounds, visual effects, Mode 7 |
+| [graphics/](graphics/) | 26 | Backgrounds, visual effects |
+| [mode7/](mode7/) | 3 | Mode 7: rotation, scaling, per-scanline perspective |
 | [input/](input/) | 4 | Joypads, mouse, Super Scope, multi-player |
 | [audio/](audio/) | 9 | Music and sound effects: SNESMOD and raw APU/DSP |
 | [maps/](maps/) | 4 | Tile maps, dynamic streaming, slopes |
@@ -57,7 +58,7 @@ deep-dive of a step below.
 | 15b | [graphics/effects/hdma_wave_table](graphics/effects/hdma_wave_table/) | Raw HDMA table built in C, krom-style repoint animation |
 | 15c | [graphics/effects/hdma_indirect_gradient](graphics/effects/hdma_indirect_gradient/) | Indirect HDMA: pointer table drives a backdrop gradient (krom port) |
 | 15d | [graphics/effects/hicolor_1792](graphics/effects/hicolor_1792/) | H-IRQ CGRAM streaming: 1792 colors from a 4bpp BG (krom port) |
-| 15e | [graphics/effects/mode7_perspective_rotate](graphics/effects/mode7_perspective_rotate/) | Full Mode 7 matrix per scanline: rotating perspective (krom port) |
+| 15e | [mode7/mode7_perspective_rotate](mode7/mode7_perspective_rotate/) | Full Mode 7 matrix per scanline: rotating perspective (krom port) |
 | 15f | [graphics/effects/hires_text](graphics/effects/hires_text/) | BG Mode 5 + interlace: 512x448 hi-res text (krom port) |
 | 15g | [graphics/effects/window_multi_hdma](graphics/effects/window_multi_hdma/) | Both windows shaped per scanline: HDMA porthole grid (krom port) |
 | 15h | [graphics/effects/gradient_9bit](graphics/effects/gradient_9bit/) | Brightness-dithered backdrop: the 9-bit color trick (krom port) |
@@ -74,8 +75,8 @@ deep-dive of a step below.
 
 | # | Example | What You Will Learn |
 |---|---------|---------------------|
-| 21 | [graphics/backgrounds/mode7](graphics/backgrounds/mode7/) | Mode 7 rotation and scaling |
-| 22 | [graphics/backgrounds/mode7_perspective](graphics/backgrounds/mode7_perspective/) | Pseudo-3D perspective (F-Zero style) |
+| 21 | [mode7/mode7](mode7/mode7/) | Mode 7 rotation and scaling |
+| 22 | [mode7/mode7_perspective](mode7/mode7_perspective/) | Pseudo-3D perspective (F-Zero style) |
 | 23 | [sprites/metasprite](sprites/metasprite/) | Multi-tile composite sprites |
 | 24 | [input/mouse](input/mouse/) | Mouse detection, cursor, sensitivity |
 | 25 | [input/superscope](input/superscope/) | Light gun detection, PPU H/V counters |

@@ -40,8 +40,8 @@ Background layers, scrolling, and video modes.
 | @subpage examples_graphics_backgrounds_mixed_scroll | Multiple BG layers at different scroll rates |
 | @subpage examples_graphics_backgrounds_mode3 | Mode 3: 256-color (8bpp) single layer |
 | @subpage examples_graphics_backgrounds_mode5 | Mode 5: hi-res 512×256 (16-color) |
-| @subpage examples_graphics_backgrounds_mode7 | Mode 7 rotation and scaling |
-| @subpage examples_graphics_backgrounds_mode7_perspective | Pseudo-3D perspective (F-Zero style) |
+| @subpage examples_mode7_mode7 | Mode 7 rotation and scaling |
+| @subpage examples_mode7_mode7_perspective | Pseudo-3D perspective (F-Zero style) |
 
 ---
 
@@ -84,7 +84,7 @@ Visual effects using HDMA, color math, and hardware windows.
 | @subpage examples_graphics_effects_hicolor_blend | 3840 colors via RGB channel-split blend (krom port) |
 | @subpage examples_graphics_effects_hicolor_hires | HiColor at 512-pixel pseudo-hires (krom port) |
 | @subpage examples_graphics_effects_hires_text | Mode 5 + interlace hi-res text (512×448) (krom port) |
-| @subpage examples_graphics_effects_mode7_perspective_rotate | Full Mode 7 matrix rotation per scanline (krom port) |
+| @subpage examples_mode7_mode7_perspective_rotate | Full Mode 7 matrix rotation per scanline (krom port) |
 
 ---
 

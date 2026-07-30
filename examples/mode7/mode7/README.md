@@ -28,7 +28,7 @@ different from tile-based modes but the initialization flow is similar.
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/backgrounds/mode7
+make -C examples/mode7/mode7
 ```
 
 Then open `mode7.sfc` in your emulator (Mesen2 recommended).
@@ -134,5 +134,5 @@ fractional part is the low byte.
   rotating background. Mode 7 supports full sprite rendering.
 
 - **Explore related examples**:
-  - `backgrounds/mode7_perspective` -- Per-scanline scaling for pseudo-3D (F-Zero style)
+  - `mode7/mode7_perspective` -- Per-scanline scaling for pseudo-3D (F-Zero style)
   - `effects/hdma_wave` -- HDMA can modify Mode 7 parameters per scanline

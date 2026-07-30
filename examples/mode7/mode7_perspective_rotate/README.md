@@ -9,7 +9,7 @@ M7A and M7D from a cosine table, M7B from sine, M7C from -sine — so the
 ground plane is simultaneously **perspective-projected** (each line scaled
 by `20480/y`, an 80× zoom-out at the horizon shrinking hyperbolically to
 0.36× up close) and **rotated** (48 steps of 7.5°). The sibling example
-`graphics/backgrounds/mode7_perspective` drives only the diagonal terms
+`mode7/mode7_perspective` drives only the diagonal terms
 (no rotation); this one exercises the full affine matrix.
 
 The tables are krom's exact bytes (`res/m7{cos,sin,nsin}.bin`, extracted
@@ -72,7 +72,7 @@ original (9 prefab tiles composed into a 128×128 Mode 7 world).
 ## How to Build
 
 ```bash
-cd examples/graphics/effects/mode7_perspective_rotate && make
+cd examples/mode7/mode7_perspective_rotate && make
 ```
 
 ## Modules Used

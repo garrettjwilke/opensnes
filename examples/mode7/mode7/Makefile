@@ -1,6 +1,6 @@
 # Mode 7 - Demonstrates Mode 7 rotation and scaling with joypad input
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET   := mode7.sfc
 ROM_NAME := OPENSNES MODE7

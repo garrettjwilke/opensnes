@@ -1,4 +1,4 @@
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET   := mode7_perspective_rotate.sfc
 ROM_NAME := M7 PERSPECT ROTATE

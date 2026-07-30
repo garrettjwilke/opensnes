@@ -317,7 +317,7 @@ Explore by complexity:
 |-------|----------|-------------------|
 | **Beginner** | `text/print_string`, `text/scroll_message` | Console output, text formatting |
 | **Intermediate** | `sprites/simple_sprite`, `input/two_players` | Sprites, controller input |
-| **Advanced** | `graphics/backgrounds/mode7`, `audio/snesmod_music` | Mode 7, tracker music |
+| **Advanced** | `mode7/mode7`, `audio/snesmod_music` | Mode 7, tracker music |
 | **Expert** | `games/breakout`, `games/likemario` | Complete game structure |
 | **SA-1 Coprocessor** | `chips/sa1_hello`, `chips/sa1_starfield` | 10.74 MHz second CPU ([tutorial](tutorials/sa1.md)) |
 | **SuperFX (GSU)** | `chips/superfx_hello`, `chips/superfx_3d` | RISC coprocessor, 3D rendering ([tutorial](tutorials/superfx.md)) |

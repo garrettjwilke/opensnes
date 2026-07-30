@@ -10,7 +10,7 @@ a static sky on top and a scaled ground that recedes into the distance.
 
 ## Prerequisites
 
-Read `backgrounds/mode7` first (Mode 7 basics), then `effects/hdma_wave` (HDMA
+Read `mode7/mode7` first (Mode 7 basics), then `effects/hdma_wave` (HDMA
 per-scanline programming).
 
 ## Controls
@@ -23,7 +23,7 @@ per-scanline programming).
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/backgrounds/mode7_perspective
+make -C examples/mode7/mode7_perspective
 ```
 
 Then open `mode7_perspective.sfc` in your emulator (Mesen2 recommended).
