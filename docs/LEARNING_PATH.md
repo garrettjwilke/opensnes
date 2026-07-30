@@ -25,7 +25,7 @@ underpins everything visual on the SNES.
 
 @subpage examples_text_scroll_message
 
-@subpage examples_graphics_backgrounds_mode1
+@subpage examples_backgrounds_mode1
 
 @subpage examples_sprites_simple_sprite
 

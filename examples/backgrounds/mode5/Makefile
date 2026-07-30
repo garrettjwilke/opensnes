@@ -1,4 +1,4 @@
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := mode5.sfc
 ROM_NAME   := MODE 5 HIRES DEMO

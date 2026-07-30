@@ -120,7 +120,7 @@ mode1_lz77/
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/backgrounds/mode1_lz77
+make -C examples/backgrounds/mode1_lz77
 ```
 
 Then open `mode1_lz77.sfc` in your emulator (Mesen2 recommended). You should

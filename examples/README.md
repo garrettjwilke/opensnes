@@ -10,8 +10,9 @@ from basic concepts to complete games.
 | [text/](text/) | 2 | Text display, fonts, tilemaps |
 | [fundamentals/](fundamentals/) | 1 | Under-the-hood: raw tiles, direct VRAM writes |
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
+| [backgrounds/](backgrounds/) | 7 | BG modes 0/1/3/5, priority, LZ77, hi-res |
 | [sprites/](sprites/) | 6 | Sprite display, animation, OAM, metasprites, VRAM streaming |
-| [graphics/](graphics/) | 23 | Backgrounds, visual effects |
+| [graphics/](graphics/) | 16 | Visual effects: HDMA, colour math, windows, transitions |
 | [scrolling/](scrolling/) | 3 | Layer scrolling: parallax, streaming, per-scanline HDMA |
 | [mode7/](mode7/) | 3 | Mode 7: rotation, scaling, per-scanline perspective |
 | [input/](input/) | 4 | Joypads, mouse, Super Scope, multi-player |
@@ -40,9 +41,9 @@ deep-dive of a step below.
 
 | # | Example | What You Will Learn |
 |---|---------|---------------------|
-| 5 | [graphics/backgrounds/mode1](graphics/backgrounds/mode1/) | Mode 1 multi-layer backgrounds |
-| 6 | [graphics/backgrounds/mode1_bg3_priority](graphics/backgrounds/mode1_bg3_priority/) | BG3 priority bit in Mode 1 |
-| 7 | [graphics/backgrounds/mode1_lz77](graphics/backgrounds/mode1_lz77/) | LZ77-compressed background data |
+| 5 | [backgrounds/mode1](backgrounds/mode1/) | Mode 1 multi-layer backgrounds |
+| 6 | [backgrounds/mode1_bg3_priority](backgrounds/mode1_bg3_priority/) | BG3 priority bit in Mode 1 |
+| 7 | [backgrounds/mode1_lz77](backgrounds/mode1_lz77/) | LZ77-compressed background data |
 | 8 | [sprites/animated_sprite](sprites/animated_sprite/) | Frame animation, sprite sheets, H-flip |
 | 9 | [sprites/dynamic_sprite](sprites/dynamic_sprite/) | VRAM streaming, dynamic tile uploads |
 | 10 | [sprites/object_size](sprites/object_size/) | OBJSEL sprite size configurations |
@@ -60,7 +61,7 @@ deep-dive of a step below.
 | 15c | [graphics/effects/hdma_indirect_gradient](graphics/effects/hdma_indirect_gradient/) | Indirect HDMA: pointer table drives a backdrop gradient (krom port) |
 | 15d | [graphics/effects/hicolor_1792](graphics/effects/hicolor_1792/) | H-IRQ CGRAM streaming: 1792 colors from a 4bpp BG (krom port) |
 | 15e | [mode7/mode7_perspective_rotate](mode7/mode7_perspective_rotate/) | Full Mode 7 matrix per scanline: rotating perspective (krom port) |
-| 15f | [graphics/effects/hires_text](graphics/effects/hires_text/) | BG Mode 5 + interlace: 512x448 hi-res text (krom port) |
+| 15f | [backgrounds/hires_text](backgrounds/hires_text/) | BG Mode 5 + interlace: 512x448 hi-res text (krom port) |
 | 15g | [graphics/effects/window_multi_hdma](graphics/effects/window_multi_hdma/) | Both windows shaped per scanline: HDMA porthole grid (krom port) |
 | 15h | [graphics/effects/gradient_9bit](graphics/effects/gradient_9bit/) | Brightness-dithered backdrop: the 9-bit color trick (krom port) |
 | 15i | [graphics/effects/hicolor_hires](graphics/effects/hicolor_hires/) | H-IRQ CGRAM streaming x pseudo-hires: 1792 slots at 512px (krom port) |

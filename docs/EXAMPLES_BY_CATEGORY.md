@@ -32,14 +32,14 @@ Background layers, scrolling, and video modes.
 
 | Example | Description |
 |---------|-------------|
-| @subpage examples_graphics_backgrounds_mode0 | Mode 0: four 2bpp background layers (Kirby parallax) |
-| @subpage examples_graphics_backgrounds_mode1 | Mode 1 multi-layer backgrounds (4bpp + 2bpp) |
-| @subpage examples_graphics_backgrounds_mode1_bg3_priority | BG3 priority bit for overlay effects |
-| @subpage examples_graphics_backgrounds_mode1_lz77 | LZ77-compressed background data |
+| @subpage examples_backgrounds_mode0 | Mode 0: four 2bpp background layers (Kirby parallax) |
+| @subpage examples_backgrounds_mode1 | Mode 1 multi-layer backgrounds (4bpp + 2bpp) |
+| @subpage examples_backgrounds_mode1_bg3_priority | BG3 priority bit for overlay effects |
+| @subpage examples_backgrounds_mode1_lz77 | LZ77-compressed background data |
 | @subpage examples_scrolling_continuous_scroll | Streaming scroll with dynamic tile loading |
 | @subpage examples_scrolling_mixed_scroll | Multiple BG layers at different scroll rates |
-| @subpage examples_graphics_backgrounds_mode3 | Mode 3: 256-color (8bpp) single layer |
-| @subpage examples_graphics_backgrounds_mode5 | Mode 5: hi-res 512×256 (16-color) |
+| @subpage examples_backgrounds_mode3 | Mode 3: 256-color (8bpp) single layer |
+| @subpage examples_backgrounds_mode5 | Mode 5: hi-res 512×256 (16-color) |
 | @subpage examples_mode7_mode7 | Mode 7 rotation and scaling |
 | @subpage examples_mode7_mode7_perspective | Pseudo-3D perspective (F-Zero style) |
 
@@ -83,7 +83,7 @@ Visual effects using HDMA, color math, and hardware windows.
 | @subpage examples_graphics_effects_hicolor_1792 | 1792 colors from a 4bpp background via per-tile-row HDMA (krom port) |
 | @subpage examples_graphics_effects_hicolor_blend | 3840 colors via RGB channel-split blend (krom port) |
 | @subpage examples_graphics_effects_hicolor_hires | HiColor at 512-pixel pseudo-hires (krom port) |
-| @subpage examples_graphics_effects_hires_text | Mode 5 + interlace hi-res text (512×448) (krom port) |
+| @subpage examples_backgrounds_hires_text | Mode 5 + interlace hi-res text (512×448) (krom port) |
 | @subpage examples_mode7_mode7_perspective_rotate | Full Mode 7 matrix rotation per scanline (krom port) |
 
 ---

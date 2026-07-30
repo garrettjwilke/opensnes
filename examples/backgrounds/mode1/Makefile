@@ -4,7 +4,7 @@
 # Port of PVSnesLib Mode1 example
 #==============================================================================
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := mode1.sfc
 ROM_NAME   := MODE1 BACKGROUND

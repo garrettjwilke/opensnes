@@ -1,4 +1,4 @@
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := mode3.sfc
 ROM_NAME   := MODE 3 256COLOR DEMO

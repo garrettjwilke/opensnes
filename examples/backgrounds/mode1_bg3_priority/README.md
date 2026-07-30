@@ -19,7 +19,7 @@ No interactive controls. The display is static.
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/backgrounds/mode1_bg3_priority
+make -C examples/backgrounds/mode1_bg3_priority
 ```
 
 Then open `mode1_bg3_priority.sfc` in your emulator (Mesen2 recommended).

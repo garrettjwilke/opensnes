@@ -153,7 +153,7 @@ Row layout: BP0, BP1, BP0, BP1... (16 bytes)
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/backgrounds/mode1
+make -C examples/backgrounds/mode1
 ```
 
 Then open `mode1.sfc` in your emulator (Mesen2 recommended).

@@ -65,7 +65,7 @@ bands render as the correct blend grays.
 ## How to Build
 
 ```bash
-cd examples/graphics/effects/hires_text && make
+cd examples/backgrounds/hires_text && make
 # regenerate the page (needs Pillow + numpy):
 python3 gen_assets.py && make
 ```
