@@ -1,6 +1,9 @@
 # Chantier — The example bundle, designed as a curriculum ("the ultimate tutorial")
 
-Status: PLANNING (2026-07-29). **No files moved yet — this is the design doc.**
+Status: IN PROGRESS (2026-07-30). **6 of ~10 waves shipped** (see the
+Execution log at the bottom). The design below is the north star; the
+Execution log tracks what is done and what remains, and the Migration
+recipe distils the reusable procedure learned across the shipped waves.
 The first of the two frontier projects (the other is
 [`audio_beyond_snesmod.md`](audio_beyond_snesmod.md)); start here.
 
@@ -226,3 +229,121 @@ citations (**the one anchor not currently gated by a lint** → extend
 `examples/README.md`'s two tables. Migrate one family per wave, each green
 (`make tests` + `make lint-docs`) before the next. Recommended pilot wave:
 **Text** (renames + demote `hello_world` + author the P1 "move text" rung).
+
+---
+
+# Execution log & remaining plan (2026-07-30)
+
+## Shipped waves (6 of ~10)
+
+Each wave: pure re-home unless noted (names/ROMs unchanged → baselines
+re-keyed, not regenerated → fbhashes identical), family README rewritten to
+the charter ladder, all 10 anchors updated, validated green
+(`make lint-docs` + luna compare/coverage/probes, corpus fixed at 75).
+
+| # | Wave | Moves | Result | Commit |
+|---|------|-------|--------|--------|
+| 1 | **Text** (pilot) | `text_test→text/print_string`, `hello_world→fundamentals/text_glyphs` + NEW `text/scroll_message` | new `fundamentals/`; corpus 74→75 | `dc1b70c0` |
+| 2 | **Sprites** | `graphics/sprites/*→sprites/` (6) | new `sprites/` | `af240735` |
+| 3 | **Enhancement chips** | `memory/{sa1_*,superfx_hello}` + `graphics/effects/superfx_3d` → `chips/` (4) | new `chips/` | `59442f1f` |
+| 4 | **Mode 7** | `backgrounds/{mode7,mode7_perspective}` + `effects/mode7_perspective_rotate` → `mode7/` (3) | new `mode7/` | `05cbe29f` |
+| 5a | **Scrolling** | `backgrounds/{mixed,continuous}_scroll` + `effects/parallax_scrolling` → `scrolling/` (3) | new `scrolling/` | `6388ec55` |
+| 5b | **Backgrounds** | `graphics/backgrounds/mode*` (6) + `effects/hires_text` → `backgrounds/` (7) | new `backgrounds/`; `graphics/backgrounds/` gone | `eef43871` |
+
+`graphics/` has shrunk **36 → 16** (only `effects/` remains).
+
+## The migration recipe (distilled from the 6 waves — follow this)
+
+1. **Discover** every live ref: `grep -rlE '<source-paths>|<subpage-ids>'`
+   over `*.md *.toml *.py Doxyfile`, EXCLUDING `.claude/ CHANGELOG.md
+   /build/ CORPUS_COVERAGE test_check_doc_drift.py devtools/check_doc_drift.py
+   README_TEMPLATE.md`. Also list tracked assets per example and manifest/probe refs.
+2. **Move with `git mv` on the *directory*** — NEVER pre-`rm` build-artifact
+   globs; examples carry **tracked assets** (`data.asm`, `res/*.png`, `.sfx`,
+   `sa1_boot.asm`, `*.bin` LUTs, `vram_map.h`). `rm *.asm` deleted a tracked
+   `data.asm` in the Sprites wave. Gitignored artifacts ride along harmlessly.
+3. **Fix Makefile depth** if the example changed nesting level: moving
+   `graphics/X/Y` (3-deep) up to `Y/` (2-deep) needs `../../../..` → `../../..`.
+4. **Sed sweep** (paths + `@subpage` IDs) over the discovered files. The
+   **shared-prefix trick**: `graphics/backgrounds/mode1` also correctly
+   rewrites `mode1_bg3_priority`/`mode1_lz77` (suffix preserved). BUT scope by
+   the **full source path** so sibling names elsewhere (`games/mode7_*`)
+   aren't hit; verify siblings after.
+5. **Bare prose cross-refs** (`` `backgrounds/mode7` `` without the `graphics/`
+   prefix) escape the absolute sed — add the bare form, and grep after.
+6. **Relative markdown links** (`](../../backgrounds/mode3/)`) from a
+   *non-moved* example to a *moved* one break on a depth change and are NOT
+   lint-gated. After each wave: `grep -rnE '\]\(\.\./[^)]*<moved-name>/'` and
+   fix the `../` depth by hand.
+7. **Baselines**: `git mv` the `<key>.png` (+ multi-point `<key>@<steps>.png`),
+   plain-`mv` the untracked `.wdm.txt`, and re-key `baselines.json` by prefix
+   (preserves scalar OR `fbhash`-list schema; ROMs byte-identical → values
+   unchanged). Never regenerate on a pure re-home.
+8. **Category table** (`examples/README.md`): subtract from the source
+   category, add the new one, keep the sum = corpus count. **Do NOT trust
+   mental math** — `check_category_sums` (dir-count vs claimed) is the safety
+   net; let `make lint-docs` verify (it caught a 5-3=3 slip).
+9. **Family README** rewritten to the charter ladder (developer questions,
+   `[kind]`, showcase last, cross-links). Manifest entries + probes re-keyed
+   by the path sed. `CORPUS_COVERAGE.md` regenerates — don't hand-edit.
+10. **Validate**: build each moved example, `make lint-docs`, luna
+    `--compare` (byte-identical → must PASS) + `--coverage` (0 FAIL) +
+    `probes/run_all.py`, and — for visual families — a **per-example luna
+    screenshot viewed** to confirm the render. Commit one wave = one
+    `docs(examples):` commit.
+
+## Remaining waves (simplest → most complex)
+
+### Wave 6 — In-place families (Maps, Input, Audio): enrichment, ~0 moves
+These already live in clean topic dirs; the "wave" is a charter family
+README + the ladder's missing rungs. Do as three small commits or one.
+- **Maps** — family README ladder (mapscroll → tiled → dynamic_map →
+  slopemario). Zero moves, zero new. Trivial.
+- **Input** — family README + author the **NEW rung 4.2 "drive a sprite with
+  the pad"** (`input/move_sprite`, builds on `simple_sprite`+`controller`).
+  Corpus 75→76.
+- **Audio** — family README + **DISCARD `snesmod_music_hirom`** (identical
+  lesson to `snesmod_music`, only the mapper differs — that is what
+  `memory/hirom_demo` teaches; net −1) + author the **NEW rung 8.9 echo/reverb**
+  (`audioSetEcho` ships unexampled; net +1). First DISCARD of the chantier:
+  `git rm` the dir, drop its baseline key + png, drop the `IMAGE_PATH` line,
+  drop its nav rows, decrement the audio count.
+
+### Wave 7 — Effects decomposition (the big one; removes graphics/ entirely)
+`graphics/effects/` (16) splits into four topic families. Do as four
+sub-waves (like 5a/5b) so each stays digestible; after the last,
+`graphics/` is empty → `rmdir`.
+- **7a `hdma/` (HDMA & raster)** — `gradient_colors`, `hdma_indirect_gradient`,
+  `hdma_helpers` move; **MERGE `hdma_wave` + `hdma_wave_table` → one rung 6e.4**
+  ("build the table, then use the helper" — the canonical hardcoded-then-asset
+  progression). The merge is a new op: keep one dir, fold the other's lesson
+  into its README/main.c, `git rm` the second, drop its baseline+nav. Optional
+  NEW: 6e.1 minimal single-channel HDMA, 6e.5 water ripple.
+- **7b `colour/` (Colour & hi-colour)** — `transparency`, `direct_color`,
+  `gradient_9bit`, `hicolor_1792`, `hicolor_blend` move; **DISCARD
+  `hicolor_hires`** (trick-on-a-trick, superseded). Optional NEW: 6b.1
+  set/cycle a palette colour (P1 — `setColor` unexampled), 6c.2 shadow & tint.
+- **7c `windows/` (Windows)** — `window`, `window_multi_hdma`,
+  `transparent_window` move. Fix the `hdma_helpers→mode3` relative link again
+  once hdma_helpers lands in `hdma/`.
+- **7d `transitions/` (Transitions)** — `fading`, `mosaic` move. Optional NEW:
+  6a.3 iris wipe (`hdmaIrisWipe` unexampled). Then `rmdir examples/graphics`.
+
+## Authoring backlog (independent track — new rungs, per the charter)
+Most families are complete ladders; these are the showcase/gap rungs the
+greenfield audit flagged, buildable today (the lib is ahead of the examples).
+Write them any time, family by family: P1 `set/cycle a palette colour`; P2
+`text effects`, `colour-cycling`, `shadow & tint`, `object`/physics engine,
+`panel` HUD/dialog, minimal game skeleton, sprite swarm; P3 minimal HDMA,
+iris wipe, water ripple, echo, hand-built tilemap, "where data lives",
+first-ROM colour. (`text/scroll_message` = the P1 "move text" rung, already
+shipped in wave 1.)
+
+## Final cleanup (after wave 7)
+- `rmdir examples/graphics` (empty).
+- Grep `graphics/effects`, `graphics/backgrounds`, `graphics/sprites` across
+  live docs → zero residual.
+- `docs/mainpage.md` / nav: confirm no stale `graphics/` grouping.
+- Full `make clean && make` + `make tests`; refresh `CORPUS_COVERAGE.md`.
+- Consider whether `graphics/` as a category label should disappear from
+  `examples/README.md` once it holds 0.
