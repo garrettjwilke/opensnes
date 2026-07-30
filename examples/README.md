@@ -1,6 +1,6 @@
 # OpenSNES Examples
 
-Learn SNES development step by step. 74 examples organized by topic, building
+Learn SNES development step by step. 75 examples organized by topic, building
 from basic concepts to complete games.
 
 ## Categories
@@ -8,6 +8,7 @@ from basic concepts to complete games.
 | Category | Examples | What It Covers |
 |----------|----------|----------------|
 | [text/](text/) | 2 | Text display, fonts, tilemaps |
+| [fundamentals/](fundamentals/) | 1 | Under-the-hood: raw tiles, direct VRAM writes |
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
 | [graphics/](graphics/) | 36 | Backgrounds, sprites, visual effects, Mode 7 |
 | [input/](input/) | 4 | Joypads, mouse, Super Scope, multi-player |
@@ -26,8 +27,8 @@ deep-dive of a step below.
 
 | # | Example | What You Will Learn |
 |---|---------|---------------------|
-| 1 | [text/hello_world](text/hello_world/) | PPU, backgrounds, tiles, palette -- your first ROM |
-| 2 | [text/text_test](text/text_test/) | Text positioning, formatting, textPrintAt |
+| 1 | [text/print_string](text/print_string/) | Your first ROM: text on a background, the VBlank rhythm |
+| 2 | [text/scroll_message](text/scroll_message/) | Move text -- bgSetScroll on the text layer |
 | 3 | [graphics/sprites/simple_sprite](graphics/sprites/simple_sprite/) | OAM, sprite display, CGRAM split |
 | 4 | [input/two_players](input/two_players/) | Joypad reading, multiplayer input |
 
@@ -108,7 +109,7 @@ cd opensnes
 make
 
 # Build a single example
-make -C examples/text/hello_world
+make -C examples/text/print_string
 
 # Clean and rebuild
 make clean && make
@@ -119,7 +120,7 @@ make clean && make
 We recommend [Mesen2](https://github.com/SourMesen/Mesen2) for accurate SNES emulation:
 
 ```bash
-mesen examples/text/hello_world/hello_world.sfc
+mesen examples/text/print_string/print_string.sfc
 ```
 
 Use Mesen's built-in debugger to inspect VRAM, OAM, palettes, and registers in real time.
@@ -133,4 +134,4 @@ Use Mesen's built-in debugger to inspect VRAM, OAM, palettes, and registers in r
 
 ---
 
-**Ready?** Start with [text/hello_world](text/hello_world/) and build your first SNES ROM.
+**Ready?** Start with [text/print_string](text/print_string/) and build your first SNES ROM.

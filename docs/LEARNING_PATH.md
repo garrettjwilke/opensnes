@@ -1,6 +1,6 @@
 # Learn SNES Development {#learning_path}
 
-A curated learning path through the 74 examples — a hand-picked progression
+A curated learning path through the 75 examples — a hand-picked progression
 from your first ROM to complete games, where each step builds on concepts from
 earlier ones. This is a selected subset, not the full list; for the exhaustive
 index see @ref examples_by_category.
@@ -9,9 +9,9 @@ index see @ref examples_by_category.
 
 Learn the basics: display text, show sprites, read input.
 
-@subpage examples_text_hello_world
+@subpage examples_text_print_string
 
-@subpage examples_text_text_test
+@subpage examples_text_scroll_message
 
 @subpage examples_graphics_sprites_simple_sprite
 

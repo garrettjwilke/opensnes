@@ -1,18 +1,28 @@
 # Browse Examples by Category {#examples_by_category}
 
-All 74 examples organized by topic. For a progressive learning path, see
+All 75 examples organized by topic. For a progressive learning path, see
 @ref learning_path.
 
 ---
 
 ## Text
 
-Display text on screen using background tiles and fonts.
+A ladder of developer questions: print text, then move it.
 
 | Example | Description |
 |---------|-------------|
-| @subpage examples_text_hello_world | Your first ROM: PPU setup, tiles, palette, tilemap |
-| @subpage examples_text_text_test | Text positioning, formatting with textPrintAt |
+| @subpage examples_text_print_string | Print a string with the built-in font (`textModeInit` + `textPrintAt`) |
+| @subpage examples_text_scroll_message | Move text: scroll the text layer for a marquee (`bgSetScroll`) |
+
+---
+
+## Fundamentals
+
+Under-the-hood: raw tiles and direct VRAM writes, with the module stripped away.
+
+| Example | Description |
+|---------|-------------|
+| @subpage examples_fundamentals_text_glyphs | How a glyph becomes pixels: a hand-coded 2bpp font written straight to VRAM |
 
 ---
 

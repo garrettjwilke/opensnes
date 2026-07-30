@@ -13,8 +13,9 @@ Browse by category: @ref examples_by_category
 ## By Topic
 
 ### Getting Started
-- @ref hello_world/main.c "Hello World" — Hand-coded font, Mode 0, direct VRAM writes
-- @ref text_test/main.c "Text Module" — textInit/textPrintAt/textFlush workflow
+- @ref print_string/main.c "Print a string" — textModeInit + textPrintAt, NMI auto-flush
+- @ref scroll_message/main.c "Scroll a message" — move text with bgSetScroll (marquee)
+- @ref text_glyphs/main.c "Text glyphs (fundamentals)" — hand-coded 2bpp font, direct VRAM writes
 
 ### Backgrounds
 - @ref mode0/main.c "Mode 0" — Four 2bpp layers with parallax

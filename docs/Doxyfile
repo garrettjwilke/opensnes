@@ -130,8 +130,9 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/memory/sa1_starfield \
                          ../examples/memory/save_game \
                          ../examples/memory/superfx_hello \
-                         ../examples/text/hello_world \
-                         ../examples/text/text_test
+                         ../examples/fundamentals/text_glyphs \
+                         ../examples/text/print_string \
+                         ../examples/text/scroll_message
 
 #---------------------------------------------------------------------------
 # Build Configuration

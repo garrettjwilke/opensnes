@@ -1,14 +1,15 @@
 /**
  * @file main.c
- * @brief Minimal "Hello World" text display using hand-coded 2bpp font tiles
+ * @brief Fundamentals — how a glyph is drawn: hand-coded 2bpp font tiles
  * @ingroup examples
  *
- * The simplest possible SNES program: writes a hand-coded 2bpp bitmap font
- * into VRAM, builds a tilemap row to spell "HELLO WORLD!", and displays it
- * on BG1 in Mode 0. No external assets or font library are used -- every
- * tile is defined as raw bitplane data in a C array, making this example a
- * good starting point for understanding how the SNES PPU interprets tile
- * graphics and tilemaps.
+ * The under-the-hood companion to the Text family. Instead of calling the
+ * `text` module, it writes a hand-coded 2bpp bitmap font straight into VRAM,
+ * builds a tilemap row to spell "HELLO WORLD!", and shows it on BG1 in Mode
+ * 0. Every tile is raw bitplane data in a C array — no assets, no font
+ * library — so you see exactly how the SNES PPU turns bytes into pixels.
+ * Read `examples/text/print_string` first for the easy way; read this to
+ * understand what that module hides.
  *
  * @par SNES Concepts
  * - 2bpp tile format: each 8x8 tile is 16 bytes (two bitplanes interleaved)

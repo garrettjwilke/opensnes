@@ -18,7 +18,7 @@ nothing you do not list is linked.
 
 | I want to… | Use | Module | Example |
 |---|---|---|---|
-| print text | `textInit`, `textPrintAt`, `textFlush` | `text` | [text/hello_world](../examples/text/hello_world/) |
+| print text | `textInit`, `textPrintAt`, `textFlush` | `text` | [text/print_string](../examples/text/print_string/) |
 | show a background from a PNG | `bgInitTileSet`, `bgSetGfxPtr`, `bgSetMapPtr` | `background` | [graphics/backgrounds/mode1](../examples/graphics/backgrounds/mode1/) |
 | bundle a tileset + its palette as one thing | `BgAsset`, `DECLARE_BG_ASSET`, `bgLoad` | `asset` | [graphics/backgrounds/mode1](../examples/graphics/backgrounds/mode1/) |
 | draw a sprite | `oamInit`, `oamSet`, `oamUpdate` | `sprite` | [graphics/sprites/simple_sprite](../examples/graphics/sprites/simple_sprite/) |

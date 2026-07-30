@@ -10,7 +10,7 @@ just one sprite at the center of the screen.
 
 ## Prerequisites
 
-Read `text/hello_world` first -- it covers `consoleInit()`, VRAM, and the PPU basics.
+Read `text/print_string` first -- it covers `consoleInit()`, VRAM, and the PPU basics.
 
 ## Controls
 

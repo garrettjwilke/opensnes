@@ -89,6 +89,12 @@
     "rom_sha256": "7a5653282dfb236605b103a28c5f8ea277afc36e393abf26634e07a2e93f37bd",
     "steps": 3000000
   },
+  "fundamentals_text_glyphs": {
+    "fbhash": "c45d576dc2ba4804",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "90a714f4c7947be49cbefb2b64c396d1aa080273d549e36c3a03206a808adccf",
+    "steps": 3000000
+  },
   "games_breakout": {
     "fbhash": "2019dc9cb8ad0832",
     "luna_version": "v1.9.0",
@@ -455,16 +461,16 @@
     "rom_sha256": "5d372cf0fe4dd149d836b37c6b0ef2638ca45f55b69df98246cbdeba84311431",
     "steps": 3000000
   },
-  "text_hello_world": {
-    "fbhash": "c45d576dc2ba4804",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "322f587c1ae9618b05642a165da7e2d2f6542ce8ee0f8c70dc9c767a18d16a5e",
-    "steps": 3000000
-  },
-  "text_text_test": {
+  "text_print_string": {
     "fbhash": "19e92e700be065e6",
     "luna_version": "v1.9.0",
-    "rom_sha256": "414dffc237ed6be98001b3d62beb0340dfdf817300998debe3d6e98bf5b390a4",
+    "rom_sha256": "9e98a52871e08b8647100121329e99539336f421bf4ded6a989e4fb61341b43c",
+    "steps": 3000000
+  },
+  "text_scroll_message": {
+    "fbhash": "ff69951f38caaff3",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "7a95de03a090afe5d2f2781e2ee2262336cf25aa0e923e641295ee69507816cc",
     "steps": 3000000
   }
 }

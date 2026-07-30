@@ -1,11 +1,10 @@
-# Hello World Example
-# Uses OpenSNES library for console functions
+# Fundamentals — how a glyph is drawn: hand-coded 2bpp font, direct VRAM writes
 
 OPENSNES := $(shell cd ../../.. && pwd)
 
 # ROM Configuration
-TARGET   := hello_world.sfc
-ROM_NAME := OPENSNES HELLO WORLD
+TARGET   := text_glyphs.sfc
+ROM_NAME := TEXT GLYPHS
 
 # Use OpenSNES library
 USE_LIB  := 1

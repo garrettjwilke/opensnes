@@ -1,17 +1,21 @@
-# Hello World
+# Fundamentals: how a glyph is drawn
 
-> Your first SNES ROM. Nine tiles, two colors, one message. Welcome to 1990.
+> The under-the-hood companion to the Text family. Nine tiles, two colours,
+> one message — hand-coded 2bpp bitplanes written straight into VRAM, no
+> `text` module. Read [`text/print_string`](../../text/print_string/) for the
+> easy way; read this to see what that module hides.
 
-![Screenshot](hello_world.png)
+![Screenshot](text_glyphs.png)
 
 ## Build & Run
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/text/hello_world
+make -C examples/fundamentals/text_glyphs
 ```
 
-Then open `hello_world.sfc` in your emulator (Mesen2 recommended).
+Then open `text_glyphs.sfc` in [luna](https://github.com/k0b3n4irb/luna) (or
+any SNES emulator).
 
 ## Controls
 
@@ -218,7 +222,7 @@ and cause timing issues.
 ### The Pipeline
 
 ```
-main.c  →  cc65816  →  main.c.asm  →  wla-65816  →  main.c.obj  →  wlalink  →  hello_world.sfc
+main.c  →  cc65816  →  main.c.asm  →  wla-65816  →  main.c.obj  →  wlalink  →  text_glyphs.sfc
   C          cproc+       65816          WLA-DX         object        linker       final ROM
 source       QBE         assembly       assembler        file
 ```
@@ -232,7 +236,7 @@ math helpers (runtime.asm), and library modules — into a playable `.sfc` ROM.
 ### The Makefile
 
 ```makefile
-TARGET      := hello_world.sfc          # Output ROM filename
+TARGET      := text_glyphs.sfc           # Output ROM filename
 ROM_NAME    := OPENSNES HELLO WORLD     # 21-char name burned into the ROM header
 USE_LIB     := 1                        # Link against the OpenSNES library
 LIB_MODULES := console sprite dma background  # Which library pieces to pull in
