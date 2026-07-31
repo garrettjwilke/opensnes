@@ -1,6 +1,7 @@
 # Chantier — The example bundle, designed as a curriculum ("the ultimate tutorial")
 
-Status: IN PROGRESS (2026-07-30). **6 of ~10 waves shipped** (see the
+Status: IN PROGRESS (2026-07-31). **7 waves + the naming audit shipped;
+Audio and the Effects decomposition remain** (see the
 Execution log at the bottom). The design below is the north star; the
 Execution log tracks what is done and what remains, and the Migration
 recipe distils the reusable procedure learned across the shipped waves.
@@ -234,7 +235,7 @@ citations (**the one anchor not currently gated by a lint** → extend
 
 # Execution log & remaining plan (2026-07-30)
 
-## Shipped waves (6 of ~10)
+## Shipped waves (7 + naming audit)
 
 Each wave: pure re-home unless noted (names/ROMs unchanged → baselines
 re-keyed, not regenerated → fbhashes identical), family README rewritten to
@@ -249,8 +250,14 @@ the charter ladder, all 10 anchors updated, validated green
 | 4 | **Mode 7** | `backgrounds/{mode7,mode7_perspective}` + `effects/mode7_perspective_rotate` → `mode7/` (3) | new `mode7/` | `05cbe29f` |
 | 5a | **Scrolling** | `backgrounds/{mixed,continuous}_scroll` + `effects/parallax_scrolling` → `scrolling/` (3) | new `scrolling/` | `6388ec55` |
 | 5b | **Backgrounds** | `graphics/backgrounds/mode*` (6) + `effects/hires_text` → `backgrounds/` (7) | new `backgrounds/`; `graphics/backgrounds/` gone | `eef43871` |
+| 6 | **Maps** | none (family README only — fixed a 2-example gap) | maps ladder | `d04d27de` |
+| 7 | **Input** | none + NEW `input/move_sprite` (rung 4.2) | corpus 75→76 | `3279390f` |
+| — | **Naming audit** | 8 in-place renames across mode7/scrolling/backgrounds/maps/sprites | consistent per-family names | `d91286f3`,`1daa4de1`,`d020fbac`,`9fc7d31e`,`11aeb7b2`,`59f15a00` |
 
-`graphics/` has shrunk **36 → 16** (only `effects/` remains).
+`graphics/` has shrunk **36 → 16** (only `effects/` remains). Corpus at **76**.
+Naming audit renames: `rotate_scale`/`perspective`/`perspective_rotate`,
+`parallax_scroll`, `mode5_hires`, `map_scroll`, `slope_collision`,
+`sprite_sizes` (see the Rename addendum above for the two traps hit).
 
 ## The migration recipe (distilled from the 6 waves — follow this)
 
@@ -291,6 +298,34 @@ the charter ladder, all 10 anchors updated, validated green
     `probes/run_all.py`, and — for visual families — a **per-example luna
     screenshot viewed** to confirm the render. Commit one wave = one
     `docs(examples):` commit.
+
+### Rename addendum (a rename is NOT a move — two extra traps)
+
+A pure *move* keeps the example's name (ROM filename, `TARGET`, symbols); a
+*rename* changes them. The naming-audit pass (mode7/scrolling/backgrounds/
+maps/sprites, 2026-07-31) hit two traps a move never does — both caught by
+validation, both worth pre-empting:
+
+- **The ROM filename changes too** (`TARGET := <old>.sfc` → `<new>.sfc`).
+  Probe/manifest refs are `dir/<name>.sfc`, so a **dir-scoped** sweep
+  (`s|mode7/mode7_perspective|mode7/perspective|`) fixes the directory but
+  leaves the *filename* (`.../mode7_perspective.sfc`) dangling. Use a
+  **blanket identifier sed** (`s|<old>|<new>|g`, which catches both the dir
+  and the `<old>.sfc`) — that is why `parallax_scrolling` was clean but the
+  dir-scoped mode7 sweep broke `movement.py` (fix `d020fbac`). Grep the
+  `<old>.sfc` form after.
+- **The blanket doc-sed does NOT include the Makefile.** The file-list glob
+  is `*.md *.toml *.py Doxyfile` — so `TARGET` keeps the old name, the build
+  emits `<old>.sfc`, and the stale-artifact cleanup then deletes it → **no
+  `.sfc` → discovery drops the example** (76→75, silent). Always
+  `sed` the Makefile `TARGET` **explicitly**, and **validate before
+  cleaning** stale ROMs (so a missing `.sfc` fails compare/coverage
+  immediately, not after commit). Also `git mv` any dedicated probe file
+  (`probes/<name>.py`) — `run_all.py` globs `probes/*.py`, so a rename is
+  picked up automatically.
+
+Renames stay **byte-identical** if you keep `ROM_NAME` (the cosmetic 21-char
+cartridge header) — then baselines re-key, no regeneration.
 
 ## Remaining waves (simplest → most complex)
 
