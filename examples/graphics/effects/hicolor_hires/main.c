@@ -25,7 +25,7 @@
  * @par What to Observe
  * The hicolor sunset, now 512 pixels wide — smooth gradients AND
  * doubled horizontal detail. Fringing on hard edges is the pseudo-hires
- * physics (see hires_text's README explainer).
+ * physics (see mode5_hires's README explainer).
  *
  * @par Modules Used
  * console, dma, background, colormath

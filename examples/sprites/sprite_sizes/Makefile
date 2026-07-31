@@ -36,9 +36,9 @@ res/sprite64.pic res/sprite64.pal: res/sprite64.png
 
 combined.asm: res/sprite8.pic res/sprite16.pic res/sprite32.pic res/sprite64.pic
 
-clean: clean-object_size
-.PHONY: clean-object_size
-clean-object_size:
+clean: clean-sprite_sizes
+.PHONY: clean-sprite_sizes
+clean-sprite_sizes:
 	@rm -f res/sprite8.pic res/sprite8.pal res/sprite8.inc res/sprite8_data.as
 	@rm -f res/sprite16.pic res/sprite16.pal res/sprite16.inc res/sprite16_data.as
 	@rm -f res/sprite32.pic res/sprite32.pal res/sprite32.inc res/sprite32_data.as

@@ -23,7 +23,7 @@ res/back.pic res/back.map res/back.pal: res/back.png
 combined.asm: res/back.pic res/back.map res/back.pal
 
 # Extended clean
-clean: clean-parallax_scrolling
-.PHONY: clean-parallax_scrolling
-clean-parallax_scrolling:
+clean: clean-parallax_scroll
+.PHONY: clean-parallax_scroll
+clean-parallax_scroll:
 	@rm -f res/back.pic res/back.pal res/back.map res/back.inc res/back_data.as

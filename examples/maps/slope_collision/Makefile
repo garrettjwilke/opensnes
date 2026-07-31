@@ -32,8 +32,8 @@ res/mario_sprite.pic res/mario_sprite.pal: res/mario_sprite.png
 
 combined.asm: res/tiles.pic res/mario_sprite.pic
 
-clean: clean-slopemario
-.PHONY: clean-slopemario
-clean-slopemario:
+clean: clean-slope_collision
+.PHONY: clean-slope_collision
+clean-slope_collision:
 	@rm -f res/tiles.pic res/tiles.pal res/tiles.map res/tiles.inc res/tiles_data.as
 	@rm -f res/mario_sprite.pic res/mario_sprite.pal res/mario_sprite.inc res/mario_sprite_data.as
