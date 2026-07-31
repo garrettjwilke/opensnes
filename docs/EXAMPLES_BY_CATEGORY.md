@@ -68,11 +68,11 @@ Visual effects using HDMA, color math, and hardware windows.
 |---------|-------------|
 | @subpage examples_transitions_fading | Brightness control, screen transitions |
 | @subpage examples_transitions_mosaic | Mosaic pixelation effect |
-| @subpage examples_graphics_effects_hdma_wave | HDMA scanline wave distortion |
-| @subpage examples_graphics_effects_hdma_wave_table | Raw HDMA table in C, krom-style repoint animation |
-| @subpage examples_graphics_effects_hdma_indirect_gradient | Indirect HDMA pointer-table gradient (krom port) |
-| @subpage examples_graphics_effects_hdma_helpers | High-level HDMA effect library (wave, ripple, iris) |
-| @subpage examples_graphics_effects_gradient_colors | HDMA + CGRAM color gradients |
+| @subpage examples_hdma_hdma_wave | HDMA scanline wave distortion |
+| @subpage examples_hdma_hdma_wave_table | Raw HDMA table in C, krom-style repoint animation |
+| @subpage examples_hdma_hdma_indirect_gradient | Indirect HDMA pointer-table gradient (krom port) |
+| @subpage examples_hdma_hdma_helpers | High-level HDMA effect library (wave, ripple, iris) |
+| @subpage examples_hdma_gradient_colors | HDMA + CGRAM color gradients |
 | @subpage examples_scrolling_parallax_scroll | HDMA parallax scrolling |
 | @subpage examples_color_transparency | Color math (add/subtract blending) |
 | @subpage examples_windows_window | Hardware window masking |

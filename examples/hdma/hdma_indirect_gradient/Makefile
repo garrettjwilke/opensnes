@@ -1,4 +1,4 @@
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET   := hdma_indirect_gradient.sfc
 ROM_NAME := HDMA INDIRECT GRAD

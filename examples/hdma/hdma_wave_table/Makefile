@@ -1,4 +1,4 @@
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET   := hdma_wave_table.sfc
 ROM_NAME := HDMA WAVE TABLE

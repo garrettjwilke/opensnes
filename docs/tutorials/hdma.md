@@ -183,7 +183,7 @@ Every shipped example exercises a distinct HDMA case. Read the
 `@par What to Observe` block at the top of each `main.c` for the
 interactive demo; the patterns themselves are reusable building blocks.
 
-### Per-scanline wave distortion — `examples/graphics/effects/hdma_wave`
+### Per-scanline wave distortion — `examples/hdma/hdma_wave`
 
 Pre-computes seven sine tables (224 + 111 wrap entries each) at amplitudes
 0–24 pixels, then runs HDMA channel 6 in `HDMA_MODE_1REG_2X` to write
@@ -202,14 +202,14 @@ example is also a real-world demonstration of why HDMA tables that
 change every frame want to be in RAM rather than in const ROM (see
 "bank byte trap" below).
 
-### Static colour gradient — `examples/graphics/effects/gradient_colors`
+### Static colour gradient — `examples/hdma/gradient_colors`
 
 A simpler form of the brightness gradient: a fixed table in ROM written
 to CGADD/CGDATA changes the BG palette colour on different rows, giving
 a banded sky. Useful pattern when the gradient never animates and the
 table can live in const ROM.
 
-### Helpers showcase — `examples/graphics/effects/hdma_helpers`
+### Helpers showcase — `examples/hdma/hdma_helpers`
 
 Walks through the lib's HDMA helpers (`hdmaSetup`, `hdmaSetupBank`,
 `hdmaEnable`, `hdmaDisable`, the brightness-gradient builder) on a
@@ -232,7 +232,7 @@ write-only and forget on the next scanline). The window position holds
 across the visible region; the effect is a static masked area rather
 than animation.
 
-### Indirect HDMA — `examples/graphics/effects/hdma_indirect_gradient`
+### Indirect HDMA — `examples/hdma/hdma_indirect_gradient`
 
 `hdmaSetupIndirect()` (DMAP bit 6): table entries hold POINTERS to the
 payload instead of the payload itself, letting many scanline bands share
@@ -241,7 +241,7 @@ with 32 shared 4-byte CGRAM blocks. The data bank for the pointed-to
 blocks goes in `$43x7` — pass it with the bank-extraction idiom
 (`(u8)((u32)(void *)table >> 16)`).
 
-### Table repointing as animation — `examples/graphics/effects/hdma_wave_table`
+### Table repointing as animation — `examples/hdma/hdma_wave_table`
 
 krom's WaveHDMA idiom: 896 pre-built `[1][offset16]` entries, and the
 per-frame "animation" is just `hdmaSetup(..., table + phase * 3)` — a
@@ -372,10 +372,10 @@ inner game-logic loops.
 - `lib/include/snes/hdma.h` — full API reference (function signatures,
   mode constants, destination-register constants).
 - `lib/source/hdma.asm` and `lib/source/hdma.c` — implementation.
-- [`examples/graphics/effects/hdma_wave`](../../examples/graphics/effects/hdma_wave/README.md) — sine-wave per-scanline scroll.
-- [`examples/graphics/effects/hdma_helpers`](../../examples/graphics/effects/hdma_helpers/README.md) — API surface walkthrough.
+- [`examples/hdma/hdma_wave`](../../examples/hdma/hdma_wave/README.md) — sine-wave per-scanline scroll.
+- [`examples/hdma/hdma_helpers`](../../examples/hdma/hdma_helpers/README.md) — API surface walkthrough.
 - [`examples/scrolling/parallax_scroll`](../../examples/scrolling/parallax_scroll/README.md) — RAM table, two-speed parallax.
-- [`examples/graphics/effects/gradient_colors`](../../examples/graphics/effects/gradient_colors/README.md) — static ROM gradient table.
+- [`examples/hdma/gradient_colors`](../../examples/hdma/gradient_colors/README.md) — static ROM gradient table.
 - [`examples/windows/window`](../../examples/windows/window/README.md) — stationary window via HDMA.
 - [`examples/windows/transparent_window`](../../examples/windows/transparent_window/README.md) — animated window + colour math.
 - [`KNOWN_LIMITATIONS.md`](../../KNOWN_LIMITATIONS.md) — bank `$00` overflow,

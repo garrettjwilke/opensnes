@@ -1,6 +1,6 @@
 # HDMA Wave Demo Makefile
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 TARGET   := hdma_wave.sfc
 ROM_NAME := HDMA WAVE DEMO
 

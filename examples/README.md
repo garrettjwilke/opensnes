@@ -12,7 +12,7 @@ from basic concepts to complete games.
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
 | [backgrounds/](backgrounds/) | 7 | BG modes 0/1/3/5, priority, LZ77, hi-res |
 | [sprites/](sprites/) | 6 | Sprite display, animation, OAM, metasprites, VRAM streaming |
-| [graphics/](graphics/) | 5 | Visual effects: HDMA & raster |
+| [hdma/](hdma/) | 5 | Per-scanline HDMA effects: gradients, waves, raster |
 | [color/](color/) | 5 | Colour math, direct colour, hi-colour tricks |
 | [windows/](windows/) | 3 | Hardware window masking, shaped per scanline |
 | [transitions/](transitions/) | 2 | Screen transitions: fade, mosaic pixelate |
@@ -59,9 +59,9 @@ deep-dive of a step below.
 |---|---------|---------------------|
 | 13 | [scrolling/continuous_scroll](scrolling/continuous_scroll/) | Streaming background scroll with dynamic tile loading |
 | 14 | [scrolling/mixed_scroll](scrolling/mixed_scroll/) | Multiple BG layers scrolling at different rates |
-| 15 | [graphics/effects/hdma_wave](graphics/effects/hdma_wave/) | HDMA scanline wave distortion |
-| 15b | [graphics/effects/hdma_wave_table](graphics/effects/hdma_wave_table/) | Raw HDMA table built in C, krom-style repoint animation |
-| 15c | [graphics/effects/hdma_indirect_gradient](graphics/effects/hdma_indirect_gradient/) | Indirect HDMA: pointer table drives a backdrop gradient (krom port) |
+| 15 | [hdma/hdma_wave](hdma/hdma_wave/) | HDMA scanline wave distortion |
+| 15b | [hdma/hdma_wave_table](hdma/hdma_wave_table/) | Raw HDMA table built in C, krom-style repoint animation |
+| 15c | [hdma/hdma_indirect_gradient](hdma/hdma_indirect_gradient/) | Indirect HDMA: pointer table drives a backdrop gradient (krom port) |
 | 15d | [color/hicolor_1792](color/hicolor_1792/) | H-IRQ CGRAM streaming: 1792 colors from a 4bpp BG (krom port) |
 | 15e | [mode7/perspective_rotate](mode7/perspective_rotate/) | Full Mode 7 matrix per scanline: rotating perspective (krom port) |
 | 15f | [backgrounds/mode5_hires](backgrounds/mode5_hires/) | BG Mode 5 + interlace: 512x448 hi-res text (krom port) |
@@ -69,7 +69,7 @@ deep-dive of a step below.
 | 15h | [color/gradient_9bit](color/gradient_9bit/) | Brightness-dithered backdrop: the 9-bit color trick (krom port) |
 | 15j | [color/hicolor_blend](color/hicolor_blend/) | RGB channel-split color-math blend: 3840 colors (krom port) |
 | 15k | [color/direct_color](color/direct_color/) | Direct color: 8bpp pixel bytes read as BBGGGRRR, CGRAM bypassed |
-| 16 | [graphics/effects/gradient_colors](graphics/effects/gradient_colors/) | HDMA + CGRAM color gradients |
+| 16 | [hdma/gradient_colors](hdma/gradient_colors/) | HDMA + CGRAM color gradients |
 | 17 | [scrolling/parallax_scroll](scrolling/parallax_scroll/) | HDMA parallax scrolling |
 | 18 | [color/transparency](color/transparency/) | Color math (add/subtract blending) |
 | 19 | [windows/window](windows/window/) | Hardware window masking |

@@ -1,6 +1,6 @@
 # Gradient Colors - HDMA color gradient effect on backdrop (from PVSnesLib)
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET   := gradient_colors.sfc
 ROM_NAME := OPENSNES GRADCOLORS

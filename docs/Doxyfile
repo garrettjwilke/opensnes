@@ -94,11 +94,11 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/color/direct_color \
                          ../examples/transitions/fading \
                          ../examples/color/gradient_9bit \
-                         ../examples/graphics/effects/gradient_colors \
-                         ../examples/graphics/effects/hdma_helpers \
-                         ../examples/graphics/effects/hdma_indirect_gradient \
-                         ../examples/graphics/effects/hdma_wave \
-                         ../examples/graphics/effects/hdma_wave_table \
+                         ../examples/hdma/gradient_colors \
+                         ../examples/hdma/hdma_helpers \
+                         ../examples/hdma/hdma_indirect_gradient \
+                         ../examples/hdma/hdma_wave \
+                         ../examples/hdma/hdma_wave_table \
                          ../examples/color/hicolor_1792 \
                          ../examples/color/hicolor_blend \
                          ../examples/backgrounds/mode5_hires \

@@ -3,7 +3,7 @@
 # Demonstrates brightness gradient, color gradient, iris wipe, water ripple
 #==============================================================================
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := hdma_helpers.sfc
 ROM_NAME   := HDMA HELPERS DEMO

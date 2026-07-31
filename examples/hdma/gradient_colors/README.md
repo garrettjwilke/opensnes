@@ -24,7 +24,7 @@ Read `effects/hdma_wave` first (HDMA basics and table format).
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/effects/gradient_colors
+make -C examples/hdma/gradient_colors
 ```
 
 Then open `gradient_colors.sfc` in your emulator (Mesen2 recommended).

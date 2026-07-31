@@ -50,7 +50,7 @@
  * @par Modules Used
  * console, dma, background, hdma
  *
- * @see hdma.h, examples/graphics/effects/hdma_wave (high-level engine)
+ * @see hdma.h, examples/hdma/hdma_wave (high-level engine)
  */
 
 #include <snes.h>

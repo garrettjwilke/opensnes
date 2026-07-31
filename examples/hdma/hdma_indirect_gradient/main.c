@@ -38,7 +38,7 @@
  * @par Modules Used
  * console, dma, hdma
  *
- * @see hdma.h (hdmaSetupIndirect), examples/graphics/effects/gradient_colors
+ * @see hdma.h (hdmaSetupIndirect), examples/hdma/gradient_colors
  */
 
 #include <snes.h>

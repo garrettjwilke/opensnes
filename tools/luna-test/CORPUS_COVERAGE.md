@@ -46,11 +46,11 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 75 ROMs · **73 OK, 2 INPUT-DE
 | `games/rpg` | OK | live (84f/83nmi) |
 | `games/shmup_1942` | OK | live (148f/147nmi) |
 | `games/tetris` | OK | live (90f/81nmi) |
-| `graphics/effects/gradient_colors` | OK | live (72f/71nmi) |
-| `graphics/effects/hdma_helpers` | OK | live (71f/70nmi) |
-| `graphics/effects/hdma_indirect_gradient` | OK | live (72f/71nmi) |
-| `graphics/effects/hdma_wave` | OK | live (73f/72nmi) |
-| `graphics/effects/hdma_wave_table` | OK | live (146f/145nmi) |
+| `hdma/gradient_colors` | OK | live (72f/71nmi) |
+| `hdma/hdma_helpers` | OK | live (71f/70nmi) |
+| `hdma/hdma_indirect_gradient` | OK | live (72f/71nmi) |
+| `hdma/hdma_wave` | OK | live (73f/72nmi) |
+| `hdma/hdma_wave_table` | OK | live (146f/145nmi) |
 | `input/controller` | OK | live (103f/102nmi) |
 | `input/mouse` | INPUT-DEP | live (72f/72nmi) |
 | `input/move_sprite` | OK | live (73f/72nmi) |

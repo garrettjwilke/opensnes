@@ -75,9 +75,9 @@ windows, the Mode 7 plane, and sound.
 
 @subpage examples_transitions_mosaic
 
-@subpage examples_graphics_effects_hdma_wave
+@subpage examples_hdma_hdma_wave
 
-@subpage examples_graphics_effects_gradient_colors
+@subpage examples_hdma_gradient_colors
 
 @subpage examples_color_transparency
 

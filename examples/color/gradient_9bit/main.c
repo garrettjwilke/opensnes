@@ -23,7 +23,7 @@
  *
  * @par What to Observe
  * A red-to-black vertical gradient noticeably smoother than 32 bands —
- * compare with graphics/effects/hdma_indirect_gradient (pure 5-bit ramp).
+ * compare with hdma/hdma_indirect_gradient (pure 5-bit ramp).
  *
  * @par Modules Used
  * console, dma, hdma

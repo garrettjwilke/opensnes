@@ -43,7 +43,7 @@ EXAMPLES = [
     "maps/map_scroll/map_scroll.sfc",
     "maps/tiled/tiled.sfc",
     "maps/dynamic_map/dynamic_map.sfc",
-    "graphics/effects/hdma_helpers/hdma_helpers.sfc",
+    "hdma/hdma_helpers/hdma_helpers.sfc",
     "sprites/animated_sprite/animated_sprite.sfc",
     "sprites/dynamic_metasprite/dynamic_metasprite.sfc",
 ]

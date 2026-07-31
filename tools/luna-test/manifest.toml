@@ -49,5 +49,5 @@ steps = [3_000_000, 6_000_000]
 steps = [3_000_000, 6_000_000]
 
 # raw HDMA wave (krom port) scrolls continuously — self-animating.
-[examples."graphics/effects/hdma_wave_table"]
+[examples."hdma/hdma_wave_table"]
 steps = [3_000_000, 6_000_000]
