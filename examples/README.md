@@ -12,7 +12,8 @@ from basic concepts to complete games.
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
 | [backgrounds/](backgrounds/) | 7 | BG modes 0/1/3/5, priority, LZ77, hi-res |
 | [sprites/](sprites/) | 6 | Sprite display, animation, OAM, metasprites, VRAM streaming |
-| [graphics/](graphics/) | 16 | Visual effects: HDMA, colour math, windows, transitions |
+| [graphics/](graphics/) | 14 | Visual effects: HDMA, colour math, windows |
+| [transitions/](transitions/) | 2 | Screen transitions: fade, mosaic pixelate |
 | [scrolling/](scrolling/) | 3 | Layer scrolling: parallax, streaming, per-scanline HDMA |
 | [mode7/](mode7/) | 3 | Mode 7: rotation, scaling, per-scanline perspective |
 | [input/](input/) | 5 | Joypads, drive a sprite, mouse, Super Scope, multi-player |
@@ -47,8 +48,8 @@ deep-dive of a step below.
 | 8 | [sprites/animated_sprite](sprites/animated_sprite/) | Frame animation, sprite sheets, H-flip |
 | 9 | [sprites/dynamic_sprite](sprites/dynamic_sprite/) | VRAM streaming, dynamic tile uploads |
 | 10 | [sprites/sprite_sizes](sprites/sprite_sizes/) | OBJSEL sprite size configurations |
-| 11 | [graphics/effects/fading](graphics/effects/fading/) | Brightness control, screen transitions |
-| 12 | [graphics/effects/mosaic](graphics/effects/mosaic/) | Mosaic pixelation effect |
+| 11 | [transitions/fading](transitions/fading/) | Brightness control, screen transitions |
+| 12 | [transitions/mosaic](transitions/mosaic/) | Mosaic pixelation effect |
 
 ### Level 3 -- Scrolling and Effects
 

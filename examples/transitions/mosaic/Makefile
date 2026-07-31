@@ -1,6 +1,6 @@
 # Mosaic - Demonstrates mosaic shading effect with fade transitions
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET   := mosaic.sfc
 ROM_NAME := OPENSNES MOSAIC

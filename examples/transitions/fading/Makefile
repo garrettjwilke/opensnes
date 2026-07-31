@@ -4,7 +4,7 @@
 # Port of PVSnesLib Fading example
 #==============================================================================
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := fading.sfc
 ROM_NAME   := FADING EFFECT

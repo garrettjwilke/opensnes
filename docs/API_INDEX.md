@@ -66,12 +66,12 @@ nothing you do not list is linked.
 
 | I want to… | Use | Module | Example |
 |---|---|---|---|
-| fade in or out | `fadeIn`, `fadeOut` | `console` | [graphics/effects/fading](../examples/graphics/effects/fading/) |
+| fade in or out | `fadeIn`, `fadeOut` | `console` | [transitions/fading](../examples/transitions/fading/) |
 | blend two layers | `colormath*` | `colormath` | [graphics/effects/transparency](../examples/graphics/effects/transparency/) |
 | mask part of the screen | `windowSet*` | `window` | [graphics/effects/window](../examples/graphics/effects/window/) |
 | change a register mid-frame | `hdmaEnable`, `hdmaGradient` | `hdma` | [graphics/effects/window_multi_hdma](../examples/graphics/effects/window_multi_hdma/) |
 | rotate or scale a background | `mode7*` | `mode7` | [games/mode7_racing](../examples/games/mode7_racing/) |
-| pixelate | `mosaicEnable`, `mosaicFadeIn` | `mosaic` | [graphics/effects/mosaic](../examples/graphics/effects/mosaic/) |
+| pixelate | `mosaicEnable`, `mosaicFadeIn` | `mosaic` | [transitions/mosaic](../examples/transitions/mosaic/) |
 
 ## Moving data around
 

@@ -42,7 +42,6 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `games/shmup_1942` | OK | live (148f/147nmi) |
 | `games/tetris` | OK | live (90f/81nmi) |
 | `graphics/effects/direct_color` | OK | live (126f/125nmi) |
-| `graphics/effects/fading` | OK | live (71f/70nmi) |
 | `graphics/effects/gradient_9bit` | OK | live (73f/72nmi) |
 | `graphics/effects/gradient_colors` | OK | live (72f/71nmi) |
 | `graphics/effects/hdma_helpers` | OK | live (71f/70nmi) |
@@ -52,7 +51,6 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `graphics/effects/hicolor_1792` | OK | live (164f/164nmi) |
 | `graphics/effects/hicolor_blend` | OK | live (71f/70nmi) |
 | `graphics/effects/hicolor_hires` | OK | live (165f/164nmi) |
-| `graphics/effects/mosaic` | OK | live (71f/70nmi) |
 | `graphics/effects/transparency` | OK | live (141f/140nmi) |
 | `graphics/effects/transparent_window` | OK | live (72f/71nmi) |
 | `graphics/effects/window` | OK | live (72f/71nmi) |
@@ -82,3 +80,5 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `sprites/sprite_sizes` | OK | live (75f/74nmi) |
 | `text/print_string` | OK | live (71f/70nmi) |
 | `text/scroll_message` | OK | live (72f/71nmi) |
+| `transitions/fading` | OK | live (71f/70nmi) |
+| `transitions/mosaic` | OK | live (71f/70nmi) |

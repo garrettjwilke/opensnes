@@ -66,8 +66,8 @@ Visual effects using HDMA, color math, and hardware windows.
 
 | Example | Description |
 |---------|-------------|
-| @subpage examples_graphics_effects_fading | Brightness control, screen transitions |
-| @subpage examples_graphics_effects_mosaic | Mosaic pixelation effect |
+| @subpage examples_transitions_fading | Brightness control, screen transitions |
+| @subpage examples_transitions_mosaic | Mosaic pixelation effect |
 | @subpage examples_graphics_effects_hdma_wave | HDMA scanline wave distortion |
 | @subpage examples_graphics_effects_hdma_wave_table | Raw HDMA table in C, krom-style repoint animation |
 | @subpage examples_graphics_effects_hdma_indirect_gradient | Indirect HDMA pointer-table gradient (krom port) |

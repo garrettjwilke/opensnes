@@ -26,7 +26,7 @@ The cycle repeats: fade out -> fade in -> mosaic out -> mosaic in -> (loop)
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/effects/mosaic
+make -C examples/transitions/mosaic
 ```
 
 Then open `mosaic.sfc` in your emulator (Mesen2 recommended).

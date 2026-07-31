@@ -92,7 +92,7 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/mode7/rotate_scale \
                          ../examples/mode7/perspective \
                          ../examples/graphics/effects/direct_color \
-                         ../examples/graphics/effects/fading \
+                         ../examples/transitions/fading \
                          ../examples/graphics/effects/gradient_9bit \
                          ../examples/graphics/effects/gradient_colors \
                          ../examples/graphics/effects/hdma_helpers \
@@ -104,7 +104,7 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/graphics/effects/hicolor_hires \
                          ../examples/backgrounds/mode5_hires \
                          ../examples/mode7/perspective_rotate \
-                         ../examples/graphics/effects/mosaic \
+                         ../examples/transitions/mosaic \
                          ../examples/scrolling/parallax_scroll \
                          ../examples/chips/superfx_3d \
                          ../examples/graphics/effects/transparency \

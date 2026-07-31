@@ -215,12 +215,6 @@
     "rom_sha256": "a439b0ae8c66b4203f76d4144d4b63b102f94e855d56856cad482d28528ec600",
     "steps": 3000000
   },
-  "graphics_effects_fading": {
-    "fbhash": "c641b594c398e9b1",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "351663d9c1192b06af61a5ceac662fd6ccd6b11c213cc321624bf0b71193cff4",
-    "steps": 3000000
-  },
   "graphics_effects_gradient_9bit": {
     "fbhash": "b979654917d19695",
     "luna_version": "v1.9.0",
@@ -279,12 +273,6 @@
     "fbhash": "2a1838341c8195ac",
     "luna_version": "v1.9.0",
     "rom_sha256": "18f865b6c32f643aaeeacc81efcf614a94069f618f36a07bb5196a43ba9df444",
-    "steps": 3000000
-  },
-  "graphics_effects_mosaic": {
-    "fbhash": "c641b594c398e9b1",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "c68387545d6736de59da9c19cbe6f302411d4411aa035e1d31dca9e66c3e7bee",
     "steps": 3000000
   },
   "graphics_effects_transparency": {
@@ -477,6 +465,18 @@
     "fbhash": "ff69951f38caaff3",
     "luna_version": "v1.9.0",
     "rom_sha256": "7a95de03a090afe5d2f2781e2ee2262336cf25aa0e923e641295ee69507816cc",
+    "steps": 3000000
+  },
+  "transitions_fading": {
+    "fbhash": "c641b594c398e9b1",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "351663d9c1192b06af61a5ceac662fd6ccd6b11c213cc321624bf0b71193cff4",
+    "steps": 3000000
+  },
+  "transitions_mosaic": {
+    "fbhash": "c641b594c398e9b1",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "c68387545d6736de59da9c19cbe6f302411d4411aa035e1d31dca9e66c3e7bee",
     "steps": 3000000
   }
 }

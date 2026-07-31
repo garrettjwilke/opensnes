@@ -71,9 +71,9 @@ ground with tile collision.
 SNES — fades and mosaic transitions, per-scanline HDMA effects, colour math,
 windows, the Mode 7 plane, and sound.
 
-@subpage examples_graphics_effects_fading
+@subpage examples_transitions_fading
 
-@subpage examples_graphics_effects_mosaic
+@subpage examples_transitions_mosaic
 
 @subpage examples_graphics_effects_hdma_wave
 

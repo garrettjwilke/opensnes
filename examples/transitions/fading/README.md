@@ -167,7 +167,7 @@ void changeScene(void) {
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/effects/fading
+make -C examples/transitions/fading
 ```
 
 Then open `fading.sfc` in your emulator (Mesen2 recommended).
