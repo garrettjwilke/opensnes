@@ -68,9 +68,9 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `maps/tiled` | OK | live (73f/72nmi) |
 | `memory/hirom_demo` | OK | live (71f/70nmi) |
 | `memory/save_game` | OK | live (73f/72nmi) |
-| `mode7/mode7` | OK | live (72f/71nmi) |
-| `mode7/mode7_perspective` | OK | live (74f/73nmi) |
-| `mode7/mode7_perspective_rotate` | OK | live (77f/76nmi) |
+| `mode7/perspective` | OK | live (74f/73nmi) |
+| `mode7/perspective_rotate` | OK | live (77f/76nmi) |
+| `mode7/rotate_scale` | OK | live (72f/71nmi) |
 | `scrolling/continuous_scroll` | OK | live (73f/73nmi) |
 | `scrolling/mixed_scroll` | OK | live (71f/70nmi) |
 | `scrolling/parallax_scrolling` | OK | live (143f/142nmi) |

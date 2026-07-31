@@ -60,7 +60,7 @@ deep-dive of a step below.
 | 15b | [graphics/effects/hdma_wave_table](graphics/effects/hdma_wave_table/) | Raw HDMA table built in C, krom-style repoint animation |
 | 15c | [graphics/effects/hdma_indirect_gradient](graphics/effects/hdma_indirect_gradient/) | Indirect HDMA: pointer table drives a backdrop gradient (krom port) |
 | 15d | [graphics/effects/hicolor_1792](graphics/effects/hicolor_1792/) | H-IRQ CGRAM streaming: 1792 colors from a 4bpp BG (krom port) |
-| 15e | [mode7/mode7_perspective_rotate](mode7/mode7_perspective_rotate/) | Full Mode 7 matrix per scanline: rotating perspective (krom port) |
+| 15e | [mode7/perspective_rotate](mode7/perspective_rotate/) | Full Mode 7 matrix per scanline: rotating perspective (krom port) |
 | 15f | [backgrounds/hires_text](backgrounds/hires_text/) | BG Mode 5 + interlace: 512x448 hi-res text (krom port) |
 | 15g | [graphics/effects/window_multi_hdma](graphics/effects/window_multi_hdma/) | Both windows shaped per scanline: HDMA porthole grid (krom port) |
 | 15h | [graphics/effects/gradient_9bit](graphics/effects/gradient_9bit/) | Brightness-dithered backdrop: the 9-bit color trick (krom port) |
@@ -77,8 +77,8 @@ deep-dive of a step below.
 
 | # | Example | What You Will Learn |
 |---|---------|---------------------|
-| 21 | [mode7/mode7](mode7/mode7/) | Mode 7 rotation and scaling |
-| 22 | [mode7/mode7_perspective](mode7/mode7_perspective/) | Pseudo-3D perspective (F-Zero style) |
+| 21 | [mode7/rotate_scale](mode7/rotate_scale/) | Mode 7 rotation and scaling |
+| 22 | [mode7/perspective](mode7/perspective/) | Pseudo-3D perspective (F-Zero style) |
 | 23 | [sprites/metasprite](sprites/metasprite/) | Multi-tile composite sprites |
 | 24 | [input/mouse](input/mouse/) | Mouse detection, cursor, sensitivity |
 | 25 | [input/superscope](input/superscope/) | Light gun detection, PPU H/V counters |

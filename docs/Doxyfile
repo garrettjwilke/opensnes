@@ -89,8 +89,8 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/backgrounds/mode1_lz77 \
                          ../examples/backgrounds/mode3 \
                          ../examples/backgrounds/mode5 \
-                         ../examples/mode7/mode7 \
-                         ../examples/mode7/mode7_perspective \
+                         ../examples/mode7/rotate_scale \
+                         ../examples/mode7/perspective \
                          ../examples/graphics/effects/direct_color \
                          ../examples/graphics/effects/fading \
                          ../examples/graphics/effects/gradient_9bit \
@@ -103,7 +103,7 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/graphics/effects/hicolor_blend \
                          ../examples/graphics/effects/hicolor_hires \
                          ../examples/backgrounds/hires_text \
-                         ../examples/mode7/mode7_perspective_rotate \
+                         ../examples/mode7/perspective_rotate \
                          ../examples/graphics/effects/mosaic \
                          ../examples/scrolling/parallax_scrolling \
                          ../examples/chips/superfx_3d \

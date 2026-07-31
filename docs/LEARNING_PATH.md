@@ -83,9 +83,9 @@ windows, the Mode 7 plane, and sound.
 
 @subpage examples_graphics_effects_window
 
-@subpage examples_mode7_mode7
+@subpage examples_mode7_rotate_scale
 
-@subpage examples_mode7_mode7_perspective
+@subpage examples_mode7_perspective
 
 @subpage examples_audio_snesmod_music
 

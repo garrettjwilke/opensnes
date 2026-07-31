@@ -248,7 +248,7 @@ per-frame "animation" is just `hdmaSetup(..., table + phase * 3)` — a
 zero-copy pointer bump. Cheaper than regenerating tables and immune to
 the VBlank budget.
 
-### Full Mode 7 matrix per line — `examples/mode7/mode7_perspective_rotate`
+### Full Mode 7 matrix per line — `examples/mode7/perspective_rotate`
 
 Four channels, one per matrix register (M7A/B/C/D ← `HDMA_DEST_M7A..D`),
 each in `HDMA_MODE_1REG_2X`. See the Mode 7 tutorial for the technique;

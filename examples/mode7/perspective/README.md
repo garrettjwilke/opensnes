@@ -1,6 +1,6 @@
 # Mode 7 Perspective -- Pseudo-3D Ground Effect
 
-![Screenshot](mode7_perspective.png)
+![Screenshot](perspective.png)
 
 ## What This Example Shows
 
@@ -10,7 +10,7 @@ a static sky on top and a scaled ground that recedes into the distance.
 
 ## Prerequisites
 
-Read `mode7/mode7` first (Mode 7 basics), then `effects/hdma_wave` (HDMA
+Read `mode7/rotate_scale` first (Mode 7 basics), then `effects/hdma_wave` (HDMA
 per-scanline programming).
 
 ## Controls
@@ -23,7 +23,7 @@ per-scanline programming).
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/mode7/mode7_perspective
+make -C examples/mode7/perspective
 ```
 
 Then open `mode7_perspective.sfc` in your emulator (Mesen2 recommended).

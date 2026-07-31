@@ -3,7 +3,7 @@
 
 OPENSNES := $(shell cd ../../.. && pwd)
 
-TARGET   := mode7_perspective.sfc
+TARGET   := perspective.sfc
 ROM_NAME := OPENSNES MODE7 PERSP
 
 USE_LIB     := 1

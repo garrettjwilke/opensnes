@@ -2,7 +2,7 @@
 
 OPENSNES := $(shell cd ../../.. && pwd)
 
-TARGET   := mode7.sfc
+TARGET   := rotate_scale.sfc
 ROM_NAME := OPENSNES MODE7
 
 USE_LIB     := 1

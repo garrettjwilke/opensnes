@@ -10,9 +10,9 @@ its own matrix API and its own "I want to do THAT" pull.
 
 | Rung | Example | Developer question |
 |------|---------|--------------------|
-| 7.1 | [mode7](mode7/) | How do I rotate and scale a background? |
-| 7.2 | [mode7_perspective](mode7_perspective/) | How do I fake perspective with an HDMA matrix split (F-Zero floor)? |
-| 7.3 | [mode7_perspective_rotate](mode7_perspective_rotate/) | How do I drive the *full* matrix (A/B/C/D) per scanline — rotating perspective? |
+| 7.1 | [rotate_scale](rotate_scale/) | How do I rotate and scale a background? |
+| 7.2 | [perspective](perspective/) | How do I fake perspective with an HDMA matrix split (F-Zero floor)? |
+| 7.3 | [perspective_rotate](perspective_rotate/) | How do I drive the *full* matrix (A/B/C/D) per scanline — rotating perspective? |
 
 Climb from a flat spinning plane (7.1) to a receding horizon (7.2) to a
 horizon that also rotates (7.3).
