@@ -108,9 +108,9 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/scrolling/parallax_scroll \
                          ../examples/chips/superfx_3d \
                          ../examples/graphics/effects/transparency \
-                         ../examples/graphics/effects/transparent_window \
-                         ../examples/graphics/effects/window \
-                         ../examples/graphics/effects/window_multi_hdma \
+                         ../examples/windows/transparent_window \
+                         ../examples/windows/window \
+                         ../examples/windows/window_multi_hdma \
                          ../examples/sprites/animated_sprite \
                          ../examples/sprites/dynamic_metasprite \
                          ../examples/sprites/dynamic_sprite \

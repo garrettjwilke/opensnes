@@ -182,7 +182,7 @@ layer renders above BG1). It uses bare-metal `REG_CGWSEL` /
 `REG_CGADSUB` writes for byte-perfect parity with the PVSnesLib
 original, but the lib's helpers cover the same configuration.
 
-### Window-gated spotlight blend — `examples/graphics/effects/transparent_window`
+### Window-gated spotlight blend — `examples/windows/transparent_window`
 
 Combines colour math with a *window-gated* math area. Inside the
 window, BG1 is half-blended with BG2 (true transparency); outside, BG1
@@ -288,7 +288,7 @@ SNES. The discipline is configuring it correctly, not avoiding it.
 - `lib/source/colormath.c` — implementation; commit history records
   the `CGWSEL` bit-1 polarity fix.
 - [`examples/graphics/effects/transparency`](../../examples/graphics/effects/transparency/README.md) — additive cloud overlay.
-- [`examples/graphics/effects/transparent_window`](../../examples/graphics/effects/transparent_window/README.md) — window-gated spotlight blend.
+- [`examples/windows/transparent_window`](../../examples/windows/transparent_window/README.md) — window-gated spotlight blend.
 - [Window tutorial](window.md) — the pair tutorial; covers
   `WINDOW_MATH` and the window-area gate that the math source mask
   references.

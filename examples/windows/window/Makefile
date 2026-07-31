@@ -3,7 +3,7 @@
 # Ported from PVSnesLib — triangle window via HDMA, toggled with A/X/B
 #==============================================================================
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := window.sfc
 ROM_NAME   := WINDOW HDMA DEMO

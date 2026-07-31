@@ -216,7 +216,7 @@ Walks through the lib's HDMA helpers (`hdmaSetup`, `hdmaSetupBank`,
 single screen, with on-screen text labelling each. The example to skim
 when you want to remember the API surface.
 
-### Window animation — `examples/graphics/effects/transparent_window`
+### Window animation — `examples/windows/transparent_window`
 
 Combines HDMA with the window/colour-math pipeline. HDMA writes to the
 window position registers (`WH0L`, `WH0H`, `WH1L`, `WH1H`) per scanline
@@ -224,7 +224,7 @@ to animate a moving window, while colour math blends the BG1 layer
 through the window onto the BG2 layer beneath. Mode 4 transfer (4 bytes,
 4 sequential registers) does the four window writes in one HDMA group.
 
-### Stationary window — `examples/graphics/effects/window`
+### Stationary window — `examples/windows/window`
 
 The non-animated cousin: HDMA in repeat mode writes to the window
 registers once (and then "every scanline" since window registers are
@@ -376,8 +376,8 @@ inner game-logic loops.
 - [`examples/graphics/effects/hdma_helpers`](../../examples/graphics/effects/hdma_helpers/README.md) — API surface walkthrough.
 - [`examples/scrolling/parallax_scroll`](../../examples/scrolling/parallax_scroll/README.md) — RAM table, two-speed parallax.
 - [`examples/graphics/effects/gradient_colors`](../../examples/graphics/effects/gradient_colors/README.md) — static ROM gradient table.
-- [`examples/graphics/effects/window`](../../examples/graphics/effects/window/README.md) — stationary window via HDMA.
-- [`examples/graphics/effects/transparent_window`](../../examples/graphics/effects/transparent_window/README.md) — animated window + colour math.
+- [`examples/windows/window`](../../examples/windows/window/README.md) — stationary window via HDMA.
+- [`examples/windows/transparent_window`](../../examples/windows/transparent_window/README.md) — animated window + colour math.
 - [`KNOWN_LIMITATIONS.md`](../../KNOWN_LIMITATIONS.md) — bank `$00` overflow,
   channel-7 reservation, and the runtime traps that bite HDMA work.
 - [Scrolling tutorial](scrolling.md) — companion read; HDMA on

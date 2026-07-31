@@ -81,7 +81,7 @@ windows, the Mode 7 plane, and sound.
 
 @subpage examples_graphics_effects_transparency
 
-@subpage examples_graphics_effects_window
+@subpage examples_windows_window
 
 @subpage examples_mode7_rotate_scale
 

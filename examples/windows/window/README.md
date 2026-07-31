@@ -20,7 +20,7 @@ Ported from PVSnesLib "Window" example.
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/effects/window
+make -C examples/windows/window
 ```
 
 Then open `window.sfc` in your emulator (Mesen2 recommended).

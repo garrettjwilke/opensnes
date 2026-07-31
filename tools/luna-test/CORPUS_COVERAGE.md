@@ -52,9 +52,6 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `graphics/effects/hicolor_blend` | OK | live (71f/70nmi) |
 | `graphics/effects/hicolor_hires` | OK | live (165f/164nmi) |
 | `graphics/effects/transparency` | OK | live (141f/140nmi) |
-| `graphics/effects/transparent_window` | OK | live (72f/71nmi) |
-| `graphics/effects/window` | OK | live (72f/71nmi) |
-| `graphics/effects/window_multi_hdma` | OK | live (73f/72nmi) |
 | `input/controller` | OK | live (103f/102nmi) |
 | `input/mouse` | INPUT-DEP | live (72f/72nmi) |
 | `input/move_sprite` | OK | live (73f/72nmi) |
@@ -82,3 +79,6 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `text/scroll_message` | OK | live (72f/71nmi) |
 | `transitions/fading` | OK | live (71f/70nmi) |
 | `transitions/mosaic` | OK | live (71f/70nmi) |
+| `windows/transparent_window` | OK | live (72f/71nmi) |
+| `windows/window` | OK | live (72f/71nmi) |
+| `windows/window_multi_hdma` | OK | live (73f/72nmi) |

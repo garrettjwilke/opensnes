@@ -12,7 +12,8 @@ from basic concepts to complete games.
 | [basics/](basics/) | 6 | Collision, timing, scene stack, randomness, fixed-point, aiming |
 | [backgrounds/](backgrounds/) | 7 | BG modes 0/1/3/5, priority, LZ77, hi-res |
 | [sprites/](sprites/) | 6 | Sprite display, animation, OAM, metasprites, VRAM streaming |
-| [graphics/](graphics/) | 14 | Visual effects: HDMA, colour math, windows |
+| [graphics/](graphics/) | 11 | Visual effects: HDMA, colour math |
+| [windows/](windows/) | 3 | Hardware window masking, shaped per scanline |
 | [transitions/](transitions/) | 2 | Screen transitions: fade, mosaic pixelate |
 | [scrolling/](scrolling/) | 3 | Layer scrolling: parallax, streaming, per-scanline HDMA |
 | [mode7/](mode7/) | 3 | Mode 7: rotation, scaling, per-scanline perspective |
@@ -63,7 +64,7 @@ deep-dive of a step below.
 | 15d | [graphics/effects/hicolor_1792](graphics/effects/hicolor_1792/) | H-IRQ CGRAM streaming: 1792 colors from a 4bpp BG (krom port) |
 | 15e | [mode7/perspective_rotate](mode7/perspective_rotate/) | Full Mode 7 matrix per scanline: rotating perspective (krom port) |
 | 15f | [backgrounds/mode5_hires](backgrounds/mode5_hires/) | BG Mode 5 + interlace: 512x448 hi-res text (krom port) |
-| 15g | [graphics/effects/window_multi_hdma](graphics/effects/window_multi_hdma/) | Both windows shaped per scanline: HDMA porthole grid (krom port) |
+| 15g | [windows/window_multi_hdma](windows/window_multi_hdma/) | Both windows shaped per scanline: HDMA porthole grid (krom port) |
 | 15h | [graphics/effects/gradient_9bit](graphics/effects/gradient_9bit/) | Brightness-dithered backdrop: the 9-bit color trick (krom port) |
 | 15i | [graphics/effects/hicolor_hires](graphics/effects/hicolor_hires/) | H-IRQ CGRAM streaming x pseudo-hires: 1792 slots at 512px (krom port) |
 | 15j | [graphics/effects/hicolor_blend](graphics/effects/hicolor_blend/) | RGB channel-split color-math blend: 3840 colors (krom port) |
@@ -71,8 +72,8 @@ deep-dive of a step below.
 | 16 | [graphics/effects/gradient_colors](graphics/effects/gradient_colors/) | HDMA + CGRAM color gradients |
 | 17 | [scrolling/parallax_scroll](scrolling/parallax_scroll/) | HDMA parallax scrolling |
 | 18 | [graphics/effects/transparency](graphics/effects/transparency/) | Color math (add/subtract blending) |
-| 19 | [graphics/effects/window](graphics/effects/window/) | Hardware window masking |
-| 20 | [graphics/effects/transparent_window](graphics/effects/transparent_window/) | Color math + HDMA windowed transparency |
+| 19 | [windows/window](windows/window/) | Hardware window masking |
+| 20 | [windows/transparent_window](windows/transparent_window/) | Color math + HDMA windowed transparency |
 
 ### Level 4 -- Advanced Topics
 

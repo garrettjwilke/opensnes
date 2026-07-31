@@ -16,7 +16,7 @@ No interactive controls. The darkened rectangle is displayed statically.
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/effects/transparent_window
+make -C examples/windows/transparent_window
 ```
 
 Then open `transparent_window.sfc` in your emulator (Mesen2 recommended).

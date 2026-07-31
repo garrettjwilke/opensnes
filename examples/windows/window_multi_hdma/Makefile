@@ -1,4 +1,4 @@
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET   := window_multi_hdma.sfc
 ROM_NAME := WINDOW MULTI HDMA

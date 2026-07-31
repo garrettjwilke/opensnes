@@ -42,7 +42,7 @@ it into 16 KB of tiles).
 ## How to Build
 
 ```bash
-cd examples/graphics/effects/window_multi_hdma && make
+cd examples/windows/window_multi_hdma && make
 ```
 
 ## Modules Used

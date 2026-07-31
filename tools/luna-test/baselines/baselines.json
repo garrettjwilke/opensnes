@@ -287,24 +287,6 @@
       6000000
     ]
   },
-  "graphics_effects_transparent_window": {
-    "fbhash": "b7bf2c260e46a425",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "d714e3ff7340b384ca9f59f4a0cc9fc598f6ff83c37c27d89a6725d399dcc076",
-    "steps": 3000000
-  },
-  "graphics_effects_window": {
-    "fbhash": "550358860909ddb1",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "79de90af8a52a5639aae25e536f5d0942ed11bab3931e82a018a48c8907709ea",
-    "steps": 3000000
-  },
-  "graphics_effects_window_multi_hdma": {
-    "fbhash": "cf627778b58a26e7",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "b29a4bf4bc91b41315a3198b62e808e4776b370bc73212af1252d70aded39777",
-    "steps": 3000000
-  },
   "input_controller": {
     "fbhash": "6ba4bccfe17104c2",
     "luna_version": "v1.9.0",
@@ -477,6 +459,24 @@
     "fbhash": "c641b594c398e9b1",
     "luna_version": "v1.9.0",
     "rom_sha256": "c68387545d6736de59da9c19cbe6f302411d4411aa035e1d31dca9e66c3e7bee",
+    "steps": 3000000
+  },
+  "windows_transparent_window": {
+    "fbhash": "b7bf2c260e46a425",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "d714e3ff7340b384ca9f59f4a0cc9fc598f6ff83c37c27d89a6725d399dcc076",
+    "steps": 3000000
+  },
+  "windows_window": {
+    "fbhash": "550358860909ddb1",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "79de90af8a52a5639aae25e536f5d0942ed11bab3931e82a018a48c8907709ea",
+    "steps": 3000000
+  },
+  "windows_window_multi_hdma": {
+    "fbhash": "cf627778b58a26e7",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "b29a4bf4bc91b41315a3198b62e808e4776b370bc73212af1252d70aded39777",
     "steps": 3000000
   }
 }

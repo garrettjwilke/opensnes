@@ -3,7 +3,7 @@
 # Ported from PVSnesLib — semi-transparent rectangle using color + HDMA
 #==============================================================================
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := transparent_window.sfc
 ROM_NAME   := TRANSPARENT WINDOW
