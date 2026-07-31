@@ -105,7 +105,7 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/backgrounds/hires_text \
                          ../examples/mode7/perspective_rotate \
                          ../examples/graphics/effects/mosaic \
-                         ../examples/scrolling/parallax_scrolling \
+                         ../examples/scrolling/parallax_scroll \
                          ../examples/chips/superfx_3d \
                          ../examples/graphics/effects/transparency \
                          ../examples/graphics/effects/transparent_window \

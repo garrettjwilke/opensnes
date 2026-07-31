@@ -30,7 +30,7 @@ nothing you do not list is linked.
 
 | I want to… | Use | Module | Example |
 |---|---|---|---|
-| scroll a background | `bgSetScroll` | `background` | [scrolling/parallax_scrolling](../examples/scrolling/parallax_scrolling/) |
+| scroll a background | `bgSetScroll` | `background` | [scrolling/parallax_scroll](../examples/scrolling/parallax_scroll/) |
 | scroll a map bigger than VRAM | `mapLoad`, `mapUpdate` | `map` | [maps/mapscroll](../examples/maps/mapscroll/) |
 | load a map made in Tiled | `tmx2snes` → `.m16`/`.b16` | `map` | [maps/tiled](../examples/maps/tiled/) |
 | ask whether a tile is solid | `collideTile`, `collideTileEx` | `collision` | [basics/collision_demo](../examples/basics/collision_demo/) |

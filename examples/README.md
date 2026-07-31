@@ -68,7 +68,7 @@ deep-dive of a step below.
 | 15j | [graphics/effects/hicolor_blend](graphics/effects/hicolor_blend/) | RGB channel-split color-math blend: 3840 colors (krom port) |
 | 15k | [graphics/effects/direct_color](graphics/effects/direct_color/) | Direct color: 8bpp pixel bytes read as BBGGGRRR, CGRAM bypassed |
 | 16 | [graphics/effects/gradient_colors](graphics/effects/gradient_colors/) | HDMA + CGRAM color gradients |
-| 17 | [scrolling/parallax_scrolling](scrolling/parallax_scrolling/) | HDMA parallax scrolling |
+| 17 | [scrolling/parallax_scroll](scrolling/parallax_scroll/) | HDMA parallax scrolling |
 | 18 | [graphics/effects/transparency](graphics/effects/transparency/) | Color math (add/subtract blending) |
 | 19 | [graphics/effects/window](graphics/effects/window/) | Hardware window masking |
 | 20 | [graphics/effects/transparent_window](graphics/effects/transparent_window/) | Color math + HDMA windowed transparency |

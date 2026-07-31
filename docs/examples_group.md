@@ -46,7 +46,7 @@ Browse by category: @ref examples_by_category
 - @ref hdma_wave_table/main.c "HDMA Wave Table" — Raw HDMA table in C (krom port)
 - @ref hdma_indirect_gradient/main.c "HDMA Indirect Gradient" — Pointer-table gradient (krom port)
 - @ref hdma_helpers/main.c "HDMA Helpers" — Library helper effects
-- @ref parallax_scrolling/main.c "Parallax" — HDMA scroll offsets
+- @ref parallax_scroll/main.c "Parallax" — HDMA scroll offsets
 
 ### Input
 - @ref mouse/main.c "Mouse" — SNES Mouse peripheral

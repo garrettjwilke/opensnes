@@ -14,7 +14,7 @@ give SNES games their distinctive visual style.
 | [transparency](transparency/) | Intermediate | Color math add/subtract blending between layers |
 | [transparent_window](transparent_window/) | Intermediate | Combining color math with windowed regions |
 | [gradient_colors](gradient_colors/) | Intermediate | HDMA-driven CGRAM color gradients per scanline |
-| [parallax_scrolling](parallax_scrolling/) | Advanced | HDMA-driven multi-rate parallax scrolling |
+| [parallax_scroll](parallax_scroll/) | Advanced | HDMA-driven multi-rate parallax scrolling |
 | [hdma_wave](hdma_wave/) | Advanced | HDMA wave distortion (wavy scanline offsets) |
 
 ## Key Concepts
@@ -50,4 +50,4 @@ HDMA transfers data to PPU registers once per scanline during HBlank:
 ---
 
 Start with **fading** and **mosaic** for simple register writes, then explore
-**hdma_wave** and **parallax_scrolling** for per-scanline HDMA techniques.
+**hdma_wave** and **parallax_scroll** for per-scanline HDMA techniques.

@@ -259,4 +259,4 @@ This allows fading specific layers independently.
 
 **Mosaic:** [Mosaic Example](../mosaic/) - Pixelation transitions
 
-**Parallax:** [Parallax Scrolling](../parallax_scrolling/) - Multi-speed scrolling with HDMA
+**Parallax:** [Parallax Scrolling](../parallax_scroll/) - Multi-speed scrolling with HDMA

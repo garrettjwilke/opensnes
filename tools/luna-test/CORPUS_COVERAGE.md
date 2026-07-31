@@ -73,7 +73,7 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `mode7/rotate_scale` | OK | live (72f/71nmi) |
 | `scrolling/continuous_scroll` | OK | live (73f/73nmi) |
 | `scrolling/mixed_scroll` | OK | live (71f/70nmi) |
-| `scrolling/parallax_scrolling` | OK | live (143f/142nmi) |
+| `scrolling/parallax_scroll` | OK | live (143f/142nmi) |
 | `sprites/animated_sprite` | OK | live (73f/72nmi) |
 | `sprites/dynamic_metasprite` | OK | live (94f/93nmi) |
 | `sprites/dynamic_sprite` | OK | live (76f/75nmi) |

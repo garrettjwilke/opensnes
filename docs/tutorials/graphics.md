@@ -204,7 +204,7 @@ sprite_pal_end:
 
 ## Example: Complete Background Setup
 
-See `examples/scrolling/parallax_scrolling/` for a complete parallax scrolling example.
+See `examples/scrolling/parallax_scroll/` for a complete parallax scrolling example.
 
 ## Hi-res and interlace (Modes 5/6, SETINI)
 

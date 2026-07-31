@@ -2,7 +2,7 @@
 
 ![Demo](demo.gif)
 
-![Screenshot](parallax_scrolling.png)
+![Screenshot](parallax_scroll.png)
 
 Multi-speed horizontal scrolling using HDMA -- one background image, three scroll zones.
 
@@ -22,10 +22,10 @@ bands at different speeds.
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/scrolling/parallax_scrolling
+make -C examples/scrolling/parallax_scroll
 ```
 
-Then open `parallax_scrolling.sfc` in your emulator (Mesen2 recommended).
+Then open `parallax_scroll.sfc` in your emulator (Mesen2 recommended).
 
 ## How It Works
 

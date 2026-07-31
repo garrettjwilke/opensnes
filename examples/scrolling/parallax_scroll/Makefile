@@ -2,7 +2,7 @@
 
 OPENSNES := $(shell cd ../../.. && pwd)
 
-TARGET   := parallax_scrolling.sfc
+TARGET   := parallax_scroll.sfc
 ROM_NAME := OPENSNES PARALLAX
 
 USE_LIB     := 1

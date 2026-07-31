@@ -73,7 +73,7 @@ Visual effects using HDMA, color math, and hardware windows.
 | @subpage examples_graphics_effects_hdma_indirect_gradient | Indirect HDMA pointer-table gradient (krom port) |
 | @subpage examples_graphics_effects_hdma_helpers | High-level HDMA effect library (wave, ripple, iris) |
 | @subpage examples_graphics_effects_gradient_colors | HDMA + CGRAM color gradients |
-| @subpage examples_scrolling_parallax_scrolling | HDMA parallax scrolling |
+| @subpage examples_scrolling_parallax_scroll | HDMA parallax scrolling |
 | @subpage examples_graphics_effects_transparency | Color math (add/subtract blending) |
 | @subpage examples_graphics_effects_window | Hardware window masking |
 | @subpage examples_graphics_effects_window_multi_hdma | Both hardware windows animated per scanline (krom port) |

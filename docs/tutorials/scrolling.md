@@ -195,7 +195,7 @@ int main(void) {
 }
 ```
 
-See `examples/scrolling/parallax_scrolling/` for the complete implementation.
+See `examples/scrolling/parallax_scroll/` for the complete implementation.
 
 **Important:** The scroll table must live in RAM (not `const`) because the main loop updates it every frame. HDMA reads from the table during rendering, so always update the values *before* `WaitForVBlank()`.
 

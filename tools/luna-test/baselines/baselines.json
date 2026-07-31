@@ -413,7 +413,7 @@
     "rom_sha256": "9e3364b4b9cb5858fc37f80bf45870cc62439368bbb80e79a62e16b7c516addf",
     "steps": 3000000
   },
-  "scrolling_parallax_scrolling": {
+  "scrolling_parallax_scroll": {
     "fbhash": [
       "b2dd074a48e12899",
       "5c59a6207f13c14d"
