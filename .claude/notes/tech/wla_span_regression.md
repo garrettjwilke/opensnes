@@ -13,12 +13,17 @@ our minimal repro (below) links cleanly (32768-byte output) and vhelin's
 test passes; its **parent** `c2924977` still fails with the original
 `cannot map label "big_end"`, so the fix is unambiguously the cause.
 
-**Pin status:** still on the v10.7 release (`91c52b1f`, 0 local patches).
-`d3fe5143` is on **master**, not yet in a tagged release. To get SPAN (and
-thus unblock #127.3 — QBE const-data default placement out of bank $00),
-either (a) wait for vhelin's next release that includes `d3fe5143`, or
-(b) advance the pin to the master commit now (a deliberate off-tag choice;
-requires a full `make clean && make` + luna suite first).
+**Pin status — DECISION (2026-07-31): wait for the release.** Stay on the
+v10.7 release (`91c52b1f`, 0 local patches); keep the clean "tagged release,
+no local patches" discipline rather than pinning to an untagged master commit
+(v10.7 → `d3fe5143` is ~90 unrelated master commits — possible other
+surprises). #127.3 (what SPAN unblocks) is the last open issue but not urgent
+— the `ASSET_SECTION` opt-in already works around it.
+
+**Trigger to act:** when vhelin tags a release that contains `d3fe5143`,
+advance the wla-dx pin to that tag (`make verify-toolchain`, full
+`make clean && make` + luna suite), then reopen #127.3 (QBE const-data
+default placement out of bank $00).
 
 ---
 
