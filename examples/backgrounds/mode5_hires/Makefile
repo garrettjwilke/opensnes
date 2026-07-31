@@ -1,6 +1,6 @@
 OPENSNES := $(shell cd ../../.. && pwd)
 
-TARGET   := hires_text.sfc
+TARGET   := mode5_hires.sfc
 ROM_NAME := HIRES TEXT
 
 USE_LIB  := 1

@@ -102,7 +102,7 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/graphics/effects/hicolor_1792 \
                          ../examples/graphics/effects/hicolor_blend \
                          ../examples/graphics/effects/hicolor_hires \
-                         ../examples/backgrounds/hires_text \
+                         ../examples/backgrounds/mode5_hires \
                          ../examples/mode7/perspective_rotate \
                          ../examples/graphics/effects/mosaic \
                          ../examples/scrolling/parallax_scroll \

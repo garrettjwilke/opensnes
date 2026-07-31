@@ -15,13 +15,13 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `audio/snesmod_sfx` | OK | live (97f/88nmi) |
 | `audio/soundboard` | OK | live (162f/161nmi) |
 | `audio/speech_synth` | OK | live (79f/78nmi) |
-| `backgrounds/hires_text` | OK | live (71f/70nmi) |
 | `backgrounds/mode0` | OK | live (71f/70nmi) |
 | `backgrounds/mode1` | OK | live (70f/70nmi) |
 | `backgrounds/mode1_bg3_priority` | OK | live (71f/70nmi) |
 | `backgrounds/mode1_lz77` | OK | live (74f/73nmi) |
 | `backgrounds/mode3` | OK | live (71f/70nmi) |
 | `backgrounds/mode5` | OK | live (71f/70nmi) |
+| `backgrounds/mode5_hires` | OK | live (71f/70nmi) |
 | `basics/aim_target` | OK | live (77f/76nmi) |
 | `basics/collision_demo` | OK | live (83f/82nmi) |
 | `basics/fix32_orbit` | OK | live (76f/75nmi) |

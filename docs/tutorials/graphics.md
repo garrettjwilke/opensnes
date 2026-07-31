@@ -212,7 +212,7 @@ BG Mode 5 renders **512 horizontal pixels** (16x8 tiles, stored as 8x8
 character pairs N/N+1); adding screen interlace (`videoSetInterlace(1)`,
 SETINI bit 0 through the lib's write-only shadow) doubles vertical to
 **448 lines**. Three traps, all demonstrated by
-`examples/backgrounds/hires_text`:
+`examples/backgrounds/mode5_hires`:
 
 1. Hi-res content displays through BOTH screens: `setMainScreen(LAYER_BG1)`
    AND `setSubScreen(LAYER_BG1)`, or odd columns stay blank.

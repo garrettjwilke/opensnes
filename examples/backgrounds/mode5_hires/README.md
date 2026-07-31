@@ -1,6 +1,6 @@
 # Hi-res text — BG Mode 5 + interlace (512 × 448)
 
-![Screenshot](hires_text.png)
+![Screenshot](mode5_hires.png)
 
 Port of krom (Peter Lemon)'s **InterlaceFont** demo
 ([PeterLemon/SNES](https://github.com/PeterLemon/SNES), `PPU/Interlace/InterlaceFont`).
@@ -65,7 +65,7 @@ bands render as the correct blend grays.
 ## How to Build
 
 ```bash
-cd examples/backgrounds/hires_text && make
+cd examples/backgrounds/mode5_hires && make
 # regenerate the page (needs Pillow + numpy):
 python3 gen_assets.py && make
 ```
