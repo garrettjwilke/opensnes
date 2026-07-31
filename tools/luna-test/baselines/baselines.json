@@ -329,6 +329,12 @@
     "rom_sha256": "3debab6ac9625a026bfbe61081dc56d4e3c9c5b4beff97d95f4c6b6d5a5a1ba3",
     "steps": 3000000
   },
+  "input_move_sprite": {
+    "fbhash": "b1e0ab0172a0516b",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "1c3ce3fbba318abae65251e2d36e2d6fe1337de16093dc86e347e451ce51b65e",
+    "steps": 3000000
+  },
   "input_superscope": {
     "fbhash": "ac4745fa5f4230d9",
     "luna_version": "v1.9.0",

@@ -118,6 +118,7 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/sprites/object_size \
                          ../examples/sprites/simple_sprite \
                          ../examples/input/controller \
+                         ../examples/input/move_sprite \
                          ../examples/input/mouse \
                          ../examples/input/superscope \
                          ../examples/input/two_players \

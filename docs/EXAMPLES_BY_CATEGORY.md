@@ -1,6 +1,6 @@
 # Browse Examples by Category {#examples_by_category}
 
-All 75 examples organized by topic. For a progressive learning path, see
+All 76 examples organized by topic. For a progressive learning path, see
 @ref learning_path.
 
 ---
@@ -95,6 +95,7 @@ Controller input: joypads, mouse, and Super Scope.
 | Example | Description |
 |---------|-------------|
 | @subpage examples_input_controller | Standard joypad: button state, edge detection |
+| @subpage examples_input_move_sprite | Drive a sprite with the D-pad |
 | @subpage examples_input_two_players | Joypad reading, two-player movement |
 | @subpage examples_input_mouse | Mouse detection, cursor, sensitivity |
 | @subpage examples_input_superscope | Light gun detection, PPU H/V counters |
