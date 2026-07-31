@@ -7,10 +7,10 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | Example | Status | Detail |
 |---|---|---|
 | `audio/apu_switch` | OK | live (71f/70nmi) |
+| `audio/echo` | OK | live (81f/80nmi) |
 | `audio/pitch_mod` | OK | live (78f/78nmi) |
 | `audio/play_noise` | OK | live (71f/70nmi) |
 | `audio/snesmod_music` | OK | live (117f/108nmi) |
-| `audio/snesmod_music_hirom` | OK | live (131f/122nmi) |
 | `audio/snesmod_music_large` | OK | live (128f/119nmi) |
 | `audio/snesmod_sfx` | OK | live (97f/88nmi) |
 | `audio/soundboard` | OK | live (162f/161nmi) |
