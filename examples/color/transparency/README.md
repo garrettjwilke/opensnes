@@ -11,7 +11,7 @@
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/graphics/effects/transparency
+make -C examples/color/transparency
 ```
 
 Then open `transparency.sfc` in your emulator (Mesen2 recommended).

@@ -1,6 +1,6 @@
 # Luna corpus coverage (whole-suite headless liveness pass)
 
-luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DEP, 0 DEAD, 0 FAIL**
+luna v1.9.0 · `luna state -n <steps>` per ROM · 75 ROMs · **73 OK, 2 INPUT-DEP, 0 DEAD, 0 FAIL**
 
 > Liveness from `luna state` (NMI/VBlank advancing, CPU not halted) — not a PNG-size heuristic. **INPUT-DEP** = runs+renders but its device input (Mouse/Super Scope, gap G4) is unmodelled → boot+visual only, *not* a clean functional pass. **DEAD** = ran but not live (crash/hang). **FAIL** = luna errored. PNGs: `/tmp/luna-test-corpus/`. (In-ROM `SNES_ASSERT`/WDM is caught separately by the visual pass via `--wdm-out`.)
 
@@ -32,6 +32,11 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `chips/sa1_starfield` | OK | live (133f/132nmi) |
 | `chips/superfx_3d` | OK | live (290f/147nmi) |
 | `chips/superfx_hello` | OK | live (74f/73nmi) |
+| `color/direct_color` | OK | live (126f/125nmi) |
+| `color/gradient_9bit` | OK | live (73f/72nmi) |
+| `color/hicolor_1792` | OK | live (164f/164nmi) |
+| `color/hicolor_blend` | OK | live (71f/70nmi) |
+| `color/transparency` | OK | live (141f/140nmi) |
 | `fundamentals/text_glyphs` | OK | live (71f/70nmi) |
 | `games/breakout` | OK | live (88f/87nmi) |
 | `games/likemario` | OK | live (111f/102nmi) |
@@ -41,17 +46,11 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `games/rpg` | OK | live (84f/83nmi) |
 | `games/shmup_1942` | OK | live (148f/147nmi) |
 | `games/tetris` | OK | live (90f/81nmi) |
-| `graphics/effects/direct_color` | OK | live (126f/125nmi) |
-| `graphics/effects/gradient_9bit` | OK | live (73f/72nmi) |
 | `graphics/effects/gradient_colors` | OK | live (72f/71nmi) |
 | `graphics/effects/hdma_helpers` | OK | live (71f/70nmi) |
 | `graphics/effects/hdma_indirect_gradient` | OK | live (72f/71nmi) |
 | `graphics/effects/hdma_wave` | OK | live (73f/72nmi) |
 | `graphics/effects/hdma_wave_table` | OK | live (146f/145nmi) |
-| `graphics/effects/hicolor_1792` | OK | live (164f/164nmi) |
-| `graphics/effects/hicolor_blend` | OK | live (71f/70nmi) |
-| `graphics/effects/hicolor_hires` | OK | live (165f/164nmi) |
-| `graphics/effects/transparency` | OK | live (141f/140nmi) |
 | `input/controller` | OK | live (103f/102nmi) |
 | `input/mouse` | INPUT-DEP | live (72f/72nmi) |
 | `input/move_sprite` | OK | live (73f/72nmi) |

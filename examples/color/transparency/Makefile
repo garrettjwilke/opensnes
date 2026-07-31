@@ -3,7 +3,7 @@
 # Color addition between two BG layers (landscape + scrolling clouds)
 #==============================================================================
 
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET     := transparency.sfc
 ROM_NAME   := TRANSPARENCY DEMO

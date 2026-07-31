@@ -67,7 +67,7 @@ nothing you do not list is linked.
 | I want to… | Use | Module | Example |
 |---|---|---|---|
 | fade in or out | `fadeIn`, `fadeOut` | `console` | [transitions/fading](../examples/transitions/fading/) |
-| blend two layers | `colormath*` | `colormath` | [graphics/effects/transparency](../examples/graphics/effects/transparency/) |
+| blend two layers | `colormath*` | `colormath` | [color/transparency](../examples/color/transparency/) |
 | mask part of the screen | `windowSet*` | `window` | [windows/window](../examples/windows/window/) |
 | change a register mid-frame | `hdmaEnable`, `hdmaGradient` | `hdma` | [windows/window_multi_hdma](../examples/windows/window_multi_hdma/) |
 | rotate or scale a background | `mode7*` | `mode7` | [games/mode7_racing](../examples/games/mode7_racing/) |

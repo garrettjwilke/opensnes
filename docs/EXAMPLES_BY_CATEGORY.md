@@ -1,6 +1,6 @@
 # Browse Examples by Category {#examples_by_category}
 
-All 76 examples organized by topic. For a progressive learning path, see
+All 75 examples organized by topic. For a progressive learning path, see
 @ref learning_path.
 
 ---
@@ -74,15 +74,14 @@ Visual effects using HDMA, color math, and hardware windows.
 | @subpage examples_graphics_effects_hdma_helpers | High-level HDMA effect library (wave, ripple, iris) |
 | @subpage examples_graphics_effects_gradient_colors | HDMA + CGRAM color gradients |
 | @subpage examples_scrolling_parallax_scroll | HDMA parallax scrolling |
-| @subpage examples_graphics_effects_transparency | Color math (add/subtract blending) |
+| @subpage examples_color_transparency | Color math (add/subtract blending) |
 | @subpage examples_windows_window | Hardware window masking |
 | @subpage examples_windows_window_multi_hdma | Both hardware windows animated per scanline (krom port) |
 | @subpage examples_windows_transparent_window | Color math + HDMA windowed transparency |
-| @subpage examples_graphics_effects_direct_color | Direct color mode: the 8bpp pixel byte IS the RGB color |
-| @subpage examples_graphics_effects_gradient_9bit | Brightness-dithered "9-bit" gradient backdrop (krom port) |
-| @subpage examples_graphics_effects_hicolor_1792 | 1792 colors from a 4bpp background via per-tile-row HDMA (krom port) |
-| @subpage examples_graphics_effects_hicolor_blend | 3840 colors via RGB channel-split blend (krom port) |
-| @subpage examples_graphics_effects_hicolor_hires | HiColor at 512-pixel pseudo-hires (krom port) |
+| @subpage examples_color_direct_color | Direct color mode: the 8bpp pixel byte IS the RGB color |
+| @subpage examples_color_gradient_9bit | Brightness-dithered "9-bit" gradient backdrop (krom port) |
+| @subpage examples_color_hicolor_1792 | 1792 colors from a 4bpp background via per-tile-row HDMA (krom port) |
+| @subpage examples_color_hicolor_blend | 3840 colors via RGB channel-split blend (krom port) |
 | @subpage examples_backgrounds_mode5_hires | Mode 5 + interlace hi-res text (512×448) (krom port) |
 | @subpage examples_mode7_perspective_rotate | Full Mode 7 matrix rotation per scanline (krom port) |
 

@@ -169,7 +169,7 @@ gate for "blend with sub-screen colour only inside the window".
 
 ## Worked patterns (the two shipped examples)
 
-### Additive cloud overlay — `examples/graphics/effects/transparency`
+### Additive cloud overlay — `examples/color/transparency`
 
 The simplest blend pattern. BG1 (main) shows a 4 bpp landscape; BG3
 (main + sub) shows 2 bpp scrolling clouds. Colour math is set to
@@ -287,7 +287,7 @@ SNES. The discipline is configuring it correctly, not avoiding it.
   helper definitions.
 - `lib/source/colormath.c` — implementation; commit history records
   the `CGWSEL` bit-1 polarity fix.
-- [`examples/graphics/effects/transparency`](../../examples/graphics/effects/transparency/README.md) — additive cloud overlay.
+- [`examples/color/transparency`](../../examples/color/transparency/README.md) — additive cloud overlay.
 - [`examples/windows/transparent_window`](../../examples/windows/transparent_window/README.md) — window-gated spotlight blend.
 - [Window tutorial](window.md) — the pair tutorial; covers
   `WINDOW_MATH` and the window-area gate that the math source mask

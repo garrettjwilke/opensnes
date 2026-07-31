@@ -91,23 +91,22 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/backgrounds/mode5 \
                          ../examples/mode7/rotate_scale \
                          ../examples/mode7/perspective \
-                         ../examples/graphics/effects/direct_color \
+                         ../examples/color/direct_color \
                          ../examples/transitions/fading \
-                         ../examples/graphics/effects/gradient_9bit \
+                         ../examples/color/gradient_9bit \
                          ../examples/graphics/effects/gradient_colors \
                          ../examples/graphics/effects/hdma_helpers \
                          ../examples/graphics/effects/hdma_indirect_gradient \
                          ../examples/graphics/effects/hdma_wave \
                          ../examples/graphics/effects/hdma_wave_table \
-                         ../examples/graphics/effects/hicolor_1792 \
-                         ../examples/graphics/effects/hicolor_blend \
-                         ../examples/graphics/effects/hicolor_hires \
+                         ../examples/color/hicolor_1792 \
+                         ../examples/color/hicolor_blend \
                          ../examples/backgrounds/mode5_hires \
                          ../examples/mode7/perspective_rotate \
                          ../examples/transitions/mosaic \
                          ../examples/scrolling/parallax_scroll \
                          ../examples/chips/superfx_3d \
-                         ../examples/graphics/effects/transparency \
+                         ../examples/color/transparency \
                          ../examples/windows/transparent_window \
                          ../examples/windows/window \
                          ../examples/windows/window_multi_hdma \

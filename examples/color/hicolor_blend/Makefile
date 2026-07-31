@@ -1,4 +1,4 @@
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET   := hicolor_blend.sfc
 ROM_NAME := HICOLOR BLEND

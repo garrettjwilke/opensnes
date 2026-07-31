@@ -257,7 +257,7 @@ enable** — without `hdmaEnable(0x0F)` you get a static 1:1 view that can
 look convincingly like a broken perspective. Check `dma.hdmaen` in luna's
 typed state when an HDMA effect "does nothing".
 
-### Two channels, one visual — `examples/graphics/effects/gradient_9bit`
+### Two channels, one visual — `examples/color/gradient_9bit`
 
 Channel 0 rewrites the backdrop colour per line (`HDMA_MODE_2REG_2X` into
 CGADD: `[addr16][data16]`), channel 1 rewrites INIDISP brightness per
@@ -272,7 +272,7 @@ HiColor reloads 16 bytes (8 colours) of CGRAM every line. The tool for
 that is the **H-timer IRQ**: `irqSet()` a raw ASM handler, `irqSetHTimer(190)`
 so it fires near the end of the visible line, `irqEnable(IRQ_HTIMER)` —
 the handler fires a general DMA whose source auto-advances across
-transfers. See `examples/graphics/effects/hicolor_1792` (1792 colours
+transfers. See `examples/color/hicolor_1792` (1792 colours
 from a 4bpp BG) and the loud contract in `<snes/interrupt.h>`: handlers
 are ASM-only (a C callback cannot afford per-scanline prologue latency),
 must ack `$4211`, and must save what they touch. Plain C `*`/`/`/`%` in

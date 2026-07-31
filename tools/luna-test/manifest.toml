@@ -41,7 +41,7 @@ steps = 4_000_000   # cycles through values; later frame is more representative
 [examples."scrolling/parallax_scroll"]
 steps = [3_000_000, 6_000_000]
 
-[examples."graphics/effects/transparency"]
+[examples."color/transparency"]
 steps = [3_000_000, 6_000_000]
 
 # hero16 walks in place via the anim module since #97 — self-animating.

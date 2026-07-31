@@ -38,7 +38,7 @@ in luna v1.9.0) — the tables are his exact bytes, extracted verbatim.
 ## How to Build
 
 ```bash
-cd examples/graphics/effects/gradient_9bit && make
+cd examples/color/gradient_9bit && make
 ```
 
 ## Modules Used

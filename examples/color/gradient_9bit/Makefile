@@ -1,4 +1,4 @@
-OPENSNES := $(shell cd ../../../.. && pwd)
+OPENSNES := $(shell cd ../../.. && pwd)
 
 TARGET   := gradient_9bit.sfc
 ROM_NAME := GRADIENT 9BIT

@@ -66,7 +66,7 @@ land on screen — any static 4bpp screen caps at 128.
 ## How to Build
 
 ```bash
-cd examples/graphics/effects/hicolor_1792 && make
+cd examples/color/hicolor_1792 && make
 ```
 
 To regenerate the assets from different art (requires Pillow):
