@@ -151,7 +151,7 @@ This stretch focused on closing process gaps surfaced by an internal audit
 - **Input**: controller, two_players, mouse, superscope
 - **Audio**: snesmod_music, snesmod_sfx, snesmod_music_large, snesmod_music_hirom
 - **Memory**: save_game, hirom_demo, sa1_hello, sa1_starfield, superfx_hello
-- **Maps**: dynamic_map, mapscroll, slopemario, tiled
+- **Maps**: dynamic_map, map_scroll, slope_collision, tiled
 - **Basics**: aim_target, collision_demo, fix32_orbit, random, scene_stack, timer
 - **Games**: breakout, likemario, mapandobjects, shmup_1942, tetris
 

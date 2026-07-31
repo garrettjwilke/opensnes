@@ -123,8 +123,8 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/input/superscope \
                          ../examples/input/two_players \
                          ../examples/maps/dynamic_map \
-                         ../examples/maps/mapscroll \
-                         ../examples/maps/slopemario \
+                         ../examples/maps/map_scroll \
+                         ../examples/maps/slope_collision \
                          ../examples/maps/tiled \
                          ../examples/memory/hirom_demo \
                          ../examples/chips/sa1_hello \

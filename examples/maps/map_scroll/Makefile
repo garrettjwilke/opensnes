@@ -1,6 +1,6 @@
 OPENSNES := $(shell cd ../../.. && pwd)
 
-TARGET     := mapscroll.sfc
+TARGET     := map_scroll.sfc
 ROM_NAME   := MAP SCROLL DEMO
 
 USE_LIB    := 1

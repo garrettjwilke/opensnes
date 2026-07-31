@@ -40,7 +40,7 @@ STEPS = 5_000_000          # boot + plenty of steady-state frames
 EXAMPLES = [
     "scrolling/continuous_scroll/continuous_scroll.sfc",
     "scrolling/parallax_scroll/parallax_scroll.sfc",
-    "maps/mapscroll/mapscroll.sfc",
+    "maps/map_scroll/map_scroll.sfc",
     "maps/tiled/tiled.sfc",
     "maps/dynamic_map/dynamic_map.sfc",
     "graphics/effects/hdma_helpers/hdma_helpers.sfc",

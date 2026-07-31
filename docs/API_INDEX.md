@@ -31,11 +31,11 @@ nothing you do not list is linked.
 | I want to… | Use | Module | Example |
 |---|---|---|---|
 | scroll a background | `bgSetScroll` | `background` | [scrolling/parallax_scroll](../examples/scrolling/parallax_scroll/) |
-| scroll a map bigger than VRAM | `mapLoad`, `mapUpdate` | `map` | [maps/mapscroll](../examples/maps/mapscroll/) |
+| scroll a map bigger than VRAM | `mapLoad`, `mapUpdate` | `map` | [maps/map_scroll](../examples/maps/map_scroll/) |
 | load a map made in Tiled | `tmx2snes` → `.m16`/`.b16` | `map` | [maps/tiled](../examples/maps/tiled/) |
 | ask whether a tile is solid | `collideTile`, `collideTileEx` | `collision` | [basics/collision_demo](../examples/basics/collision_demo/) |
 | ask whether two boxes overlap | `collideRect`, `collideRectEx` | `collision` | [basics/collision_demo](../examples/basics/collision_demo/) |
-| handle slopes | `collideTileEx` + per-tile attributes | `collision` | [maps/slopemario](../examples/maps/slopemario/) |
+| handle slopes | `collideTileEx` + per-tile attributes | `collision` | [maps/slope_collision](../examples/maps/slope_collision/) |
 | place the sprite so collision *feels* right | the straddle convention | — | [collision tutorial](tutorials/collision.md#where-the-sprite-is-vs-where-it-collides) |
 
 ## Input

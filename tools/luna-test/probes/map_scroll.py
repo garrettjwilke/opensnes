@@ -1,4 +1,4 @@
-"""Probe: mapscroll D-pad camera-follow (ported from mapscroll.test.mjs).
+"""Probe: map_scroll D-pad camera-follow (ported from map_scroll.test.mjs).
 
 Proves the map-engine input→state link: D-pad RIGHT increments `xloc`
 (the world cursor mapUpdateCamera follows), LEFT decrements it. If xloc
@@ -12,7 +12,7 @@ from lib import find_luna, peek_word, rom_path, LEFT, RIGHT
 
 def run() -> tuple[bool, str]:
     luna = find_luna()
-    rom = rom_path("maps/mapscroll/mapscroll.sfc")
+    rom = rom_path("maps/map_scroll/map_scroll.sfc")
 
     # Independent deterministic runs from boot; input frames kept low so a
     # generous -n always passes them. Reads happen at -n (well after release).
@@ -30,5 +30,5 @@ def run() -> tuple[bool, str]:
 
 if __name__ == "__main__":
     ok, msg = run()
-    print(("PASS " if ok else "FAIL ") + "mapscroll: " + msg)
+    print(("PASS " if ok else "FAIL ") + "map_scroll: " + msg)
     sys.exit(0 if ok else 1)

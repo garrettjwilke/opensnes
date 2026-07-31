@@ -59,7 +59,7 @@ Browse by category: @ref examples_by_category
 
 ### Maps
 - @ref dynamic_map/main.c "Dynamic Map" — Extended WRAM tilemaps
-- @ref slopemario/main.c "Slope Mario" — Slope collision with map engine
+- @ref slope_collision/main.c "Slope Mario" — Slope collision with map engine
 
 ### Memory
 - @ref hirom_demo/main.c "HiROM" — 64KB bank memory mapping

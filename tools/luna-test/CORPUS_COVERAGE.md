@@ -63,8 +63,8 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `input/superscope` | INPUT-DEP | live (73f/72nmi) |
 | `input/two_players` | OK | live (75f/74nmi) |
 | `maps/dynamic_map` | OK | live (79f/78nmi) |
-| `maps/mapscroll` | OK | live (76f/75nmi) |
-| `maps/slopemario` | OK | live (86f/85nmi) |
+| `maps/map_scroll` | OK | live (76f/75nmi) |
+| `maps/slope_collision` | OK | live (86f/85nmi) |
 | `maps/tiled` | OK | live (73f/72nmi) |
 | `memory/hirom_demo` | OK | live (71f/70nmi) |
 | `memory/save_game` | OK | live (73f/72nmi) |

@@ -353,13 +353,13 @@
     "rom_sha256": "c09ca58b9cb4b6433e65fce1f19b067db083f3b71dca062c96e904d0ae060fb3",
     "steps": 3000000
   },
-  "maps_mapscroll": {
+  "maps_map_scroll": {
     "fbhash": "27f1f4f250e5fbfe",
     "luna_version": "v1.9.0",
     "rom_sha256": "e41979a178a2b4af87ca2c1df583fb448cdb9f4093a771dc52e3985553a2b458",
     "steps": 3000000
   },
-  "maps_slopemario": {
+  "maps_slope_collision": {
     "fbhash": "a6b49da0bd36a6be",
     "luna_version": "v1.9.0",
     "rom_sha256": "955a070c85051938a3e7c6958a66c5f8b6d89d948275ef3a423bbbf121f2d784",

@@ -57,11 +57,11 @@ ground with tile collision.
 
 @subpage examples_scrolling_continuous_scroll
 
-@subpage examples_maps_mapscroll
+@subpage examples_maps_map_scroll
 
 @subpage examples_maps_tiled
 
-@subpage examples_maps_slopemario
+@subpage examples_maps_slope_collision
 
 @subpage examples_basics_collision_demo
 

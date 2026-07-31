@@ -10,10 +10,10 @@ collision, and walked with slopes. This is Stage 3, "can I build a world?"
 
 | Rung | Example | Developer question |
 |------|---------|--------------------|
-| 5.5 | [mapscroll](mapscroll/) | How do I scroll a map bigger than VRAM (the `map` module)? |
+| 5.5 | [map_scroll](map_scroll/) | How do I scroll a map bigger than VRAM (the `map` module)? |
 | 5.6 | [tiled](tiled/) | How do I author a map in Tiled and load it? |
 | 5.7 | [dynamic_map](dynamic_map/) | How do I drive a sprite from a tilemap and swap 32×32 ↔ 64×64 map modes? |
-| 5.8 | [slopemario](slopemario/) | How do I do tile collision with slopes — a full platformer? |
+| 5.8 | [slope_collision](slope_collision/) | How do I do tile collision with slopes — a full platformer? |
 
 Climb from a scrolling world (5.5) to an authored one (5.6) to a sprite that
 reads it (5.7) to a character that stands on its slopes (5.8).

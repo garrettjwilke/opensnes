@@ -97,7 +97,7 @@ deep-dive of a step below.
 | # | Example | What You Will Learn |
 |---|---------|---------------------|
 | 30 | [maps/dynamic_map](maps/dynamic_map/) | Dynamic tile map streaming |
-| 31 | [maps/slopemario](maps/slopemario/) | Slopes and tile-based collision |
+| 31 | [maps/slope_collision](maps/slope_collision/) | Slopes and tile-based collision |
 | 32 | [basics/collision_demo](basics/collision_demo/) | Bounding-box sprite collision |
 | 33 | [games/breakout](games/breakout/) | Complete game: sprites, input, game logic |
 | 34 | [games/likemario](games/likemario/) | Platformer with scrolling and animation |

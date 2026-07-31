@@ -127,8 +127,8 @@ Tile-based maps, streaming, and collision.
 | Example | Description |
 |---------|-------------|
 | @subpage examples_maps_dynamic_map | Dynamic tile map streaming |
-| @subpage examples_maps_mapscroll | Smooth tile-aligned scrolling with viewport tracking |
-| @subpage examples_maps_slopemario | Slopes and tile-based collision |
+| @subpage examples_maps_map_scroll | Smooth tile-aligned scrolling with viewport tracking |
+| @subpage examples_maps_slope_collision | Slopes and tile-based collision |
 | @subpage examples_maps_tiled | Tiled Map Editor (.tmx) integration |
 
 ---

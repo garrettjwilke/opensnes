@@ -7,7 +7,7 @@
 
 OPENSNES := $(shell cd ../../.. && pwd)
 
-TARGET      := slopemario.sfc
+TARGET      := slope_collision.sfc
 ROM_NAME    := OPENSNES SLOPMARIO
 
 CSRC        := main.c mario.c
