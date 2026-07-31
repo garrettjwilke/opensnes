@@ -46,7 +46,7 @@ deep-dive of a step below.
 | 7 | [backgrounds/mode1_lz77](backgrounds/mode1_lz77/) | LZ77-compressed background data |
 | 8 | [sprites/animated_sprite](sprites/animated_sprite/) | Frame animation, sprite sheets, H-flip |
 | 9 | [sprites/dynamic_sprite](sprites/dynamic_sprite/) | VRAM streaming, dynamic tile uploads |
-| 10 | [sprites/object_size](sprites/object_size/) | OBJSEL sprite size configurations |
+| 10 | [sprites/sprite_sizes](sprites/sprite_sizes/) | OBJSEL sprite size configurations |
 | 11 | [graphics/effects/fading](graphics/effects/fading/) | Brightness control, screen transitions |
 | 12 | [graphics/effects/mosaic](graphics/effects/mosaic/) | Mosaic pixelation effect |
 

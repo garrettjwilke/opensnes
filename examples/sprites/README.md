@@ -11,7 +11,7 @@ frame.
 | Rung | Example | Developer question |
 |------|---------|--------------------|
 | 3.1 | [simple_sprite](simple_sprite/) | How do I put one sprite on screen? |
-| 3.2 | [object_size](object_size/) | How do I use the six OBJ size modes (8×8…64×64)? |
+| 3.2 | [sprite_sizes](sprite_sizes/) | How do I use the six OBJ size modes (8×8…64×64)? |
 | 3.3 | [animated_sprite](animated_sprite/) | How do I frame-animate a sprite (+H-flip)? |
 | 3.4 | [metasprite](metasprite/) | How do I compose one character from many tiles? |
 | 3.5 | [dynamic_sprite](dynamic_sprite/) | How do I stream sprite tiles into VRAM per frame? |

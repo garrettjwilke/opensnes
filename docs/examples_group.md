@@ -33,7 +33,7 @@ Browse by category: @ref examples_by_category
 - @ref animated_sprite/main.c "Animated Sprite" — Frame cycling and direction flip
 - @ref dynamic_sprite/main.c "Dynamic Sprite" — VRAM streaming engine
 - @ref metasprite/main.c "Metasprite" — Multi-tile composite sprites
-- @ref object_size/main.c "Object Size" — OBJSEL size modes
+- @ref sprite_sizes/main.c "Object Size" — OBJSEL size modes
 
 ### Effects
 - @ref fading/main.c "Fading" — INIDISP brightness transitions

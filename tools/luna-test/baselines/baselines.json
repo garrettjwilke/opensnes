@@ -455,16 +455,16 @@
       6000000
     ]
   },
-  "sprites_object_size": {
-    "fbhash": "9fa93096c5e801ee",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "917fbe35d0cf2270c61506286082e91f5a4ff8c4dbd6c3411d2283a47d9e7891",
-    "steps": 3000000
-  },
   "sprites_simple_sprite": {
     "fbhash": "b1e0ab0172a0516b",
     "luna_version": "v1.9.0",
     "rom_sha256": "d845727d47f00574e84c465d25230b912cf36d37d7e88ab17da747727473a0d6",
+    "steps": 3000000
+  },
+  "sprites_sprite_sizes": {
+    "fbhash": "9fa93096c5e801ee",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "917fbe35d0cf2270c61506286082e91f5a4ff8c4dbd6c3411d2283a47d9e7891",
     "steps": 3000000
   },
   "text_print_string": {

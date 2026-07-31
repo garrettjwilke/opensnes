@@ -115,7 +115,7 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/sprites/dynamic_metasprite \
                          ../examples/sprites/dynamic_sprite \
                          ../examples/sprites/metasprite \
-                         ../examples/sprites/object_size \
+                         ../examples/sprites/sprite_sizes \
                          ../examples/sprites/simple_sprite \
                          ../examples/input/controller \
                          ../examples/input/move_sprite \

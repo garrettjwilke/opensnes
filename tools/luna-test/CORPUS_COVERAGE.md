@@ -78,7 +78,7 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 76 ROMs · **74 OK, 2 INPUT-DE
 | `sprites/dynamic_metasprite` | OK | live (94f/93nmi) |
 | `sprites/dynamic_sprite` | OK | live (76f/75nmi) |
 | `sprites/metasprite` | OK | live (197f/196nmi) |
-| `sprites/object_size` | OK | live (75f/74nmi) |
 | `sprites/simple_sprite` | OK | live (71f/70nmi) |
+| `sprites/sprite_sizes` | OK | live (75f/74nmi) |
 | `text/print_string` | OK | live (71f/70nmi) |
 | `text/scroll_message` | OK | live (72f/71nmi) |

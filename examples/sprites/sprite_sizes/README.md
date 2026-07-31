@@ -1,6 +1,6 @@
 # Object Size -- All 6 SNES Sprite Size Modes
 
-![Screenshot](object_size.png)
+![Screenshot](sprite_sizes.png)
 
 ## What This Example Shows
 
@@ -18,10 +18,10 @@ The SNES OBJSEL register defines two sizes (small and large) that apply to all
 
 ```bash
 cd $OPENSNES_HOME
-make -C examples/sprites/object_size
+make -C examples/sprites/sprite_sizes
 ```
 
-Then open `object_size.sfc` in your emulator (Mesen2 recommended).
+Then open `sprite_sizes.sfc` in luna (or any SNES emulator).
 
 ## How It Works
 

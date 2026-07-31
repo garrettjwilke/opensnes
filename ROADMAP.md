@@ -145,7 +145,7 @@ This stretch focused on closing process gaps surfaced by an internal audit
 
 ### Examples (76)
 - **Text**: print_string, scroll_message · **Fundamentals**: text_glyphs
-- **Sprites**: simple_sprite, animated_sprite, dynamic_sprite, dynamic_metasprite, metasprite, object_size
+- **Sprites**: simple_sprite, animated_sprite, dynamic_sprite, dynamic_metasprite, metasprite, sprite_sizes
 - **Backgrounds**: mode0, mode1, mode1_bg3_priority, mode1_lz77, mode3, mode5, mode7, mode7_perspective, continuous_scroll, mixed_scroll
 - **Effects**: fading, hdma_wave, hdma_helpers, gradient_colors, parallax_scroll, mosaic, transparency, window, transparent_window, superfx_3d
 - **Input**: controller, two_players, mouse, superscope

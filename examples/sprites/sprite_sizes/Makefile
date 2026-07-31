@@ -3,7 +3,7 @@
 
 OPENSNES := $(shell cd ../../.. && pwd)
 
-TARGET     := object_size.sfc
+TARGET     := sprite_sizes.sfc
 ROM_NAME   := OBJECT SIZE
 
 USE_LIB    := 1
