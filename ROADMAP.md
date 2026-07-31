@@ -149,7 +149,7 @@ This stretch focused on closing process gaps surfaced by an internal audit
 - **Backgrounds**: mode0, mode1, mode1_bg3_priority, mode1_lz77, mode3, mode5, mode7, mode7_perspective, continuous_scroll, mixed_scroll
 - **Effects**: fading, hdma_wave, hdma_helpers, gradient_colors, parallax_scroll, mosaic, transparency, window, transparent_window, superfx_3d
 - **Input**: controller, two_players, mouse, superscope
-- **Audio**: snesmod_music, snesmod_sfx, snesmod_music_large, snesmod_music_hirom
+- **Audio**: snesmod_music, snesmod_sfx, snesmod_music_large, soundboard, apu_switch, play_noise, pitch_mod, speech_synth, echo
 - **Memory**: save_game, hirom_demo, sa1_hello, sa1_starfield, superfx_hello
 - **Maps**: dynamic_map, map_scroll, slope_collision, tiled
 - **Basics**: aim_target, collision_demo, fix32_orbit, random, scene_stack, timer

@@ -5,6 +5,12 @@
     "rom_sha256": "2bce35f837861b009b7b65d0eafba2132933dde27337db8f79401cac436f232f",
     "steps": 3000000
   },
+  "audio_echo": {
+    "fbhash": "79e9f261b124a2d8",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "2463260f3d9446aded1c278bba7dd18f41913f5b6e90f9e27d8c4a14ff1fb93c",
+    "steps": 3000000
+  },
   "audio_pitch_mod": {
     "fbhash": "890db704a0837c49",
     "luna_version": "v1.9.0",
@@ -22,12 +28,6 @@
     "luna_version": "v1.9.0",
     "rom_sha256": "0183b82ec49099063821d0c9a2c5e55c2b29d02fbb8e9c8961fb3b5f3dfdee45",
     "steps": 4000000
-  },
-  "audio_snesmod_music_hirom": {
-    "fbhash": "14583db182b04e83",
-    "luna_version": "v1.9.0",
-    "rom_sha256": "8f5f041e148d481804b6577069b22ec2d0cc5b26221297cf67f13af944c26338",
-    "steps": 3000000
   },
   "audio_snesmod_music_large": {
     "fbhash": "ac5ec3e5b157bdb5",

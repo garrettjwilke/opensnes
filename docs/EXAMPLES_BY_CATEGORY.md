@@ -109,7 +109,6 @@ Music and sound effects via SNESMOD (Impulse Tracker format).
 | Example | Description |
 |---------|-------------|
 | @subpage examples_audio_snesmod_music | SPC700 music playback, transport controls (LoROM) |
-| @subpage examples_audio_snesmod_music_hirom | Same workflow as snesmod_music but built for HiROM |
 | @subpage examples_audio_snesmod_music_large | Large soundbank: multi-bank module split |
 | @subpage examples_audio_snesmod_sfx | Sound effects alongside music |
 | @subpage examples_audio_soundboard | Audio v2 engine driven entirely from C (resident SPC700 driver) |
@@ -117,6 +116,7 @@ Music and sound effects via SNESMOD (Impulse Tracker format).
 | @subpage examples_audio_play_noise | A drum kit from the S-DSP white-noise generator (krom port) |
 | @subpage examples_audio_pitch_mod | Hardware vibrato via pitch modulation (PMON) (krom port) |
 | @subpage examples_audio_speech_synth | BRR speech playback: the SNES says "OPEN SNES" (krom port) |
+| @subpage examples_audio_echo | S-DSP echo / reverb, isolated — START toggles dry/wet |
 
 ---
 
