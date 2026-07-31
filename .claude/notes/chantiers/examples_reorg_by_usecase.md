@@ -327,6 +327,22 @@ validation, both worth pre-empting:
 Renames stay **byte-identical** if you keep `ROM_NAME` (the cosmetic 21-char
 cartridge header) — then baselines re-key, no regeneration.
 
+### Two more traps (Audio wave / naming audit, 2026-07-31)
+
+- **`.incbin` reaches ACROSS the tree — grep beyond the example.** The Sprites
+  move and the maps rename broke `devtools/benchrom` and `devtools/libtests`,
+  which `.incbin` example `res/*` assets by path (`../../examples/maps/mapscroll/
+  res/...`). Those are `.asm`, outside the doc-sed pattern, and **devtools are
+  NOT in the luna corpus validation**, so the break was silent. After any
+  move/rename: `grep -rn '<old path>'` across **all** file types (`.c .h .asm
+  Makefile`, not just docs) AND `make -C devtools/benchrom && make -C
+  devtools/libtests`. Keep `Ported from PVSnesLib <name>` provenance lines —
+  they name the upstream original, not our example.
+- **`git commit` commits the whole index, not the path you just `git add`ed.**
+  A discard staged before a break (`git rm` example + baseline) got swept into
+  an unrelated later commit. When work sits staged, `git status` before every
+  commit, or commit explicit paths (`git commit -- <paths>`).
+
 ## Remaining waves (simplest → most complex)
 
 ### Wave 6 — In-place families (Maps, Input, Audio): enrichment, ~0 moves
