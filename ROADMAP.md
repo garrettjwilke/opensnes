@@ -145,15 +145,19 @@ This stretch focused on closing process gaps surfaced by an internal audit
 
 ### Examples (75)
 - **Text**: print_string, scroll_message · **Fundamentals**: text_glyphs
-- **Sprites**: simple_sprite, animated_sprite, dynamic_sprite, dynamic_metasprite, metasprite, sprite_sizes
-- **Backgrounds**: mode0, mode1, mode1_bg3_priority, mode1_lz77, mode3, mode5, mode7, mode7_perspective, continuous_scroll, mixed_scroll
-- **Effects**: fading, hdma_wave, hdma_helpers, gradient_colors, parallax_scroll, mosaic, transparency, window, transparent_window, superfx_3d
-- **Input**: controller, two_players, mouse, superscope
-- **Audio**: snesmod_music, snesmod_sfx, snesmod_music_large, soundboard, apu_switch, play_noise, pitch_mod, speech_synth, echo
-- **Memory**: save_game, hirom_demo, sa1_hello, sa1_starfield, superfx_hello
-- **Maps**: dynamic_map, map_scroll, slope_collision, tiled
-- **Basics**: aim_target, collision_demo, fix32_orbit, random, scene_stack, timer
-- **Games**: breakout, likemario, mapandobjects, shmup_1942, tetris
+- **Backgrounds**: mode1, mode1_bg3_priority, mode1_lz77, mode0, mode3, mode5, mode5_hires
+- **Sprites**: simple_sprite, sprite_sizes, animated_sprite, metasprite, dynamic_sprite, dynamic_metasprite
+- **Scrolling**: mixed_scroll, continuous_scroll, parallax_scroll
+- **Mode 7**: rotate_scale, perspective, perspective_rotate
+- **HDMA & raster**: gradient_colors, hdma_indirect_gradient, hdma_wave, hdma_wave_table, hdma_helpers
+- **Colour**: transparency, direct_color, gradient_9bit, hicolor_1792, hicolor_blend
+- **Windows**: window, window_multi_hdma, transparent_window · **Transitions**: fading, mosaic
+- **Input**: controller, move_sprite, two_players, mouse, superscope
+- **Audio**: snesmod_music, snesmod_music_large, snesmod_sfx, soundboard, apu_switch, play_noise, pitch_mod, speech_synth, echo
+- **Maps**: map_scroll, tiled, dynamic_map, slope_collision
+- **Game math**: collision_demo, aim_target, fix32_orbit, random, timer, scene_stack
+- **Memory**: hirom_demo, save_game · **Enhancement chips**: sa1_hello, sa1_starfield, superfx_hello, superfx_3d
+- **Games**: breakout, tetris, likemario, mapandobjects, shmup_1942, mode7_racing, mode7_flying, rpg
 
 ### Build system
 - [x] Cross-platform (Linux, macOS, Windows / MSYS2)
