@@ -455,6 +455,18 @@
     "rom_sha256": "917fbe35d0cf2270c61506286082e91f5a4ff8c4dbd6c3411d2283a47d9e7891",
     "steps": 3000000
   },
+  "sprites_sprite_swarm": {
+    "fbhash": [
+      "b5d4794d7538ffd8",
+      "22ffeda3ccde948a"
+    ],
+    "luna_version": "v1.9.0",
+    "rom_sha256": "b73dba67342e1e80373f5ccda92f1db2ff0078d314434d0c650464279a9b4f6e",
+    "steps": [
+      3000000,
+      6000000
+    ]
+  },
   "text_print_string": {
     "fbhash": "19e92e700be065e6",
     "luna_version": "v1.9.0",

@@ -16,9 +16,11 @@ frame.
 | 3.4 | [metasprite](metasprite/) | How do I compose one character from many tiles? |
 | 3.5 | [dynamic_sprite](dynamic_sprite/) | How do I stream sprite tiles into VRAM per frame? |
 | 3.6 | [dynamic_metasprite](dynamic_metasprite/) | How do I stream a *multi-tile* character (dynamic + meta)? |
+| 3.7 | [sprite_swarm](sprite_swarm/) | How many sprites can I actually move at 60 fps, and why? |
 
-> Showcase rung to come — **3.7 a swarm**: all 128 OAM slots at once, with
-> flips, priority and off-screen culling.
+> 3.7 is the showcase *and* a reality check: a smooth 32-sprite swarm plus
+> the honest per-sprite budget (the base CPU tops out around three dozen in
+> C — see [chips/sa1_starfield](../chips/sa1_starfield/) for 128 via the SA-1).
 
 Start at 3.1 and climb: each rung adds exactly one idea onto the last.
 

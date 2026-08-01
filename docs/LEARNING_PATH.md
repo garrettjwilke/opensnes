@@ -31,6 +31,8 @@ underpins everything visual on the SNES.
 
 @subpage examples_sprites_animated_sprite
 
+@subpage examples_sprites_sprite_swarm
+
 > Under the hood — how a glyph becomes pixels with no module at all:
 > @subpage examples_fundamentals_text_glyphs
 

@@ -1,6 +1,6 @@
 # Browse Examples by Category {#examples_by_category}
 
-All 78 examples organized by topic. For a progressive learning path, see
+All 79 examples organized by topic. For a progressive learning path, see
 @ref learning_path.
 
 ---
@@ -54,6 +54,7 @@ Sprite display, animation, and OAM management.
 | @subpage examples_sprites_metasprite | Multi-tile composite sprites |
 | @subpage examples_sprites_dynamic_sprite | VRAM streaming, dynamic tile uploads |
 | @subpage examples_sprites_dynamic_metasprite | Dynamic metasprite engine with batched OAM updates |
+| @subpage examples_sprites_sprite_swarm | A bouncing swarm + the per-sprite OAM throughput ceiling |
 
 ---
 

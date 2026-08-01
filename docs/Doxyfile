@@ -119,6 +119,7 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/sprites/metasprite \
                          ../examples/sprites/sprite_sizes \
                          ../examples/sprites/simple_sprite \
+                         ../examples/sprites/sprite_swarm \
                          ../examples/input/controller \
                          ../examples/input/move_sprite \
                          ../examples/input/mouse \

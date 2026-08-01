@@ -55,3 +55,7 @@ steps = [3_000_000, 6_000_000]
 # raw HDMA wave (krom port) scrolls continuously — self-animating.
 [examples."hdma/hdma_wave_table"]
 steps = [3_000_000, 6_000_000]
+
+# 32 sprites bounce continuously with no input — self-animating.
+[examples."sprites/sprite_swarm"]
+steps = [3_000_000, 6_000_000]
