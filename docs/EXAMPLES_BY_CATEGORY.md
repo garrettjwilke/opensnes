@@ -1,6 +1,6 @@
 # Browse Examples by Category {#examples_by_category}
 
-All 76 examples organized by topic. For a progressive learning path, see
+All 77 examples organized by topic. For a progressive learning path, see
 @ref learning_path.
 
 ---
@@ -103,6 +103,7 @@ Colour math, palette bypass, and beating the 256-colour limit.
 |---------|-------------|
 | @subpage examples_color_palette_cycle | Palette cycling: animate by rotating CGRAM, no pixels moved |
 | @subpage examples_color_transparency | Color math (add/subtract blending) |
+| @subpage examples_color_shadow_tint | Shadow & tint: darken or colour-cast a whole scene via fixed-colour math |
 | @subpage examples_color_direct_color | Direct color mode: the 8bpp pixel byte IS the RGB color |
 | @subpage examples_color_gradient_9bit | Brightness-dithered "9-bit" gradient backdrop (krom port) |
 | @subpage examples_color_hicolor_1792 | 1792 colors from a 4bpp background via per-tile-row HDMA (krom port) |

@@ -93,6 +93,7 @@ IMAGE_PATH             = ../examples/basics/aim_target \
                          ../examples/mode7/perspective \
                          ../examples/color/direct_color \
                          ../examples/color/palette_cycle \
+                         ../examples/color/shadow_tint \
                          ../examples/transitions/fading \
                          ../examples/color/gradient_9bit \
                          ../examples/hdma/gradient_colors \

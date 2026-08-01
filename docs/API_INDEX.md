@@ -81,6 +81,7 @@ nothing you do not list is linked.
 | upload a palette | `dmaCopyCGram` | `dma` | the source may live in any bank |
 | set one colour | `setColor` | `console` | sprite palettes start at CGRAM 128 |
 | cycle a palette (waterfall/fire/lights) | `setColor`, `dmaCopyCGram` | `dma` | [color/palette_cycle](../examples/color/palette_cycle/) — animate with zero VRAM traffic |
+| darken or colour-cast a whole scene (night/underwater/sunset) | `colorMathShadow`, `colorMathTint` | `colormath` | [color/shadow_tint](../examples/color/shadow_tint/) |
 | decompress | `LzssDecodeVram` | `lzss` | |
 
 ## Going faster

@@ -123,6 +123,10 @@
     "stream": "4d77a806aa6f17ab9c73b19559fa54578e5bd87e88b7f8f5c5acc39a4c1a7797",
     "rom_sha256": "4d488bf5223e7d31541eafefb874615046701e26a01246fd5654e6c96d0c8804"
   },
+  "color_shadow_tint": {
+    "stream": "7e1f46b60129c0d9b3d0061fc7fe828b13b798e9bd23945f45774a15432ecc1b",
+    "rom_sha256": "32e44d0d159361c269fabfda2c09951a9023ed2892f460987cb976e271a834a1"
+  },
   "color_transparency": {
     "stream": "6b7dd485761f164750b438ebffa687e72d8db085f8c71a3bf1af070e9b0cc4cc",
     "rom_sha256": "425d00d5968e55b5823dced59a71d99e2a541dd92ce290eb3634c12ea109f8ee"

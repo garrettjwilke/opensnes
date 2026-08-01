@@ -12,7 +12,7 @@ and **what is next**.
 
 A modern, well-tested SNES SDK ready for serious hobby development, game jams,
 and educational use, building toward commercial-grade maturity. The compiler
-produces code 30 % faster than PVSnesLib + 816-opt on the benchmark suite. 76
+produces code 30 % faster than PVSnesLib + 816-opt on the benchmark suite. 77
 working examples cover every major subsystem, with cross-platform CI on Linux,
 macOS, and Windows enforcing not just "it compiles" but the full functional
 test suite (luna, cycle-accurate native — corpus liveness + visual
@@ -143,14 +143,14 @@ This stretch focused on closing process gaps surfaced by an internal audit
 | `superfx` | SuperFX (GSU) loader stubs (assembly only — no C compiler) | experimental |
 | `object` | Object engine with physics and collision | **contrib** (`lib/contrib/`) |
 
-### Examples (76)
+### Examples (77)
 - **Text**: print_string, scroll_message · **Fundamentals**: text_glyphs
 - **Backgrounds**: mode1, mode1_bg3_priority, mode1_lz77, mode0, mode3, mode5, mode5_hires
 - **Sprites**: simple_sprite, sprite_sizes, animated_sprite, metasprite, dynamic_sprite, dynamic_metasprite
 - **Scrolling**: mixed_scroll, continuous_scroll, parallax_scroll
 - **Mode 7**: rotate_scale, perspective, perspective_rotate
 - **HDMA & raster**: gradient_colors, hdma_indirect_gradient, hdma_wave, hdma_wave_table, hdma_helpers
-- **Colour**: palette_cycle, transparency, direct_color, gradient_9bit, hicolor_1792, hicolor_blend
+- **Colour**: palette_cycle, transparency, shadow_tint, direct_color, gradient_9bit, hicolor_1792, hicolor_blend
 - **Windows**: window, window_multi_hdma, transparent_window · **Transitions**: fading, mosaic
 - **Input**: controller, move_sprite, two_players, mouse, superscope
 - **Audio**: snesmod_music, snesmod_music_large, snesmod_sfx, soundboard, apu_switch, play_noise, pitch_mod, speech_synth, echo
@@ -193,7 +193,7 @@ This stretch focused on closing process gaps surfaced by an internal audit
 - [x] [`compiler/ABI.md`](compiler/ABI.md) — calling-convention reference
 - [x] [`compiler/PINS.md`](compiler/PINS.md) — pinned submodule SHAs +
       local-patch lists
-- [x] Example READMEs with hardware explanations (76 / 76)
+- [x] Example READMEs with hardware explanations (77 / 77)
 - [x] Progressive learning path (GETTING_STARTED → LEARNING_PATH → tutorials)
 - [x] Hardware reference docs (MEMORY_MAP, OAM, REGISTERS)
 - [x] Tutorials (graphics, sprites, animation, scrolling, input, collision, audio, game states, SA-1)

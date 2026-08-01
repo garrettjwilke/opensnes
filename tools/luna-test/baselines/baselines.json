@@ -191,6 +191,12 @@
       6000000
     ]
   },
+  "color_shadow_tint": {
+    "fbhash": "9eed1597f3fc970f",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "32e44d0d159361c269fabfda2c09951a9023ed2892f460987cb976e271a834a1",
+    "steps": 3000000
+  },
   "color_transparency": {
     "fbhash": [
       "abbc90bbe12ef4cb",

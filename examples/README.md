@@ -1,6 +1,6 @@
 # OpenSNES Examples
 
-Learn SNES development step by step. 76 examples organized by topic, building
+Learn SNES development step by step. 77 examples organized by topic, building
 from basic concepts to complete games.
 
 ## Categories
@@ -13,7 +13,7 @@ from basic concepts to complete games.
 | [backgrounds/](backgrounds/) | 7 | BG modes 0/1/3/5, priority, LZ77, hi-res |
 | [sprites/](sprites/) | 6 | Sprite display, animation, OAM, metasprites, VRAM streaming |
 | [hdma/](hdma/) | 5 | Per-scanline HDMA effects: gradients, waves, raster |
-| [color/](color/) | 6 | Palette cycling, colour math, direct colour, hi-colour tricks |
+| [color/](color/) | 7 | Palette cycling, colour math, shadow/tint, direct colour, hi-colour tricks |
 | [windows/](windows/) | 3 | Hardware window masking, shaped per scanline |
 | [transitions/](transitions/) | 2 | Screen transitions: fade, mosaic pixelate |
 | [scrolling/](scrolling/) | 3 | Layer scrolling: parallax, streaming, per-scanline HDMA |

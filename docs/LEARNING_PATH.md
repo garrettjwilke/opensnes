@@ -83,6 +83,8 @@ windows, the Mode 7 plane, and sound.
 
 @subpage examples_color_transparency
 
+@subpage examples_color_shadow_tint
+
 @subpage examples_windows_window
 
 @subpage examples_mode7_rotate_scale
