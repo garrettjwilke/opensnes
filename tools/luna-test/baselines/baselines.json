@@ -132,9 +132,9 @@
     "steps": 3000000
   },
   "basics_timer": {
-    "fbhash": "e686d73bad5f91a7",
+    "fbhash": "09f61bae7c8e2fb7",
     "luna_version": "v1.9.0",
-    "rom_sha256": "7a5653282dfb236605b103a28c5f8ea277afc36e393abf26634e07a2e93f37bd",
+    "rom_sha256": "40025f80dced12da5879b2605727973dad5257a52e047e81165830377c88683f",
     "steps": 3000000
   },
   "chips_sa1_hello": {

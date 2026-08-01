@@ -26,9 +26,9 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 79 ROMs · **77 OK, 2 INPUT-DE
 | `basics/collision_demo` | OK | live (83f/82nmi) |
 | `basics/fix32_orbit` | OK | live (76f/75nmi) |
 | `basics/panel_hud` | OK | live (99f/98nmi) |
-| `basics/random` | OK | live (244f/243nmi) |
+| `basics/random` | OK | live (269f/268nmi) |
 | `basics/scene_stack` | OK | live (72f/71nmi) |
-| `basics/timer` | OK | live (156f/155nmi) |
+| `basics/timer` | OK | live (179f/178nmi) |
 | `chips/sa1_hello` | OK | live (72f/71nmi) |
 | `chips/sa1_starfield` | OK | live (133f/132nmi) |
 | `chips/superfx_3d` | OK | live (290f/147nmi) |
