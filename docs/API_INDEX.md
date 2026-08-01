@@ -83,6 +83,7 @@ nothing you do not list is linked.
 | cycle a palette (waterfall/fire/lights) | `setColor`, `dmaCopyCGram` | `dma` | [color/palette_cycle](../examples/color/palette_cycle/) — animate with zero VRAM traffic |
 | darken or colour-cast a whole scene (night/underwater/sunset) | `colorMathShadow`, `colorMathTint` | `colormath` | [color/shadow_tint](../examples/color/shadow_tint/) |
 | draw a HUD / dialog box (9-slice) | `panelInit`, `panelDraw`, `panelPut`, `panelFlush` | `panel` | [basics/panel_hud](../examples/basics/panel_hud/) |
+| structure a whole game (title/play/over) | frame loop + `switch(state)` | — | [basics/game_skeleton](../examples/basics/game_skeleton/) |
 | move many sprites at once | `oamMemory`, `oam_update_flag`, `oamSetFast` | `sprite` | [sprites/sprite_swarm](../examples/sprites/sprite_swarm/) — and its 60fps ceiling |
 | decompress | `LzssDecodeVram` | `lzss` | |
 

@@ -75,6 +75,10 @@
     "stream": "761e5e4f3b8043c5094c9a490e1631b454036f8dc79ef949dec0adcfffca6df7",
     "rom_sha256": "7cd4569ddead9b50fab8e1e5b967e5d9f2826de752cbdcfaaa91c868eb1f59aa"
   },
+  "basics_game_skeleton": {
+    "stream": "370d4369ff566d4f2f5c475aa5673771f65fe76ca65d1b7acaed26a55a38fdd7",
+    "rom_sha256": "0220a9deb3abaa29f6d719f5d0daf77b01c0e1a0af5fe0cc80d8bf432d45c678"
+  },
   "basics_panel_hud": {
     "stream": "e840d2d74757665f86c19980c1ba88dee3ab010cc6031553e1970db9a296d922",
     "rom_sha256": "2e6b76423507607fb50046485b590e88b0e2e95a218f6bc100d1faa4463cca21"

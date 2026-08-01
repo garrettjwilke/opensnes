@@ -1,6 +1,6 @@
 # OpenSNES Examples
 
-Learn SNES development step by step. 79 examples organized by topic, building
+Learn SNES development step by step. 80 examples organized by topic, building
 from basic concepts to complete games.
 
 ## Categories
@@ -9,7 +9,7 @@ from basic concepts to complete games.
 |----------|----------|----------------|
 | [text/](text/) | 2 | Text display, fonts, tilemaps |
 | [fundamentals/](fundamentals/) | 1 | Under-the-hood: raw tiles, direct VRAM writes |
-| [basics/](basics/) | 7 | Collision, timing, scene stack, randomness, fixed-point, aiming, HUD panels |
+| [basics/](basics/) | 8 | Collision, timing, scene stack, randomness, fixed-point, aiming, HUD panels, game skeleton |
 | [backgrounds/](backgrounds/) | 7 | BG modes 0/1/3/5, priority, LZ77, hi-res |
 | [sprites/](sprites/) | 7 | Sprite display, animation, OAM, metasprites, VRAM streaming, swarm |
 | [hdma/](hdma/) | 5 | Per-scanline HDMA effects: gradients, waves, raster |

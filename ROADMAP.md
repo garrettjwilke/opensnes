@@ -12,7 +12,7 @@ and **what is next**.
 
 A modern, well-tested SNES SDK ready for serious hobby development, game jams,
 and educational use, building toward commercial-grade maturity. The compiler
-produces code 30 % faster than PVSnesLib + 816-opt on the benchmark suite. 79
+produces code 30 % faster than PVSnesLib + 816-opt on the benchmark suite. 80
 working examples cover every major subsystem, with cross-platform CI on Linux,
 macOS, and Windows enforcing not just "it compiles" but the full functional
 test suite (luna, cycle-accurate native — corpus liveness + visual
@@ -143,7 +143,7 @@ This stretch focused on closing process gaps surfaced by an internal audit
 | `superfx` | SuperFX (GSU) loader stubs (assembly only — no C compiler) | experimental |
 | `object` | Object engine with physics and collision | **contrib** (`lib/contrib/`) |
 
-### Examples (79)
+### Examples (80)
 - **Text**: print_string, scroll_message · **Fundamentals**: text_glyphs
 - **Backgrounds**: mode1, mode1_bg3_priority, mode1_lz77, mode0, mode3, mode5, mode5_hires
 - **Sprites**: simple_sprite, sprite_sizes, animated_sprite, metasprite, dynamic_sprite, dynamic_metasprite, sprite_swarm
@@ -155,7 +155,7 @@ This stretch focused on closing process gaps surfaced by an internal audit
 - **Input**: controller, move_sprite, two_players, mouse, superscope
 - **Audio**: snesmod_music, snesmod_music_large, snesmod_sfx, soundboard, apu_switch, play_noise, pitch_mod, speech_synth, echo
 - **Maps**: map_scroll, tiled, dynamic_map, slope_collision
-- **Game math**: collision_demo, aim_target, fix32_orbit, random, timer, scene_stack, panel_hud
+- **Game math**: collision_demo, aim_target, fix32_orbit, random, timer, scene_stack, panel_hud, game_skeleton
 - **Memory**: hirom_demo, save_game · **Enhancement chips**: sa1_hello, sa1_starfield, superfx_hello, superfx_3d
 - **Games**: breakout, tetris, likemario, mapandobjects, shmup_1942, mode7_racing, mode7_flying, rpg
 
@@ -193,7 +193,7 @@ This stretch focused on closing process gaps surfaced by an internal audit
 - [x] [`compiler/ABI.md`](compiler/ABI.md) — calling-convention reference
 - [x] [`compiler/PINS.md`](compiler/PINS.md) — pinned submodule SHAs +
       local-patch lists
-- [x] Example READMEs with hardware explanations (79 / 79)
+- [x] Example READMEs with hardware explanations (80 / 80)
 - [x] Progressive learning path (GETTING_STARTED → LEARNING_PATH → tutorials)
 - [x] Hardware reference docs (MEMORY_MAP, OAM, REGISTERS)
 - [x] Tutorials (graphics, sprites, animation, scrolling, input, collision, audio, game states, SA-1)
