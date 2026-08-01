@@ -80,6 +80,7 @@ nothing you do not list is linked.
 | upload tiles or a tilemap | `dmaCopyVram` | `dma` | VBlank fits ~4 KB; more needs `setScreenOff()` |
 | upload a palette | `dmaCopyCGram` | `dma` | the source may live in any bank |
 | set one colour | `setColor` | `console` | sprite palettes start at CGRAM 128 |
+| cycle a palette (waterfall/fire/lights) | `setColor`, `dmaCopyCGram` | `dma` | [color/palette_cycle](../examples/color/palette_cycle/) — animate with zero VRAM traffic |
 | decompress | `LzssDecodeVram` | `lzss` | |
 
 ## Going faster
