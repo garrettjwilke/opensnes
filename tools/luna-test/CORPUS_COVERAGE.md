@@ -1,6 +1,6 @@
 # Luna corpus coverage (whole-suite headless liveness pass)
 
-luna v1.9.0 · `luna state -n <steps>` per ROM · 80 ROMs · **78 OK, 2 INPUT-DEP, 0 DEAD, 0 FAIL**
+luna v1.9.0 · `luna state -n <steps>` per ROM · 81 ROMs · **79 OK, 2 INPUT-DEP, 0 DEAD, 0 FAIL**
 
 > Liveness from `luna state` (NMI/VBlank advancing, CPU not halted) — not a PNG-size heuristic. **INPUT-DEP** = runs+renders but its device input (Mouse/Super Scope, gap G4) is unmodelled → boot+visual only, *not* a clean functional pass. **DEAD** = ran but not live (crash/hang). **FAIL** = luna errored. PNGs: `/tmp/luna-test-corpus/`. (In-ROM `SNES_ASSERT`/WDM is caught separately by the visual pass via `--wdm-out`.)
 
@@ -19,6 +19,7 @@ luna v1.9.0 · `luna state -n <steps>` per ROM · 80 ROMs · **78 OK, 2 INPUT-DE
 | `backgrounds/mode1` | OK | live (70f/70nmi) |
 | `backgrounds/mode1_bg3_priority` | OK | live (71f/70nmi) |
 | `backgrounds/mode1_lz77` | OK | live (74f/73nmi) |
+| `backgrounds/mode2` | OK | live (191f/190nmi) |
 | `backgrounds/mode3` | OK | live (71f/70nmi) |
 | `backgrounds/mode5` | OK | live (71f/70nmi) |
 | `backgrounds/mode5_hires` | OK | live (71f/70nmi) |

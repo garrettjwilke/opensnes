@@ -59,3 +59,7 @@ steps = [3_000_000, 6_000_000]
 # 32 sprites bounce continuously with no input — self-animating.
 [examples."sprites/sprite_swarm"]
 steps = [3_000_000, 6_000_000]
+
+# Mode 2 offset-per-tile: a per-column sine wave that scrolls every frame.
+[examples."backgrounds/mode2"]
+steps = [3_000_000, 6_000_000]

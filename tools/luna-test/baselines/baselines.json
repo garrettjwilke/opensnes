@@ -77,6 +77,18 @@
     "rom_sha256": "905ce3d12a7f80d06acaf578621a178be969c271cb7662c2d3372db2d32365d1",
     "steps": 3000000
   },
+  "backgrounds_mode2": {
+    "fbhash": [
+      "b6096f272818f212",
+      "93a08b0f052af6f9"
+    ],
+    "luna_version": "v1.9.0",
+    "rom_sha256": "d606c6d3031cbd477f5a8bfbb6b6f0344bf45e3e77390686d02a3558eb3bf779",
+    "steps": [
+      3000000,
+      6000000
+    ]
+  },
   "backgrounds_mode3": {
     "fbhash": "f2ecaa876994dfc7",
     "luna_version": "v1.9.0",
