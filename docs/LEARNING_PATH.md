@@ -107,6 +107,8 @@ every game needs.
 
 @subpage examples_basics_scene_stack
 
+@subpage examples_basics_panel_hud
+
 @subpage examples_basics_aim_target
 
 @subpage examples_basics_fix32_orbit

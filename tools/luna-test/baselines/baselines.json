@@ -113,6 +113,12 @@
     "rom_sha256": "7cd4569ddead9b50fab8e1e5b967e5d9f2826de752cbdcfaaa91c868eb1f59aa",
     "steps": 3000000
   },
+  "basics_panel_hud": {
+    "fbhash": "f1887ae1a0cfd476",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "2e6b76423507607fb50046485b590e88b0e2e95a218f6bc100d1faa4463cca21",
+    "steps": 3000000
+  },
   "basics_random": {
     "fbhash": "0b149072248a5905",
     "luna_version": "v1.9.0",

@@ -9,6 +9,7 @@ you will reuse in every game project.
 | Example | Difficulty | Description |
 |---------|------------|-------------|
 | [collision_demo](collision_demo/) | Intermediate | Bounding-box collision detection between multiple sprites |
+| [panel_hud](panel_hud/) | Intermediate | 9-slice HUD + dialog box on one BG layer (the `panel` module) |
 
 ## Key Concepts
 

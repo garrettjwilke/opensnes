@@ -1,6 +1,6 @@
 # Browse Examples by Category {#examples_by_category}
 
-All 77 examples organized by topic. For a progressive learning path, see
+All 78 examples organized by topic. For a progressive learning path, see
 @ref learning_path.
 
 ---
@@ -191,6 +191,7 @@ The reusable logic toolbox.
 | @subpage examples_basics_random | LCG pseudo-random number generation |
 | @subpage examples_basics_timer | Frame-accurate timers with VBlank counters |
 | @subpage examples_basics_scene_stack | Scene stack: title → game → pause workflow |
+| @subpage examples_basics_panel_hud | 9-slice HUD + dialog box on one layer (the `panel` module) |
 
 ---
 

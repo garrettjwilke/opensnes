@@ -75,6 +75,10 @@
     "stream": "761e5e4f3b8043c5094c9a490e1631b454036f8dc79ef949dec0adcfffca6df7",
     "rom_sha256": "7cd4569ddead9b50fab8e1e5b967e5d9f2826de752cbdcfaaa91c868eb1f59aa"
   },
+  "basics_panel_hud": {
+    "stream": "e840d2d74757665f86c19980c1ba88dee3ab010cc6031553e1970db9a296d922",
+    "rom_sha256": "2e6b76423507607fb50046485b590e88b0e2e95a218f6bc100d1faa4463cca21"
+  },
   "basics_random": {
     "stream": "ce98ae9856e6ee18c3f34fe03475d528d74598ffd813bd8e6a58aa740e37114c",
     "rom_sha256": "ad02ed23c46a607c9d268decc8a720c403c1ee42466fd53cabf287a9d3198daa"

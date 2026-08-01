@@ -82,6 +82,7 @@ nothing you do not list is linked.
 | set one colour | `setColor` | `console` | sprite palettes start at CGRAM 128 |
 | cycle a palette (waterfall/fire/lights) | `setColor`, `dmaCopyCGram` | `dma` | [color/palette_cycle](../examples/color/palette_cycle/) — animate with zero VRAM traffic |
 | darken or colour-cast a whole scene (night/underwater/sunset) | `colorMathShadow`, `colorMathTint` | `colormath` | [color/shadow_tint](../examples/color/shadow_tint/) |
+| draw a HUD / dialog box (9-slice) | `panelInit`, `panelDraw`, `panelPut`, `panelFlush` | `panel` | [basics/panel_hud](../examples/basics/panel_hud/) |
 | decompress | `LzssDecodeVram` | `lzss` | |
 
 ## Going faster
