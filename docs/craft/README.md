@@ -31,8 +31,11 @@ Two ideas run through every guide here:
 - @subpage craft_frame_budget — **The frame budget.** What one frame can do at
   60 Hz: the VBlank DMA budget, the sprite-per-line limit, CPU time, and when
   30 fps is the right call. The *time* companion to Planning's *space*.
+- @subpage craft_tiles_to_levels — **From tiles to levels.** Think in metatiles,
+  attach collision and meaning to tiles, stream a level bigger than VRAM, and
+  author it in Tiled instead of by hand.
 
-*(More on the way: tiles → levels, and per-technique craft companions.)*
+*(More on the way: per-technique craft companions — camera, game-feel.)*
 
 ## Go deeper — the curated shelf
 

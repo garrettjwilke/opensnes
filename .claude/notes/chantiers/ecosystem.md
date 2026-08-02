@@ -24,7 +24,13 @@ example; "constraints as creative fuel" framing.
 - [Phase 1] `craft/planning.md` — VRAM/CGRAM/OAM budget worksheet +
   BG-mode-by-genre + first-game scoping (**biggest gap**)
 - [Phase 1] `craft/backgrounds.md` — layer composition, priority, parallax, HUD
-- [backlog] `craft/tiles-to-levels.md` — metatiles + Tiled (credit nesdoug/SMW Central)
+- [DONE 2026-08-02] `craft/tiles-to-levels.md` — metatiles as the design unit,
+  tile attributes = gameplay (collision/palette/priority), streaming a level
+  bigger than VRAM, the Tiled→gfx4snes→tmx2snes→mapLoad pipeline, map-engine vs
+  own-array representation, grey-box level design. Credits nesdoug (metatiles) +
+  SMW Central (level design). Anchors maps/{tiled,map_scroll,dynamic_map,
+  slope_collision}, scrolling/continuous_scroll; cross-links planning (VRAM
+  reuse) + frame-budget (column-stream DMA). Completes the core craft set.
 - [DONE 2026-08-02] `craft/frame-budget.md` — DMA/VBlank + sprite-per-line +
   CPU as design levers; the *time* companion to planning's *space*. Ties to
   `make budget`, sprite_swarm, panel_hud (force-blank), mode2 (compute→VBlank DMA).
