@@ -28,9 +28,11 @@ Two ideas run through every guide here:
 - @subpage craft_backgrounds — **Composing with backgrounds & layers.** How
   to use BG1/BG2/BG3 and sprites together for parallax, HUDs, foreground
   occlusion — as composition decisions, anchored to working examples.
+- @subpage craft_frame_budget — **The frame budget.** What one frame can do at
+  60 Hz: the VBlank DMA budget, the sprite-per-line limit, CPU time, and when
+  30 fps is the right call. The *time* companion to Planning's *space*.
 
-*(More on the way: tiles → levels, the frame budget, and per-technique craft
-companions.)*
+*(More on the way: tiles → levels, and per-technique craft companions.)*
 
 ## Go deeper — the curated shelf
 

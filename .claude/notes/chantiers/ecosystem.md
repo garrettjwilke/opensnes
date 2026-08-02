@@ -25,7 +25,9 @@ example; "constraints as creative fuel" framing.
   BG-mode-by-genre + first-game scoping (**biggest gap**)
 - [Phase 1] `craft/backgrounds.md` — layer composition, priority, parallax, HUD
 - [backlog] `craft/tiles-to-levels.md` — metatiles + Tiled (credit nesdoug/SMW Central)
-- [backlog] `craft/frame-budget.md` — DMA/VBlank + sprite-per-line as design levers
+- [DONE 2026-08-02] `craft/frame-budget.md` — DMA/VBlank + sprite-per-line +
+  CPU as design levers; the *time* companion to planning's *space*. Ties to
+  `make budget`, sprite_swarm, panel_hud (force-blank), mode2 (compute→VBlank DMA).
 - [backlog] per-technique "craft companions" (camera→Scroll Back+HDMA parallax;
   game-feel→Juice It+color-math/scroll-shake)
 
