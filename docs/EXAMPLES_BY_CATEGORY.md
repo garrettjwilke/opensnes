@@ -1,6 +1,6 @@
 # Browse Examples by Category {#examples_by_category}
 
-All 82 examples organized by topic. For a progressive learning path, see
+All 83 examples organized by topic. For a progressive learning path, see
 @ref learning_path.
 
 ---
@@ -233,6 +233,15 @@ hardware multiply, and direct framebuffer access for 3D and bitmap effects.
 |---------|-------------|
 | @subpage examples_chips_superfx_hello | Boot + SRAM + FMULT hardware tests |
 | @subpage examples_chips_superfx_3d | Rotating wireframe cube (Star Fox style 3D) |
+
+### DSP-1 Coprocessor
+
+The DSP-1 (NEC µPD77C25) is a fixed-function fixed-point math coprocessor —
+matrix, vector and projection ops for pseudo-3D (Pilotwings, Super Mario Kart).
+
+| Example | Description |
+|---------|-------------|
+| @subpage examples_chips_dsp1_cube | Pseudo-3D: a cube's 8 corners tumbling in 3D, rotated by the DSP-1 |
 
 ---
 

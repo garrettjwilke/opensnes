@@ -101,6 +101,7 @@ USE_FASTROM ?= 0
 USE_SRAM    ?= 0
 USE_SA1     ?= 0
 USE_SUPERFX ?= 0
+USE_DSP1    ?= 0
 USE_SNESMOD ?= 0
 SRAM_SIZE   ?= 3
 SOUNDBANK_SRC ?=
@@ -121,7 +122,7 @@ HDR_TEMPLATE := $(TEMPLATES)/$(if $(filter 1,$(USE_SA1)),hdr_sa1.asm,$(if $(filt
 # No superfx memmap branch: GSU cartridges are LoROM-mapped on the 65816
 # side (the GSU has its own ROM view), so plain memmap.inc is intentional.
 MEMMAP_INC   := $(if $(filter 1,$(USE_SA1)),memmap_sa1.inc,$(if $(filter 1,$(USE_HIROM)),memmap_hirom.inc,memmap.inc))
-CARTRIDGETYPE := $(if $(filter 1,$(USE_SA1)),$$35,$(if $(filter 1,$(USE_SUPERFX)),$$13,$(if $(filter 1,$(USE_SRAM)),$$02,$$00)))
+CARTRIDGETYPE := $(if $(filter 1,$(USE_SA1)),$$35,$(if $(filter 1,$(USE_SUPERFX)),$$13,$(if $(filter 1,$(USE_DSP1)),$$03,$(if $(filter 1,$(USE_SRAM)),$$02,$$00))))
 SRAMSIZE     := $(if $(filter 1,$(USE_SA1)),$$05,$(if $(filter 1,$(USE_SUPERFX)),$$00,$(if $(filter 1,$(USE_SRAM)),$$0$(SRAM_SIZE),$$00)))
 _HAS_SOUNDBANK := $(and $(filter 1,$(USE_SNESMOD)),$(SOUNDBANK_SRC))
 
@@ -139,7 +140,7 @@ LIB_MODULES += superfx
 endif
 
 # Assembler flags
-ASFLAGS := $(if $(filter 1,$(USE_HIROM)),-D HIROM) $(if $(filter 1,$(USE_SA1)),-D SA1) $(if $(filter 1,$(USE_SUPERFX)),-D SUPERFX) $(if $(filter 1,$(USE_FASTROM)),-D FASTROM)
+ASFLAGS := $(if $(filter 1,$(USE_HIROM)),-D HIROM) $(if $(filter 1,$(USE_SA1)),-D SA1) $(if $(filter 1,$(USE_SUPERFX)),-D SUPERFX) $(if $(filter 1,$(USE_DSP1)),-D DSP1) $(if $(filter 1,$(USE_FASTROM)),-D FASTROM)
 
 
 # Check library is built (skip for 'clean')

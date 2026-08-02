@@ -41,10 +41,11 @@ These match fullsnes ("6000h-7FFFh DSP-n on HiROM; F8000h.. on LoROM"). ★
   next byte transfer. **Poll `SR & $80` before every byte.** ★
 - DR is an **8-bit port**; command I/O is logical **16-bit words**, each sent as
   two consecutive bytes. ★
-- ◆ **Byte order** (LSB-then-MSB assumed, little-endian, matching 65816) and
-  whether RQM gates per-byte or per-word are the least-documented points —
-  confirm against bsnes `dsp1.cpp` / a hardware trace before finalizing the
-  transfer loop.
+- ✅ **Byte order = LSB-then-MSB (little-endian)** — RESOLVED empirically on
+  luna (2026-08-02, wip/dsp1 Phase 0): a `Multiply` of `$4000 × $4000` (0.5×0.5
+  in 1.15) read back LSB-first as `$2000` (0.25, exact). RQM gates **per byte**
+  (poll SR bit 7 before every DR access). DR `$30:8000` / SR `$30:C000` (LoROM)
+  and far `lda.l`/`sta.l $30xxxx` from ASM confirmed working.
 - ◆ The underlying µPD77C25 has DRC/DRS bits; the *SNES DSP-1 interface* exposes
   only RQM. Treat RQM as the sole handshake bit.
 
@@ -123,14 +124,18 @@ and see where it lands.
 ### Perspective projection (the pseudo-3D pipeline)
 | Opcode | Name | In | Out | Purpose |
 |--------|------|----|----|---------|
-| `$02`,`$12`,`$22`,`$32` | Parameter | 7 | ~4 | set global viewpoint/perspective (Fx,Fy,Fz,Lfe,Les,Aas,Azs → Cx,Cy,…) ◆ exact scalar meanings under-documented |
+| `$02`,`$12`,`$22`,`$32` | Parameter | 7 | **4** | set global viewpoint/perspective (Fx,Fy,Fz,Lfe,Les,Aas,Azs → Cx,Cy,…). Out=4 CONFIRMED via luna SMK trace (#161, 112 consecutive txns); scalar *meanings* still ◆ |
 | `$06`,`$16`,`$26`,`$36` | **Project** | 3 (I x,y,z) | 3 (H,V,M) | world point → screen X, screen Y, scale/depth ★ |
 | `$0E`,`$1E`,`$2E`,`$3E` | Target | 2 (H,V) | 2 (x,y) | inverse of Project: screen → ground plane (aim/pick) ★ |
-| `$0A`,`$1A`,`$2A`,`$3A` | Raster | 1 (scanline) | 4 (A,B,C,D) | per-scanline Mode-7 matrix (the SMK/Pilotwings floor) ★ |
+| `$0A`,`$1A`,`$2A`,`$3A` | Raster | **5** (setup) | **unbounded** | per-scanline Mode-7 matrix STREAM; in=5 setup words (luna SMK #161), out is open-ended (384 words/frame in SMK) terminated by a CPU sentinel write — NOT a fixed count ★ |
 
-### Diagnostics (not for demos)
-`$0F`/`$07` RAM test · `$2F`/`$27` ROM size/version · `$1F`/`$17`/`$37`/`$3F`
-ROM dump (2048 words — RE only). ★
+### Control / diagnostics (not demo math)
+- `$80` **Sync/Reset** — 0 in / 0 out. Flushes pending command state
+  (`in_count=0`, `waiting4command`, `first_parameter` reset in snes9x HLE) →
+  DSP-1 back to command-wait. Written ~128× at boot as a sync handshake.
+  Our module should issue it at init for robustness. ★ (snes9x HLE)
+- `$0F`/`$07` RAM test (1→2) · `$2F`/`$27` ROM size/version (1→2) ·
+  `$1F`/`$17`/`$37`/`$3F` ROM dump (1→2048, RE only). ★
 
 ## 6. Pseudo-3D pipeline — minimal wireframe cube
 
@@ -306,10 +311,16 @@ originals are the ultimate primaries but only reachable via those derivatives.
 - **Testing:** gate the example's luna pass on `dsp1b.rom` presence; document
   "install the firmware into luna" as a dev prereq beside `install-luna.sh`.
   CI skips it (no firmware) — the `INPUT-DEP` treatment.
-- **Verify-before-code items** (the ◆s): DR byte order + RQM per-byte/word;
-  Parameter operand scaling; Objective/Subjective direction; exact out-counts
-  for Polar/Objective/Gyrate. Resolve against bsnes/snes9x source or a luna
-  hardware trace during bring-up.
+- **Verify-before-code items** (the ◆s): ~~DR byte order + RQM per-byte/word~~
+  ✅ RESOLVED Phase 0 (LSB-first, per-byte RQM — see §2). Remaining: Parameter
+  operand scaling; Objective/Subjective direction; exact out-counts for
+  Polar/Objective/Gyrate — resolve during the module bring-up (Attitude→
+  Objective→Project) against a luna run + snes9x source.
+- **Phase 0 status (2026-08-02, wip/dsp1):** ✅ build wiring (USE_DSP1 →
+  cart-type $03); ✅ luna detects `Mapper: Dsp1`, runs firmware-inert without
+  the dump and names the supply path (`--dsp1-rom` / config folder); ✅
+  `dsp1b.rom` (DSP-1B, sha1 78b7248…) installed; ✅ Multiply handshake verified
+  (0.5×0.5→0.25). Next: Phase 1/2 = the `dsp1` module + wireframe cube.
 - **Path B** (custom microcode via a future `wla-dsp`) stays a watch item on
   wla-dx#392 — see [`dsp1_coprocessor.md`](dsp1_coprocessor.md).
 

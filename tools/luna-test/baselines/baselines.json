@@ -161,6 +161,18 @@
     "rom_sha256": "40025f80dced12da5879b2605727973dad5257a52e047e81165830377c88683f",
     "steps": 3000000
   },
+  "chips_dsp1_cube": {
+    "fbhash": [
+      "d2162116d622ae9a",
+      "0c2fda0ca27fb4a7"
+    ],
+    "luna_version": "v1.9.0",
+    "rom_sha256": "1b76d46da7d6c1da8fc5abf11575ee3baa927a0f1d8b52eb1785598f8035f98a",
+    "steps": [
+      3000000,
+      6000000
+    ]
+  },
   "chips_sa1_hello": {
     "fbhash": "b45c2d524fa1f13d",
     "luna_version": "v1.9.0",
