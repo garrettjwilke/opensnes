@@ -15,6 +15,10 @@
     "stream": "a00dc2e3169782740e5a4949698c13cab7d75c83cbc2ea944bbeb1597f605775",
     "rom_sha256": "591c3ddaf91e2a47cdf1678df27aec1650a379fe805d285724b379ec2a6b424d"
   },
+  "audio_sfx_from_wav": {
+    "stream": "95ed5e61abc5221cec09a38373303113411a2bfed6f31fb9e18dbd756ed7570d",
+    "rom_sha256": "c38a1c0a0a4ff0ad6467bc2f50cdf3660c2e4994914c6e2fd8cd3da14effd08b"
+  },
   "audio_snesmod_music": {
     "stream": "a0dda8e4bf9b767cd8c8e9628502603a3a76107610767583093a932aa7be05be",
     "rom_sha256": "b652d9f84f3a7b1c84f7e803229bad2ded4a0f88edcc0175b5cff5e240312f7d"

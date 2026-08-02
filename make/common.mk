@@ -12,6 +12,8 @@
 #   CSRC      - C source files (default: main.c)
 #   ASMSRC    - Additional ASM files to include
 #   GFXSRC    - PNG files to convert (uses gfx4snes, outputs .pic/.pal)
+#   (BRR)     - a .wav .incbin'd as its .brr auto-converts via wav2brr
+#               (one-shot SFX; --loop samples: run wav2brr by hand)
 #   CFLAGS    - Additional C compiler flags
 #   SPRITE_SIZE - Sprite/tile size for gfx4snes (default: 8)
 #   BPP       - Bits per pixel for graphics (default: 4)
@@ -52,6 +54,7 @@ SPC_AS   := $(OPENSNES)/bin/wla-spc700
 LD       := $(OPENSNES)/bin/wlalink
 GFX4SNES := $(OPENSNES)/bin/gfx4snes
 SMCONV   := $(OPENSNES)/bin/smconv
+WAV2BRR  := $(OPENSNES)/bin/wav2brr
 TEMPLATES := $(OPENSNES)/templates
 
 # Bank $00 imminent-overflow hard-fail threshold (bytes free). 0 = disabled.
@@ -257,6 +260,17 @@ $(notdir $(basename $(1)).pic) $(notdir $(basename $(1)).pal): $(1)
 	@$$(GFX4SNES) -s $$(SPRITE_SIZE) -p -i $$<
 endef
 $(foreach src,$(GFXSRC),$(eval $(call GFX_RULE,$(src))))
+
+#------------------------------------------------------------------------------
+# BRR sample conversion — .wav → .brr (one-shot SFX)
+#------------------------------------------------------------------------------
+# Zero-config: drop a PCM .wav next to your source and .incbin the matching
+# .brr in an ASM file. The .incbin dependency (INCBIN_DEPS above) makes the
+# .brr a prerequisite, and this rule generates it with wav2brr. For a looping
+# sample, run wav2brr --loop by hand and commit the .brr instead.
+%.brr: %.wav
+	@echo "[BRR] $< -> $@"
+	@$(WAV2BRR) $< $@
 
 #------------------------------------------------------------------------------
 # SuperFX (GSU) Assembly — two-stage build: .sfx → .sfx.o → .sfx.bin

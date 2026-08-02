@@ -23,6 +23,12 @@
     "rom_sha256": "591c3ddaf91e2a47cdf1678df27aec1650a379fe805d285724b379ec2a6b424d",
     "steps": 3000000
   },
+  "audio_sfx_from_wav": {
+    "fbhash": "3edffb7da194497f",
+    "luna_version": "v1.9.0",
+    "rom_sha256": "c38a1c0a0a4ff0ad6467bc2f50cdf3660c2e4994914c6e2fd8cd3da14effd08b",
+    "steps": 3000000
+  },
   "audio_snesmod_music": {
     "fbhash": "ad11d18bdb2010fd",
     "luna_version": "v1.9.0",
