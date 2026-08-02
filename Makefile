@@ -242,6 +242,9 @@ release: all docs
 	@cp -r lib/build $(RELEASE_DIR)/opensnes/lib/
 	@cp -r make/* $(RELEASE_DIR)/opensnes/make/
 	@cp -r templates/* $(RELEASE_DIR)/opensnes/templates/
+	@# Starter project — extract the zip and `make` in opensnes/starter/ works
+	@# with zero config (its OPENSNES default resolves to the SDK root at ..).
+	@cp -r starter $(RELEASE_DIR)/opensnes/
 	@# Project test harness (`make test` in user projects) + the pinned-luna
 	@# installer. Only the pieces project_test.py imports — not the SDK's
 	@# corpus manifest/baselines.

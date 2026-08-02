@@ -163,6 +163,12 @@ Incompatible (do not use without isolation):
 - `res/au.brr` — RMS-boosted regeneration of speech_synth's AU
   (original work, MIT; generator: `gen_au_boost.py` in the example).
 
+## starter
+
+- `res/player.png` — OpenSNES-original sprite art (a 32×32 indexed character),
+  drawn programmatically for the starter template (original work, MIT). Meant to
+  be replaced with your own.
+
 ## examples/audio/sfx_from_wav
 
 - `res/blip.wav`, `res/coin.wav` — OpenSNES-original synthesized sound

@@ -147,6 +147,10 @@ cd my-game && ../bin/opensnes run           # builds and launches your emulator
 `opensnes doctor` checks your toolchain, library, and emulator. For prerequisites
 and platform-specific setup, see the **[Getting Started guide](https://k0b3n4irb.github.io/opensnes/getting_started.html)**.
 
+Prefer a ready-made git repo with CI? [`starter/`](starter/) is a complete
+movable-sprite game you can copy out or **Use as a GitHub template** — it wires
+up the PNG→tiles asset pipeline and a build workflow out of the box.
+
 ## Examples
 
 82 examples organized as a progressive learning path — backgrounds, sprites, scrolling, HDMA effects, audio, input, save games, and complete games.

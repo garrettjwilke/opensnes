@@ -85,7 +85,21 @@ example; "constraints as creative fuel" framing.
    user can budget their own game. Pairs with `craft/planning.md`. Caveat:
    non-zero footprint = lower bound, single snapshot (not linker layout / peak);
    a high-water-mark refinement (scan the VRAM dump) is the obvious v2.
-3. **`opensnes-starter`** — GitHub template repo + CI + one "sample project".
+3. **`opensnes-starter`** — DONE 2026-08-02 (in-repo `starter/` form, user's
+   pick). A complete movable-sprite game (main.c/data.asm/Makefile/README/
+   .gitignore + a template `.github/workflows/build.yml`), OpenSNES-original
+   32×32 PNG sprite through the real gfx4snes pipeline. Consumes the SDK via
+   `OPENSNES=` (overridable; in-tree default = repo root). Shipped in the
+   release zip (`make release` copies `starter/`), so extracting the zip and
+   `make` in `opensnes/starter/` works zero-config. OpenSNES CI builds it via
+   `make -C starter OPENSNES=$PWD` (proves the consumption contract).
+   Reconciled with the EXISTING `opensnes init --template game` CLI scaffolder
+   (scripts/opensnes): that stays the light single-file local scaffold
+   (procedural tile, no git/CI); the starter is the heavier git-repo-with-CI +
+   asset-pipeline path. Cross-referenced both ways (starter README ↔ main
+   README ↔ CLI). Not created as a separate external GitHub repo — the in-repo
+   dir is the source of truth, publishable as a template later. ATTRIBUTION
+   entry added for the sprite.
 4. **`palplan`** — project shared-palette planner (build on tiledpalettequant,
    MIT; locked-index repack-on-demand). #1 community pain; highest value.
 5. **`aseprite2snes`** — Aseprite CLI JSON (tags→frames) → metasprite+anim.
