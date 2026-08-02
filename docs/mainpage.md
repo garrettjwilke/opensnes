@@ -19,6 +19,10 @@ Write game logic in C, produce .sfc ROMs that run on emulators or real hardware.
 
 @subpage troubleshooting -- Common problems and solutions
 
+## Game-Craft
+
+@subpage craft -- Design decisions: budgeting, choosing a mode, composing layers
+
 ## Tutorials
 
 @subpage tutorial_graphics -- Graphics & Backgrounds
