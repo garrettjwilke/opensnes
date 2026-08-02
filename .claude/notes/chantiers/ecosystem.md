@@ -52,7 +52,21 @@ example; "constraints as creative fuel" framing.
 
 ## Track B — tools & DX (ranked value ÷ effort; reuse > build)
 
-1. **BRR/SFX sample tool** — wrap BRRtools/snesbrr (MIT). smconv is music-only.
+1. **BRR/SFX sample tool** — DONE 2026-08-02 (`tools/wav2brr/`, wired into
+   `make tools` + `make test-tools`). Did NOT wrap BRRtools/snesbrr: smconv
+   already carries a self-contained BRR encoder (`tools/smconv/src/brr.c`, only
+   stdlib/math deps), so wav2brr links *that* — output is byte-identical to a
+   soundbank-baked sample, no new dependency, no new encoder to trust. Tool =
+   WAV parse (PCM 8/16-bit, mono/stereo→mono downmix) → `brr_encode()` → `.brr`;
+   `--loop START END` for looping samples. The play path already existed
+   (`audioLoadSample`/`audioPlaySample`, raw-APU audio v2). Gap was purely
+   *authoring* — every `.brr` in the tree was made with an external tool.
+   Golden test = deterministic sine fixture, one-shot + loop cases. Docs paired:
+   `docs/tutorials/audio.md` new "One-shot samples from WAV" section + options
+   table row, `tools/README.md` row, `tools/wav2brr/README.md`. Anchored to
+   `examples/audio/soundboard`. Possible v2: a `make/common.mk` `.wav`→`.brr`
+   auto-rule (like `GFXSRC`), and a dedicated "play a sound on button press"
+   example.
 2. **VRAM/CGRAM/OAM budget report** — DONE 2026-08-02 (`tools/luna-test/budget.py`,
    `make budget`). Runtime approach, not static: many examples build tiles in C
    (no asset files to sum), so it reads luna's `ppu.{vram,cgram,oam}_non_zero`

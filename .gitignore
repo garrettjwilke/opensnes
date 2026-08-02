@@ -18,6 +18,7 @@ tools/gfx4snes/gfx4snes
 tools/img2snes/img2snes
 tools/sa1-patch/sa1_patch
 tools/smconv/smconv
+tools/wav2brr/wav2brr
 
 # Generated documentation
 doc/
