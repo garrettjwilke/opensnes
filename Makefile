@@ -204,6 +204,12 @@ test-tools:
 test-wram:
 	@python3 tools/luna-test/wram_regress.py
 
+# PPU resource-budget report (VRAM/CGRAM/OAM footprint per example, via luna).
+# The PPU-side twin of symmap's bank $00 / C-RAM checks. Report-only; pairs
+# with docs/craft/planning.md. `make budget ARGS="--only mode2"` to focus.
+budget:
+	@python3 tools/luna-test/budget.py $(ARGS)
+
 # Compiler cycle-count regression guard (static estimate vs committed baseline).
 bench:
 	@python3 devtools/cyclecount/bench.py

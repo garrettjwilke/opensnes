@@ -77,6 +77,13 @@ examples_sprites_sprite_swarm measures exactly where this ceiling bites.
 > [SNES PPU article](https://fabiensanglard.net/snes_ppus_why/). It turns the
 > numbers above from arbitrary into obvious.
 
+> **Check it, don't guess it.** Once your ROM builds, run
+> `python3 tools/luna-test/budget.py your_game.sfc` for the live
+> VRAM/CGRAM/OAM footprint of a scene — this worksheet as a measured number.
+> `make budget` reports the same for every example in the SDK, so you can see
+> where a real game lands. (It measures non-zero content at the captured
+> frame, a lower bound — a gut-check, not a linker map.)
+
 ## Choose a background mode from your genre
 
 The SNES has eight background modes. The wikis tell you what each *is*; here is

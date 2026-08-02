@@ -51,7 +51,13 @@ example; "constraints as creative fuel" framing.
 ## Track B — tools & DX (ranked value ÷ effort; reuse > build)
 
 1. **BRR/SFX sample tool** — wrap BRRtools/snesbrr (MIT). smconv is music-only.
-2. **Build-time VRAM/CGRAM budget report** — static check over pipeline outputs.
+2. **VRAM/CGRAM/OAM budget report** — DONE 2026-08-02 (`tools/luna-test/budget.py`,
+   `make budget`). Runtime approach, not static: many examples build tiles in C
+   (no asset files to sum), so it reads luna's `ppu.{vram,cgram,oam}_non_zero`
+   footprint at the captured scene. Report-only; accepts an arbitrary ROM so a
+   user can budget their own game. Pairs with `craft/planning.md`. Caveat:
+   non-zero footprint = lower bound, single snapshot (not linker layout / peak);
+   a high-water-mark refinement (scan the VRAM dump) is the obvious v2.
 3. **`opensnes-starter`** — GitHub template repo + CI + one "sample project".
 4. **`palplan`** — project shared-palette planner (build on tiledpalettequant,
    MIT; locked-index repack-on-demand). #1 community pain; highest value.
