@@ -78,8 +78,14 @@ def stale_sources(rom: Path) -> list[Path]:
     rom_m = rom.stat().st_mtime
     stale = []
     for f in rom.parent.rglob("*"):
+        # A .png directly in the example root is the README screenshot (an
+        # OUTPUT captured from the built ROM), not a build input — build-input
+        # images live under res/. Excluding it stops a freshly-captured
+        # screenshot from falsely marking the ROM stale (covers the old
+        # screenshot.png special-case and the <example>.png convention).
+        if f.suffix == ".png" and f.parent == rom.parent:
+            continue
         if (f.is_file() and f.suffix in SOURCE_SUFFIXES
-                and f.name != "screenshot.png"  # README artifact, not an input
                 and f.stat().st_mtime > rom_m):
             stale.append(f)
     return stale
