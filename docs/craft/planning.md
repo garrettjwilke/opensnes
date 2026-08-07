@@ -77,12 +77,15 @@ examples_sprites_sprite_swarm measures exactly where this ceiling bites.
 > [SNES PPU article](https://fabiensanglard.net/snes_ppus_why/). It turns the
 > numbers above from arbitrary into obvious.
 
-> **Check it, don't guess it.** Once your ROM builds, run
-> `python3 tools/luna-test/budget.py your_game.sfc` for the live
-> VRAM/CGRAM/OAM footprint of a scene — this worksheet as a measured number.
-> `make budget` reports the same for every example in the SDK, so you can see
-> where a real game lands. (It measures non-zero content at the captured
-> frame, a lower bound — a gut-check, not a linker map.)
+> **Check it, don't guess it — twice.** Before the ROM even runs,
+> `make asset-budget` weighs your converted graphics — tiles, maps, palettes —
+> against the 64 KB / 256-colour limits: this worksheet, computed from the files
+> you built. Then once it runs, `make budget` reports the live VRAM/CGRAM/OAM
+> footprint of a scene via luna. The first bounds what you *built* (an upper
+> bound — a streaming game ships more than fits at once); the second measures
+> what a scene actually *loads* (a lower bound — non-zero content at one frame).
+> Between them you know where you stand. Add `ARGS="--only <name>"` to focus
+> either on one example.
 
 ## Choose a background mode from your genre
 
